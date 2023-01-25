@@ -5,14 +5,34 @@
     <title>PlantUML WASM</title>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <script src="https://cjrtnc.leaningtech.com/2.3/loader.js"></script>
+    <style type="text/css" media="screen">
+      #editor { 
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          width: 40%;
+      }
+    </style>    
   </head>
   <body>
+    <div id="editor">@startuml
+  Bob -> Alice: Hello!
+@enduml
+    </div>
+    <script src="assets/js/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+      ace.config.set("loadWorkerFromBlob", false)
+      const editor = ace.edit("editor");
+      editor.setTheme("ace/theme/monokai");
+      editor.session.setMode("ace/mode/javascript");
+
+      const pathname = window.location.pathname
+      cheerpjInit()
+      cheerpjRunMain("net.sourceforge.plantuml.Run", "/app" + pathname + "compiled-jars/plantuml-1.2023.0.jar", "-h").then((exitCode) => {
+          console.log(exitCode)
+      })
+    </script>
   </body>
-  <script>
-        const pathname = window.location.pathname
-        cheerpjInit()
-        cheerpjRunMain("net.sourceforge.plantuml.Run", "/app" + pathname + "compiled-jars/plantuml-1.2023.0.jar", "-h").then((exitCode) => {
-            console.log(exitCode)
-        })
-  </script>
 </html>
