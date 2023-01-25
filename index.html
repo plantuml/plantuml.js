@@ -14,6 +14,10 @@
           left: 0;
           width: 40%;
       }
+      #right-panel {
+        position: absolute;
+        left: 45%;
+      }
     </style>    
   </head>
   <body>
@@ -21,17 +25,32 @@
   Bob -> Alice: Hello!
 @enduml
     </div>
+    <div id="right-panel">
+      <img id="render-image" />
+    </div>
     <script src="assets/js/ace.js" type="text/javascript" charset="utf-8"></script>
     <script>
+      const pathname = window.location.pathname      
       ace.config.set("loadWorkerFromBlob", false)
       const editor = ace.edit("editor");
       editor.setTheme("ace/theme/monokai");
       editor.session.setMode("ace/mode/javascript");
 
-      const pathname = window.location.pathname
-      cheerpjInit()
-      cheerpjRunMain("net.sourceforge.plantuml.Run", "/app" + pathname + "compiled-jars/plantuml-1.2023.0.jar", "-h").then((exitCode) => {
-          console.log(exitCode)
+      function render(){
+        cheerpjAddStringFile("/str/input.puml", editor.getValue());
+        cheerpjRunMain("net.sourceforge.plantuml.Run", "/app" + pathname + "compiled-jars/plantuml-1.2023.0.jar", "-Playout=smetana", "-o", "/files/", "/str/input.puml").then((exitCode) => {
+            if (exitCode !== 0){
+              return
+            }
+
+            window.cjFileBlob("input.png").then((blob) => {
+                document.getElementById('render-image').src = window.URL.createObjectURL(blob)
+            })                
+        })
+      }
+
+      cheerpjInit().then(() => {
+            render()
       })
     </script>
   </body>
