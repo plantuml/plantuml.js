@@ -61,6 +61,12 @@
 
       const debouncedRender = debounce(() => render())
 
+      async function loadFromUrl(url){
+        const response = await fetch(url)
+        const pumlContent = await response.text()
+        return editor.setValue(pumlContent)
+      }
+
       editor.session.on('change', function(delta) {
           debouncedRender()
       })
