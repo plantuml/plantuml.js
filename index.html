@@ -37,12 +37,15 @@
       <br/>
       <br/>
       <br/>
-      <img id="render-image" src="assets/images/loading.png" />
+      <div id="right-panel-image-wrapper">
+        <img id="render-image" src="assets/images/loading.png" />
+      </div>
     </div>
     <script src="assets/js/ace.js" type="text/javascript" charset="utf-8"></script>
     <link href="assets/css/tom-select.min.css" rel="stylesheet">
     <script src="assets/js/tom-select.complete.min.js"></script>
     <script src="assets/js/examplePumls.js"></script>
+    <script src="assets/js/panzoom.min.js"></script>
 
     <script>
       const pathname = window.location.pathname      
@@ -104,6 +107,9 @@
           }
         }
       )
+
+      var element = document.querySelector('#right-panel-image-wrapper')
+      panzoom(element)
     </script>
   </body>
 </html>
