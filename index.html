@@ -37,7 +37,10 @@
 </div>
     </div>
     <div id="right-panel">
-      <a href="https://github.com/plantuml/plantuml-wasm/new/main/examples/community/?filename=community/new_diagram.puml&value=%40startuml%0A%27%20Copy%20your%20diagram%20content%20here%0A%40enduml%0A" target="_blank">Share this diagram with the Community</a>
+      <div style="text-align: right;">
+        <a href="https://github.com/plantuml/plantuml-wasm/new/main/examples/community/?filename=community/new_diagram.puml&value=%40startuml%0A%27%20Copy%20your%20diagram%20content%20here%0A%40enduml%0A" target="_blank">Share this diagram with the Community</a>
+        <a href="https://github.com/plantuml/plantuml-wasm" target="_blank">Github</a>
+      </div>
       <br/>
       <br/>
       <br/>
@@ -84,6 +87,7 @@
       const debouncedRender = debounce(() => render())
 
       async function loadFromUrl(url){
+        window.location.hash = `#example=${url}`
         const response = await fetch(url)
         const pumlContent = await response.text()
         return editor.setValue(pumlContent)
@@ -108,7 +112,19 @@
           options: examplePumls,
           onChange: function(item){
             debouncedLoadFromUrl(item) 
-          }
+          },
+          onInitialize:function(){
+            let hashParams = window.location.hash.substr(1).split('&').reduce(function (res, item) {
+              var parts = item.split('=')
+              res[parts[0]] = parts[1]
+              return res
+            }, {})
+
+            if (hashParams['example']){
+              this.clear(true)
+              this.addItem(hashParams['example'])
+            }
+          }          
         }
       )
 
