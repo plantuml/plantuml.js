@@ -1,1 +1,3 @@
-const examplePumls = [{url: 'examples/basic/sequence_diagram.puml'}]
+const examplePumls = [
+  {url: 'examples/basic/sequence_diagram.puml'},
+]
