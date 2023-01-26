@@ -8,7 +8,7 @@
     <style type="text/css" media="screen">
       #editor { 
           position: absolute;
-          top: 0;
+          top: 8%;
           right: 0;
           bottom: 0;
           left: 0;
@@ -17,18 +17,28 @@
       #right-panel {
         position: absolute;
         left: 45%;
+        top: 8%;
+      }
+      #left-panel {
+        width: 40%
       }
     </style>    
   </head>
   <body>
-    <div id="editor">@startuml
+    <div id="left-panel">
+      <select id="example-files" placeholder="Choose an example..."></select>
+      <div id="editor">@startuml
   Bob -> Alice: Hello!
 @enduml
+      </div>
     </div>
     <div id="right-panel">
       <img id="render-image" src="assets/images/loading.png" />
     </div>
     <script src="assets/js/ace.js" type="text/javascript" charset="utf-8"></script>
+    <link href="assets/css/tom-select.min.css" rel="stylesheet">
+    <script src="assets/js/tom-select.complete.min.js"></script>
+
     <script>
       const pathname = window.location.pathname      
       ace.config.set("loadWorkerFromBlob", false)
@@ -66,6 +76,7 @@
         const pumlContent = await response.text()
         return editor.setValue(pumlContent)
       }
+      const debouncedLoadFromUrl = debounce((url) => loadFromUrl(url))
 
       editor.session.on('change', function(delta) {
           debouncedRender()
@@ -74,6 +85,21 @@
       cheerpjInit().then(() => {
             render()
       })
+
+      exampleFiles = [{url: 'examples/basic/sequence_diagram.puml'}]
+      const exampleFilesSelect = new TomSelect(
+        '#example-files',
+        {
+          maxOptions: 60,
+          valueField: 'url',
+          labelField: 'url',
+          searchField: 'url',
+          options: exampleFiles,
+          onChange: function(item){
+            debouncedLoadFromUrl(item) 
+          }
+        }
+      )
     </script>
   </body>
 </html>
