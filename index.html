@@ -21,6 +21,12 @@
         cursor: ew-resize;
         width: 11px;
       }
+      #logo-title{
+        background-image: url("assets/images/logo.png") !important;
+        background-repeat: no-repeat !important;
+        background-position: left 30% top 50% !important;
+        background-size: 30px 30px !important;
+      }
     </style>
   </head>
   <body class="bg-white font-poppins antialiased">
@@ -30,8 +36,8 @@
           <aside style="z-index: 999;" class="w-3/5">
             <div id="sidebar" class="bg-gray-900 h-screen md:block shadow-xl px-0 w-full overflow-x-hidden transition-transform duration-300 ease-in-out">
               <div class="space-y-2 md:space-y-2 mt-2">
-                <h1 class="md:block font-bold text-sm md:text-xl text-center px-3 text-white">
-                  PlantUML WASM
+                <h1 class="md:block font-bold text-sm md:text-xl text-center px-3 text-white" id="logo-title">
+                  <span>PlantUML WASM</span>
                 </h1>
                 <div class="px-3">
                   <select id="example-files" placeholder="Choose an example..." class="example-files"></select>
