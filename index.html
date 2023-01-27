@@ -2,52 +2,55 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PlantUML WASM</title>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <script src="https://cjrtnc.leaningtech.com/2.3/loader.js"></script>
-    <style type="text/css" media="screen">
-      #editor { 
-          position: absolute;
-          top: 8%;
-          right: 0;
-          bottom: 0;
-          left: 0;
-          width: 40%;
-          z-index: 999;
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .ts-control {
+        background-color: #1a2234 !important;
+        color: #f8fafc !important;
+        border-color: #243049 !important;
       }
-      #right-panel {
-        position: absolute;
-        left: 45%;
-        top: 3%;
-      }
-      #left-panel {
-        width: 40%
-      }
-      .ts-wrapper {
-        z-index: 9999;
-      }
-    </style>    
+    </style>
   </head>
-  <body>
-    <div id="left-panel">
-      <select id="example-files" placeholder="Choose an example..."></select>
-      <div id="editor">@startuml
+  <body class="bg-white font-poppins antialiased">
+    <div class="contaier">
+      <div class="flex">
+        <div class="h-full w-screen flex flex-row">
+          <aside style="z-index: 999;">
+            <div class="bg-gray-900 h-screen md:block shadow-xl px-0 w-30 md:w-80 lg:w-120 overflow-x-hidden transition-transform duration-300 ease-in-out">
+              <div class="space-y-2 md:space-y-2 mt-2">
+                <h1 class="md:block font-bold text-sm md:text-xl text-center px-3 text-white">
+                  PlantUML WASM
+                </h1>
+                <div class="px-3">
+                  <select id="example-files" placeholder="Choose an example..." class="example-files"></select>
+                </div>
+                <div class="flex flex-col h-full text-white">
+                  <div id="editor" style="position: relative; width: 100%; height: 100vh;" class="text-white">@startuml
   Bob -> Alice: Hello!
 @enduml
+
 </div>
-    </div>
-    <div id="right-panel">
-      <div style="text-align: right;">
-        <a href="https://github.com/plantuml/plantuml-wasm/new/main/examples/community/?filename=community/new_diagram.puml&value=%40startuml%0A%27%20Copy%20your%20diagram%20content%20here%0A%40enduml%0A" target="_blank">Share this diagram with the Community</a>
-        <a href="https://github.com/plantuml/plantuml-wasm" target="_blank">Github</a>
+                </div>
+              </div>
+            </div>
+          </aside>
+          <main class="p-4 w-full">
+            <div class="space-x-2 flex justify-end text-right">
+              <a href="https://github.com/plantuml/plantuml-wasm/new/main/examples/community/?filename=community/new_diagram.puml&value=%40startuml%0A%27%20Copy%20your%20diagram%20content%20here%0A%40enduml%0A" target="_blank">Share this diagram with the Community</a>
+              <a href="https://github.com/plantuml/plantuml-wasm" target="_blank">Github</a>      
+            </div>
+            <div id="right-panel-image-wrapper" class="flex justify-center">
+              <img id="render-image" src="assets/images/loading.png" />
+            </div>  
+          </main>
+        </div>
       </div>
-      <br/>
-      <br/>
-      <br/>
-      <div id="right-panel-image-wrapper">
-        <img id="render-image" src="assets/images/loading.png" />
-      </div>
     </div>
+
     <script src="assets/js/ace.js" type="text/javascript" charset="utf-8"></script>
     <link href="assets/css/tom-select.min.css" rel="stylesheet">
     <script src="assets/js/tom-select.complete.min.js"></script>
@@ -60,6 +63,7 @@
       const editor = ace.edit("editor");
       editor.setTheme("ace/theme/monokai");
       editor.session.setMode("ace/mode/javascript");
+      editor.focus()
 
       function render(){
         cheerpjAddStringFile("/str/input.puml", editor.getValue());
@@ -74,7 +78,7 @@
         })
       }
 
-      function debounce(func, delay = 300) {
+      function debounce(func, delay = 400) {
           let timerId;
           return (...args) => {
               clearTimeout(timerId);
@@ -90,7 +94,9 @@
         window.location.hash = `#example=${url}`
         const response = await fetch(url)
         const pumlContent = await response.text()
-        return editor.setValue(pumlContent)
+        editor.setValue(pumlContent, -1)
+        editor.focus()
+        return
       }
       const debouncedLoadFromUrl = debounce((url) => loadFromUrl(url))
 
@@ -106,12 +112,15 @@
         '#example-files',
         {
           maxOptions: 60,
+          maxItems: 1,
+          closeAfterSelect: true,
           valueField: 'url',
           labelField: 'label',
           searchField: 'label',
           options: examplePumls,
           onChange: function(item){
-            debouncedLoadFromUrl(item) 
+            this.blur()
+            debouncedLoadFromUrl(item)
           },
           onInitialize:function(){
             let hashParams = window.location.hash.substr(1).split('&').reduce(function (res, item) {
