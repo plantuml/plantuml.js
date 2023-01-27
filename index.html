@@ -27,8 +27,8 @@
     <div class="contaier">
       <div class="flex">
         <div class="h-full w-screen flex flex-row">
-          <aside style="z-index: 999;">
-            <div id="sidebar" class="bg-gray-900 h-screen md:block shadow-xl px-0 w-30 md:w-80 lg:w-120 overflow-x-hidden transition-transform duration-300 ease-in-out">
+          <aside style="z-index: 999;" class="w-3/5">
+            <div id="sidebar" class="bg-gray-900 h-screen md:block shadow-xl px-0 w-full overflow-x-hidden transition-transform duration-300 ease-in-out">
               <div class="space-y-2 md:space-y-2 mt-2">
                 <h1 class="md:block font-bold text-sm md:text-xl text-center px-3 text-white">
                   PlantUML WASM
@@ -47,7 +47,7 @@
             </div>
           </aside>
           <div id="resizer" class="vertical"></div>
-          <main class="p-4 w-full">
+          <main class="p-4 w-full h-full">
             <div class="space-x-2 flex justify-end text-right">
               <a href="https://github.com/plantuml/plantuml-wasm/new/main/examples/community/?filename=community/new_diagram.puml&value=%40startuml%0A%27%20Copy%20your%20diagram%20content%20here%0A%40enduml%0A" target="_blank">Share this diagram with the Community</a>
               <a href="https://github.com/plantuml/plantuml-wasm" target="_blank">Github</a>      
