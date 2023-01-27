@@ -99,7 +99,7 @@
         cheerpjRunMain("net.sourceforge.plantuml.wasm.Run", "/app" + pathname + "compiled-beta-jars" + "/plantuml-wasm.jar", "png", "/files/result.png", value).then((exitCode) => {
             console.log('rendering done')
             if (exitCode !== 0){
-              return
+              // return
             }
 
             window.cjFileBlob("result.png").then((blob) => {
