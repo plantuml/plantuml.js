@@ -22,4 +22,13 @@ cd $ROOT_DIR/compiled-lite-jars
 
 $ROOT_DIR/cheerpj_2.3/cheerpjfy.py plantuml-1.2023.0.jar
 
+# beta compile
+rm $ROOT_DIR/compiled-beta-jars/*
+
+cp $ROOT_DIR/source-beta-jars/plantuml-wasm.jar $ROOT_DIR/compiled-beta-jars
+
+cd $ROOT_DIR/compiled-beta-jars
+
+$ROOT_DIR/cheerpj_2.3/cheerpjfy.py plantuml-wasm.jar
+
 cd $ROOT_DIR
