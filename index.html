@@ -90,7 +90,14 @@
 
       function renderBeta(){
         let renderingStartedAt = new Date()
-        cheerpjRunMain("net.sourceforge.plantuml.wasm.Run", "/app" + pathname + "compiled-beta-jars" + "/plantuml-wasm.jar", "png", "/files/result.png", editor.getValue()).then((exitCode) => {
+        let value = editor.getValue()
+        // plantuml requires carriage return at the end
+        if (value.substr(-1) !== '\n'){
+          value = `${value}\n`
+        }
+        console.log('rendering')
+        cheerpjRunMain("net.sourceforge.plantuml.wasm.Run", "/app" + pathname + "compiled-beta-jars" + "/plantuml-wasm.jar", "png", "/files/result.png", value).then((exitCode) => {
+            console.log('rendering done')
             if (exitCode !== 0){
               return
             }
