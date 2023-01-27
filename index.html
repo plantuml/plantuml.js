@@ -88,6 +88,7 @@
       editor.focus()
 
       function render(){
+        let renderingStartedAt = new Date()
         cheerpjAddStringFile("/str/input.puml", editor.getValue());
         cheerpjRunMain("net.sourceforge.plantuml.Run", "/app" + pathname + jarsPath + "/plantuml-1.2023.0.jar", "-Playout=smetana", "-o", "/files/", "/str/input.puml").then((exitCode) => {
             if (exitCode !== 0){
@@ -96,6 +97,8 @@
 
             window.cjFileBlob("input.png").then((blob) => {
                 document.getElementById('render-image').src = window.URL.createObjectURL(blob)
+                let elapsedTime = (new Date()).getTime() - renderingStartedAt.getTime()
+                console.log('Rendering finished in', elapsedTime, 'ms');
             })                
         })
       }
