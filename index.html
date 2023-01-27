@@ -73,7 +73,14 @@
     <script src="assets/js/panzoom.min.js"></script>
 
     <script>
-      const pathname = window.location.pathname      
+      const pathname = window.location.pathname
+      const hashParams = window.location.hash.substr(1).split('&').reduce(function (res, item) {
+              var parts = item.split('=')
+              res[parts[0]] = parts[1]
+              return res
+      }, {})
+      const jarsPath = hashParams['lite'] === 'true' ? 'compiled-lite-jars' : 'compiled-jars'
+
       ace.config.set("loadWorkerFromBlob", false)
       const editor = ace.edit("editor");
       editor.setTheme("ace/theme/monokai");
@@ -82,7 +89,7 @@
 
       function render(){
         cheerpjAddStringFile("/str/input.puml", editor.getValue());
-        cheerpjRunMain("net.sourceforge.plantuml.Run", "/app" + pathname + "compiled-jars/plantuml-1.2023.0.jar", "-Playout=smetana", "-o", "/files/", "/str/input.puml").then((exitCode) => {
+        cheerpjRunMain("net.sourceforge.plantuml.Run", "/app" + pathname + jarsPath + "/plantuml-1.2023.0.jar", "-Playout=smetana", "-o", "/files/", "/str/input.puml").then((exitCode) => {
             if (exitCode !== 0){
               return
             }
@@ -138,12 +145,6 @@
             debouncedLoadFromUrl(item)
           },
           onInitialize:function(){
-            let hashParams = window.location.hash.substr(1).split('&').reduce(function (res, item) {
-              var parts = item.split('=')
-              res[parts[0]] = parts[1]
-              return res
-            }, {})
-
             if (hashParams['example']){
               this.clear(true)
               this.addItem(hashParams['example'])
