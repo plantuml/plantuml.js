@@ -1,0 +1,18 @@
+@startuml
+!include <awslib/AWSCommon>
+!include <awslib/InternetOfThings/IoTRule>
+!include <awslib/Analytics/KinesisDataStreams>
+!include <awslib/ApplicationIntegration/SimpleQueueService>
+
+left to right direction
+
+agent "Published Event" as event #fff
+
+IoTRule(iotRule, "Action Error Rule", "error if Kinesis fails")
+KinesisDataStreams(eventStream, "IoT Events", "2 shards")
+SimpleQueueService(errorQueue, "Rule Error Queue", "failed Rule actions")
+
+event --> iotRule : JSON message
+iotRule --> eventStream : messages
+iotRule --> errorQueue : Failed action message
+@enduml
