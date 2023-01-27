@@ -33,7 +33,7 @@
     <div class="contaier">
       <div class="flex">
         <div class="h-full w-screen flex flex-row">
-          <aside style="z-index: 999;" class="w-3/5">
+          <aside style="z-index: 999;" class="w-3/5" id="sidePanel">
             <div id="sidebar" class="bg-gray-900 h-screen md:block shadow-xl px-0 w-full overflow-x-hidden transition-transform duration-300 ease-in-out">
               <div class="space-y-2 md:space-y-2 mt-2">
                 <h1 class="md:block font-bold text-sm md:text-xl text-center px-3 text-white" id="logo-title">
@@ -52,7 +52,7 @@
               </div>
             </div>
           </aside>
-          <div id="resizer" class="vertical"></div>
+          <div id="resizer" class="vertical bg-gray-50"></div>
           <main class="p-4 w-full h-full">
             <div class="space-x-2 flex justify-end text-right">
               <a href="https://github.com/plantuml/plantuml-wasm/new/main/examples/community/?filename=community/new_diagram.puml&value=%40startuml%0A%27%20Copy%20your%20diagram%20content%20here%0A%40enduml%0A" target="_blank">Share this diagram with the Community</a>
@@ -157,6 +157,7 @@
 
       const resizer = document.querySelector('#resizer')
       const sidebar = document.querySelector('#sidebar')
+      const sidePanel = document.querySelector('#sidePanel')
 
       resizer.addEventListener('mousedown', (event) => {
         document.addEventListener('mousemove', resize, false)
@@ -166,8 +167,10 @@
       })
 
       function resize(e) {
-        const size = `${e.x}px`;
+        const x = Math.max(e.x, 200)
+        const size = `${x}px`;
         sidebar.style.width = size;
+        sidePanel.style.width = size;
       }
     </script>
   </body>
