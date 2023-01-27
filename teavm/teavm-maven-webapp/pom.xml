@@ -27,6 +27,14 @@
   </pluginRepositories>
 
   <dependencies>
+    <!-- PlantUML WASM -->
+    <dependency>
+      <groupId>net.sourceforge.plantuml.wasm</groupId>
+      <artifactId>wasm</artifactId>
+      <version>0.1</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/../../source-beta-jars/plantuml-wasm.jar</systemPath>
+    </dependency>
     <!-- Emulator of Java class library for TeaVM -->
     <dependency>
       <groupId>org.teavm</groupId>
