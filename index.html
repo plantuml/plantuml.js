@@ -80,12 +80,28 @@
               return res
       }, {})
       const jarsPath = hashParams['lite'] === 'true' ? 'compiled-lite-jars' : 'compiled-jars'
+      const beta = hashParams['beta'] === 'true'
 
       ace.config.set("loadWorkerFromBlob", false)
       const editor = ace.edit("editor");
       editor.setTheme("ace/theme/monokai");
       editor.session.setMode("ace/mode/javascript");
       editor.focus()
+
+      function renderBeta(){
+        let renderingStartedAt = new Date()
+        cheerpjRunMain("net.sourceforge.plantuml.wasm.Run", "/app" + pathname + "compiled-beta-jars" + "/plantuml-wasm.jar", "png", "/files/result.png", editor.getValue()).then((exitCode) => {
+            if (exitCode !== 0){
+              return
+            }
+
+            window.cjFileBlob("result.png").then((blob) => {
+                document.getElementById('render-image').src = window.URL.createObjectURL(blob)
+                let elapsedTime = (new Date()).getTime() - renderingStartedAt.getTime()
+                console.log('Rendering finished in', elapsedTime, 'ms');
+            })
+        })
+      }
 
       function render(){
         let renderingStartedAt = new Date()
@@ -113,7 +129,7 @@
           };
       }
 
-      const debouncedRender = debounce(() => render())
+      const debouncedRender = debounce(() => beta ? renderBeta() : render())
 
       async function loadFromUrl(url){
         window.location.hash = `#example=${url}`
