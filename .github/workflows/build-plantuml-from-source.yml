@@ -40,10 +40,8 @@ jobs:
         run: |
           export POM_VERSION=$(gradle properties -q | grep "version:" | awk '{print $2}')
           rm ../source-beta-jars/plantuml-wasm.jar
-          echo build/libs/plantuml-$POM_VERSION.jar
           cp build/libs/plantuml-$POM_VERSION.jar ../source-beta-jars/plantuml-wasm.jar
           ls -ls ../source-beta-jars/
-          echo "--"
 
 
       - name: Cleanup plantuml
