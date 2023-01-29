@@ -72,6 +72,7 @@
     <script src="assets/js/tom-select.complete.min.js"></script>
     <script src="assets/js/examplePumls.js"></script>
     <script src="assets/js/panzoom.min.js"></script>
+    <script src="assets/js/plantuml-decoder.min.js"></script>
 
     <script>
       const pathname = window.location.pathname
@@ -81,12 +82,19 @@
               return res
       }, {})
       const jarsPath = hashParams['lite'] === 'true' ? 'compiled-lite-jars' : 'compiled-jars'
-      const beta = hashParams['beta'] === 'true'
+      let beta = hashParams['beta'] === 'true'
+      if(hashParams['encodedString']){
+        // force beta for better coverage temporarily until we have stdlib merged into main
+        beta = true
+      }
 
       ace.config.set("loadWorkerFromBlob", false)
       const editor = ace.edit("editor");
       editor.setTheme("ace/theme/monokai");
       editor.session.setMode("ace/mode/javascript");
+      if(hashParams['encodedString']){
+        editor.setValue(plantumlEncoder.decode(hashParams['encodedString']), -1)
+      }
       editor.focus()
 
       function renderBeta(){
@@ -97,7 +105,7 @@
           value = `${value}\n`
         }
         console.log('rendering')
-        cjCall("net.sourceforge.plantuml.wasm.Utils", "convertPng", "/files/result.png", editor.getValue()).then((exitCode) => {
+        cjCall("net.sourceforge.plantuml.wasm.Utils", "convertPng", "/files/result.png", value).then((exitCode) => {
             console.log('rendering done')
             if (exitCode !== 0){
               // return
