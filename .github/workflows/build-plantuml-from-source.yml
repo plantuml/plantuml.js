@@ -1,0 +1,66 @@
+name: Build plantuml from source
+
+on:
+  workflow_dispatch:
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Checkout plantuml
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          repository: 'plantuml/plantuml'
+          ref: 'wasm'
+          path: 'plantuml_source'
+
+
+      - name: Set up java
+        uses: actions/setup-java@v3.5.0
+        with:
+          java-version: 17
+          distribution: temurin
+          cache: gradle
+
+
+      - name: Build artifacts
+        working-directory: ./plantuml_source
+        run: |
+          gradle -q clean build \
+            pdfJar \
+            generateMetadataFileForMavenPublication generatePomFileForMavenPublication \
+            -x test
+
+      - name: Copy jars
+        working-directory: ./plantuml_source
+        run: |
+          export POM_VERSION=$(gradle properties -q | grep "version:" | awk '{print $2}')
+          rm ../source-beta-jars/plantuml-wasm.jar
+          echo build/libs/plantuml-$POM_VERSION.jar
+          cp build/libs/plantuml-$POM_VERSION.jar ../source-beta-jars/plantuml-wasm.jar
+          ls -ls ../source-beta-jars/
+          echo "--"
+
+
+      - name: Cleanup plantuml
+        run: |
+          rm -rf plantuml_source
+
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v4
+        with:
+          commit-message: Build plantuml from source
+          delete-branch: true
+          title: '[Sync plantuml] Build plantuml from source'
+          body: |
+            Automated sync plantuml from source.
+          labels: |
+            automated pr
+          team-reviewers: |
+            owners
+            maintainers
