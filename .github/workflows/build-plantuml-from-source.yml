@@ -48,6 +48,10 @@ jobs:
         run: |
           rm -rf plantuml_source
 
+      - name: Recompile beta jars
+        run: |
+          bash compile_beta.sh
+
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v4
