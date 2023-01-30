@@ -1,6 +1,6 @@
 const plantuml = (() => {
     const initialize = async (cheerpjPath = "/app") => {
-        await cheerpjInit({preloadResources: _runtimeResources()})
+        await cheerpjInit({preloadResources: _runtimeResources(cheerpjPath)})
         // to make cjcall work, first we load the java package like this
         await cheerpjRunMain("net.sourceforge.plantuml.wasm.RunEmpty", `${cheerpjPath}/plantuml-wasm.jar`)        
     }
