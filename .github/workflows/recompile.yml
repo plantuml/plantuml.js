@@ -1,4 +1,4 @@
-name: Recompile beta JARs
+name: Recompile JARs
 on:
   pull_request:
     branches:
@@ -16,17 +16,17 @@ jobs:
         uses: tj-actions/changed-files@v18.7
         with:
           files: |
-            source-beta-jars/*.jar
+            source-jars/*.jar
       - name: JAR files considered echo output
         run: |
           echo ${{ steps.changed-files.outputs.all_changed_files }}
-      - name: Recompile beta jars
+      - name: Recompile jars
         if: steps.changed-files.outputs.all_changed_files != ''
         run: |
-          bash compile_beta.sh
+          bash compile.sh
       - name: Push Local Changes
         if: steps.changed-files.outputs.all_changed_files != ''
         uses: stefanzweifel/git-auto-commit-action@v4.1.2
         with:
-          commit_message: "Update beta jars"
+          commit_message: "Update jars"
           branch: ${{ github.head_ref }}

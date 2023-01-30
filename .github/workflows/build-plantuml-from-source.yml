@@ -39,18 +39,18 @@ jobs:
         working-directory: ./plantuml_source
         run: |
           export POM_VERSION=$(gradle properties -q | grep "version:" | awk '{print $2}')
-          rm ../source-beta-jars/plantuml-wasm.jar
-          cp build/libs/plantuml-$POM_VERSION.jar ../source-beta-jars/plantuml-wasm.jar
-          ls -ls ../source-beta-jars/
+          rm ../source-jars/plantuml-wasm.jar
+          cp build/libs/plantuml-$POM_VERSION.jar ../source-jars/plantuml-wasm.jar
+          ls -ls ../source-jars/
 
 
       - name: Cleanup plantuml
         run: |
           rm -rf plantuml_source
 
-      - name: Recompile beta jars
+      - name: Recompile jars
         run: |
-          bash compile_beta.sh
+          bash compile.sh
 
       - name: Create Pull Request
         id: cpr
