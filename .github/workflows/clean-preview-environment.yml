@@ -1,0 +1,43 @@
+# This is a post action for deploy-preview-environments
+name: Clean preview environment that is just its PR is closed
+on:
+  pull_request:
+    types:
+      - closed
+concurrency:
+  group: "github-pages-mirror-for-previews"
+  cancel-in-progress: true
+
+jobs:
+  mirror_to_preview_repo:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages-mirror-for-previews
+    env:
+      SSH_KEY: ${{ secrets.SSH_DEPLOY_KEY_PRIVATE_FOR_ORIGIN_PLANTUML_WASM_REPO }}
+      PR_NUMBER: ${{ github.event.number }}
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Create an empty directory
+        run: |
+          EMPTY_DIRECTORY=$(mktemp -d)
+          echo "EMPTY_DIRECTORY=$EMPTY_DIRECTORY" >> $GITHUB_ENV          
+        shell: bash
+      - name: Remove preview environment
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: ${{ env.EMPTY_DIRECTORY }}
+          repository-name: "plantuml/plantuml-wasm-dev"
+          target-folder: .
+          ssh-key: ${{ secrets.SSH_DEPLOY_KEY_PRIVATE_FOR_ORIGIN_PLANTUML_WASM_REPO }}
+          single-commit: true
+          clean: false
+      - name: Remove URL from the comment
+        if: env.deployment_status == 'success'
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: pr-deployed
+          message: "Preview URL is removed automatically after the PR is closed."
