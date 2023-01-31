@@ -1,0 +1,46 @@
+# keys are generated with the following command:
+# ssh-keygen -t ed25519 -C"plantuml@plantuml.com" -f id_ed25519_for_repo -N "" -q
+# 
+# add public key to dev as ssh deploy key, SSH_DEPLOY_KEY_PUBLIC_FOR_ORIGIN_PLANTUML_WASM_REPO
+# add private key to origin as environment secret, SSH_DEPLOY_KEY_PRIVATE_FOR_ORIGIN_PLANTUML_WASM_REPO
+name: Deploy preview environments to have a diffeent gh-pages for them
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+concurrency:
+  group: "github-pages-mirror-for-previews"
+  cancel-in-progress: true
+
+jobs:
+  mirror_to_preview_repo:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages-mirror-for-previews
+    env:
+      SSH_KEY: ${{ secrets.SSH_DEPLOY_KEY_PRIVATE_FOR_ORIGIN_PLANTUML_WASM_REPO }}
+      PR_NUMBER: ${{ github.event.number }}
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Print latest commit to a file for debug purposes
+        run: git --no-pager log -1 --format="%h; %ai" > LATEST_COMMIT.txt
+        shell: bash
+      - name: Deploy preview
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: .
+          repository-name: "plantuml/plantuml-wasm-dev"
+          target-folder: "pr-${{ env.PR_NUMBER }}"
+          ssh-key: ${{ secrets.SSH_DEPLOY_KEY_PRIVATE_FOR_ORIGIN_PLANTUML_WASM_REPO }}
+          single-commit: true
+      - name: Add URL as a comment
+        if: env.deployment_status == 'success'
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: pr-deployed
+          message: "Deployed to Preview: https://plantuml.github.io/plantuml-wasm-dev/pr-${{ env.PR_NUMBER }}/index.html"
