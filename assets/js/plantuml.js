@@ -6,13 +6,13 @@ const plantuml = (() => {
         ])
 
         // to make cjcall work, first we load the java package like this
-        await cheerpjRunMain("net.sourceforge.plantuml.wasm.RunEmpty", `${cheerpjPath}/plantuml-wasm.jar`)        
+        await cheerpjRunMain("com.plantuml.wasm.RunInit", `${cheerpjPath}/plantuml-wasm.jar`, "/app/plantuml-wasm/stdlib/")        
     }
 
     const renderPng = (pumlContent) => {
         return new Promise((resolve, reject) => {
             const renderingStartedAt = new Date()  
-            cjCall("net.sourceforge.plantuml.wasm.Utils", "convertPng", "/files/result.png", pumlContent).then((exitCode) => {
+            cjCall("com.plantuml.wasm.Utils", "convertPng", "/files/result.png", pumlContent).then((exitCode) => {
                 if (exitCode === undefined || exitCode.value0 !== 0){
                     reject(`convertPng returned non-0: ${exitCode} ${exitCode.value0}`)
                 }

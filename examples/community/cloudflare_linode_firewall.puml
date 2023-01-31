@@ -1,5 +1,6 @@
 @startuml
   left to right direction
+  set separator none
 
   actor Customer
   actor/ Hacker
