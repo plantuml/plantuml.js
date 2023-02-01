@@ -1,12 +1,12 @@
 const plantuml = (() => {
-    const initialize = async (cheerpjPath = "/app") => {
+    const initialize = async (cheerpjPath = "/app/plantuml-wasm") => {
         await Promise.all([
             cheerpjInit({ preloadResources: _runtimeResources() }),
             _preloadPlantumlFiles(cheerpjPath.replace("/app", ""))
         ])
 
         // to make cjcall work, first we load the java package like this
-        await cheerpjRunMain("com.plantuml.wasm.RunInit", `${cheerpjPath}/plantuml-wasm.jar`, `${cheerpjPath}/../stdlib/`)
+        await cheerpjRunMain("com.plantuml.wasm.RunInit", `${cheerpjPath}/plantuml-wasm.jar`, `${cheerpjPath}/stdlib/`)        
     }
 
     const renderPng = (pumlContent) => {
