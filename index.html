@@ -6,7 +6,7 @@
     <title>PlantUML WASM</title>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <script src="https://cjrtnc.leaningtech.com/2.3/loader.js"></script>
-    <script src="assets/js/plantuml.js"></script>
+    <script src="plantuml-wasm/plantuml.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
       .ts-control {
@@ -76,7 +76,7 @@ Bob -> Alice: Hello!
 
     <script>
       // load parameters
-      const pathname = window.location.pathname
+      const pathname = window.location.pathname.match(/^.*[\/]/)[0] // until the trailing slash, do not include the filename
       const hashParams = window.location.hash.substr(1).split('&').reduce(function (res, item) {
               var parts = item.split('=')
               res[parts[0]] = parts[1]
@@ -129,7 +129,7 @@ Bob -> Alice: Hello!
           debouncedRender()
       })
 
-      const jarPath = "/app" + pathname + "compiled-jars"
+      const jarPath = "/app" + pathname + "plantuml-wasm"
       plantuml.initialize(jarPath).then(() => debouncedRender())
 
       const exampleFilesSelect = new TomSelect(
