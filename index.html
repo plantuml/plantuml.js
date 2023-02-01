@@ -75,7 +75,7 @@ Bob -> Alice: Hello!
 
     <script>
       // load parameters
-      const pathname = window.location.pathname
+      const pathname = window.location.pathname.match(/^.*[\/]/)[0] // until the trailing slash, do not include the filename
       const hashParams = window.location.hash.substr(1).split('&').reduce(function (res, item) {
               var parts = item.split('=')
               res[parts[0]] = parts[1]
