@@ -25,10 +25,8 @@ jobs:
     steps:
       - name: Checkout Source
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Print latest commit to a file for debug purposes
-        run: echo "window.GIT_COMMIT=\"$(git --no-pager log -1 --format='%h; %ai')\";" > LAST_COMMIT.js
+      - name: Print last commit to a file for debug purposes
+        run: echo "window.GIT_COMMIT=\"${{ github.sha }}; deploy time $(date -u +'%Y-%m-%dT%H:%M:%SZ')\";" > LAST_COMMIT.js
         shell: bash
       - name: Deploy preview
         uses: JamesIves/github-pages-deploy-action@v4
