@@ -47,7 +47,6 @@
                   <div id="editor" style="position: relative; width: 100%; height: 100vh;" class="text-white">@startuml
 Bob -> Alice: Hello!
 @enduml
-
 </div>
                 </div>
               </div>
@@ -73,6 +72,7 @@ Bob -> Alice: Hello!
     <script src="playground/assets/examplePumls.js"></script>
     <script src="playground/assets/panzoom.min.js"></script>
     <script src="playground/assets/plantuml-decoder.min.js"></script>
+    <script src="LAST_COMMIT.js"></script>
 
     <script>
       // load parameters
@@ -93,10 +93,8 @@ Bob -> Alice: Hello!
       }
       editor.focus()
 
-      function render(){
-        let pumlContent = editor.getValue()
-
-        plantuml.renderPng(pumlContent).then((blob) => {
+      function _render(){
+        plantuml.renderPng(editor.getValue()).then((blob) => {
           document.getElementById('render-image').src = window.URL.createObjectURL(blob)
         }).catch((error) => {
           console.log(error)
@@ -113,7 +111,7 @@ Bob -> Alice: Hello!
           };
       }
 
-      const debouncedRender = debounce(() => render())
+      const debouncedRender = debounce(() => _render())
 
       async function loadFromUrl(url){
         window.location.hash = `#example=${url}`
@@ -125,12 +123,14 @@ Bob -> Alice: Hello!
       }
       const debouncedLoadFromUrl = debounce((url) => loadFromUrl(url))
 
-      editor.session.on('change', function(delta) {
-          debouncedRender()
-      })
-
       const jarPath = "/app" + pathname + "plantuml-wasm"
-      plantuml.initialize(jarPath).then(() => debouncedRender())
+      plantuml.initialize(jarPath).then(() => {
+        debouncedRender()
+
+        editor.session.on('change', function(delta) {
+          debouncedRender()
+        })
+      })
 
       const exampleFilesSelect = new TomSelect(
         '#example-files',
