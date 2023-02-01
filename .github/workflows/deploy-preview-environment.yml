@@ -5,17 +5,17 @@
 # add private key to origin as environment secret, SSH_DEPLOY_KEY_PRIVATE_FOR_ORIGIN_PLANTUML_WASM_REPO
 name: Deploy preview environment to have a diffeent gh-pages for it
 on:
-  pull_request:
-    types:
-      - opened
-      - reopened
-      - synchronize
+  workflow_run:
+    workflows: ["Update example PUMLs list", "Recompile JARs"]
+    branches-ignore: [main]
+    types: 
+      - completed
 concurrency:
   group: "github-pages-mirror-for-previews"
   cancel-in-progress: true
 
 jobs:
-  mirror_to_preview_repo:
+  on-success:
     runs-on: ubuntu-latest
     environment:
       name: github-pages-mirror-for-previews
