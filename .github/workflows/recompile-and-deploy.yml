@@ -1,21 +1,65 @@
+# for deploy preview
 # keys are generated with the following command:
 # ssh-keygen -t ed25519 -C"plantuml@plantuml.com" -f id_ed25519_for_repo -N "" -q
 # 
 # add public key to dev as ssh deploy key, SSH_DEPLOY_KEY_PUBLIC_FOR_ORIGIN_PLANTUML_WASM_REPO
 # add private key to origin as environment secret, SSH_DEPLOY_KEY_PRIVATE_FOR_ORIGIN_PLANTUML_WASM_REPO
-name: Deploy preview environment to have a diffeent gh-pages for it
+
+name: Recompile and Deploy
 on:
-  workflow_run:
-    workflows: ["Update example PUMLs list", "Recompile JARs"]
+  pull_request:
     types:
-      - completed
+      - opened
+      - reopened
+      - synchronize    
+    branches:
+      - main
 concurrency:
   group: "github-pages-mirror-for-previews"
   cancel-in-progress: true
-
 jobs:
+  recompile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Get changed jars
+        id: changed-jars
+        uses: tj-actions/changed-files@v18.7
+        with:
+          files: |
+            source-jars/*.jar
+      - name: Get changed pumls
+        id: changed-pumls
+        uses: tj-actions/changed-files@v18.7
+        with:
+          files: |
+            playground/example-pumls/**/*.puml
+      - name: JAR files considered echo output
+        run: |
+          echo ${{ steps.changed-jars.outputs.all_changed_files }}
+      - name: PUML files considered echo output
+        run: |
+          echo ${{ steps.changed-pumls.outputs.all_changed_files }}
+      - name: Recompile jars
+        if: steps.changed-jars.outputs.all_changed_files != ''
+        run: |
+          bash compile.sh
+      - name: Regenerate example puml list
+        if: steps.changed-pumls.outputs.all_changed_files != ''
+        working-directory: ./playground
+        run: |
+          bash update_example_pumls_list.sh
+      - name: Push Local Changes
+        if: steps.changed-jars.outputs.all_changed_files != '' || steps.changed-pumls.outputs.all_changed_files != ''
+        uses: stefanzweifel/git-auto-commit-action@v4.1.2
+        with:
+          commit_message: "Recompile"
+          branch: ${{ github.head_ref }}
   mirror_to_preview_repo:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    needs: recompile
     runs-on: ubuntu-latest
     environment:
       name: github-pages-mirror-for-previews
