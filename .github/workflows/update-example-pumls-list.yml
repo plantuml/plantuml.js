@@ -18,12 +18,13 @@ jobs:
         uses: tj-actions/changed-files@v18.7
         with:
           files: |
-            examples/**/*.puml
+            playground/example-pumls/**/*.puml
       - name: PUML files considered echo output
         run: |
           echo ${{ steps.changed-files.outputs.all_changed_files }}
       - name: Regenerate example puml list
         if: steps.changed-files.outputs.all_changed_files != ''
+        working-directory: ./playground
         run: |
           bash update_example_pumls_list.sh
       - name: Push Local Changes
