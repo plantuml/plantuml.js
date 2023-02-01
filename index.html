@@ -92,10 +92,19 @@ Bob -> Alice: Hello!
       }
       editor.focus()
 
-      function render(){
-        let pumlContent = editor.getValue()
+      let debouncedRender
+      let waitForInitCount = 5
+      function _render(){
+        if (!plantuml.isInitialized()){
+          if ((waitForInitCount--) > 0){ // try rendering later on
+            debouncedRender()
+          }else{
+            throw new Error("Render called but PlantUML is not initialized yet")
+          }
+          return
+        }
 
-        plantuml.renderPng(pumlContent).then((blob) => {
+        plantuml.renderPng(editor.getValue()).then((blob) => {
           document.getElementById('render-image').src = window.URL.createObjectURL(blob)
         }).catch((error) => {
           console.log(error)
@@ -112,7 +121,7 @@ Bob -> Alice: Hello!
           };
       }
 
-      const debouncedRender = debounce(() => render())
+      debouncedRender = debounce(() => _render())
 
       async function loadFromUrl(url){
         window.location.hash = `#example=${url}`
