@@ -92,18 +92,7 @@ Bob -> Alice: Hello!
       }
       editor.focus()
 
-      let debouncedRender
-      let waitForInitCount = 5
       function _render(){
-        if (!plantuml.isInitialized()){
-          if ((waitForInitCount--) > 0){ // try rendering later on
-            debouncedRender()
-          }else{
-            throw new Error("Render called but PlantUML is not initialized yet")
-          }
-          return
-        }
-
         plantuml.renderPng(editor.getValue()).then((blob) => {
           document.getElementById('render-image').src = window.URL.createObjectURL(blob)
         }).catch((error) => {
@@ -121,7 +110,7 @@ Bob -> Alice: Hello!
           };
       }
 
-      debouncedRender = debounce(() => _render())
+      const debouncedRender = debounce(() => _render())
 
       async function loadFromUrl(url){
         window.location.hash = `#example=${url}`
@@ -137,7 +126,9 @@ Bob -> Alice: Hello!
       plantuml.initialize(jarPath).then(() => debouncedRender())
 
       editor.session.on('change', function(delta) {
-          debouncedRender()
+          if(plantuml.isInitialized()){ // else it waits the initialize to call the render
+            debouncedRender()
+          }
       })
 
       const exampleFilesSelect = new TomSelect(
