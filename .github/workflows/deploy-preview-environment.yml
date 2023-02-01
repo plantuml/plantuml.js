@@ -7,15 +7,15 @@ name: Deploy preview environment to have a diffeent gh-pages for it
 on:
   workflow_run:
     workflows: ["Update example PUMLs list", "Recompile JARs"]
-    branches-ignore: [main]
-    types: 
+    types:
       - completed
 concurrency:
   group: "github-pages-mirror-for-previews"
   cancel-in-progress: true
 
 jobs:
-  on-success:
+  mirror_to_preview_repo:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     environment:
       name: github-pages-mirror-for-previews
