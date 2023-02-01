@@ -133,12 +133,12 @@ Bob -> Alice: Hello!
       }
       const debouncedLoadFromUrl = debounce((url) => loadFromUrl(url))
 
+      const jarPath = "/app" + pathname + "compiled-jars"
+      plantuml.initialize(jarPath).then(() => debouncedRender())
+
       editor.session.on('change', function(delta) {
           debouncedRender()
       })
-
-      const jarPath = "/app" + pathname + "compiled-jars"
-      plantuml.initialize(jarPath).then(() => debouncedRender())
 
       const exampleFilesSelect = new TomSelect(
         '#example-files',
