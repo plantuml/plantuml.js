@@ -59,7 +59,8 @@ Bob -> Alice: Hello!
               <a href="https://github.com/plantuml/plantuml-wasm" target="_blank">Github</a>
             </div>
             <div id="right-panel-image-wrapper" class="flex justify-center">
-              <img id="render-image" src="playground/assets/loading.png" />
+              <div id="plantumlDisplay"></div>
+              <img id="render-image" src="playground/assets/loading.png" style="display: hidden;"/>
             </div>  
           </main>
         </div>
@@ -123,8 +124,9 @@ Bob -> Alice: Hello!
       }
       const debouncedLoadFromUrl = debounce((url) => loadFromUrl(url))
 
+      const parentDisplayElement = document.getElementById('plantumlDisplay')
       const jarPath = "/app" + pathname + "plantuml-wasm"
-      plantuml.initialize(jarPath).then(() => {
+      plantuml.initialize(parentDisplayElement, jarPath).then(() => {
         debouncedRender()
 
         editor.session.on('change', function(delta) {
