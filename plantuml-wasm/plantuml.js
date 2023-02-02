@@ -1,7 +1,7 @@
 const plantuml = (() => {
     const initialize = async (cheerpjPath = "/app/plantuml-wasm") => {
         await Promise.all([
-            cheerpjInit({ preloadResources: _runtimeResources() }),
+            cheerpjInit({disableErrorReporting:true, disableLoadTimeReporting:true, preloadResources: _runtimeResources() }),
             _preloadPlantumlFiles(cheerpjPath.replace("/app", ""))
         ])
 

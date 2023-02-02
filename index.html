@@ -31,6 +31,7 @@
     </style>
   </head>
   <body class="bg-white font-poppins antialiased">
+  <div id="message-java">Loading in progress</div>
     <div class="contaier">
       <div class="flex">
         <div class="h-full w-screen flex flex-row">
@@ -101,7 +102,7 @@ Bob -> Alice: Hello!
         })
       }
 
-      function debounce(func, delay = 400) {
+      function debounce(func, delay = 50) {
           let timerId;
           return (...args) => {
               clearTimeout(timerId);
