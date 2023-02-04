@@ -1,10 +1,10 @@
-# PlantUML Web Assembly (WASM)
+# PlantUML.js
 
 PlantUML that works completely on the browser without needing a server.
 
-Demo URL: [https://plantuml.github.io/plantuml-wasm/](https://plantuml.github.io/plantuml-wasm/)
+Demo URL: [https://plantuml.github.io/plantuml.js/](https://plantuml.github.io/plantuml.js/)
 
-![plantuml web assembly](demo.png "PlantUML Web Assembly")
+![plantuml javascript](demo.png "PlantUML javascript")
 
 # Features of the editor
 
