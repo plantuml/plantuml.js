@@ -6,7 +6,7 @@ const plantuml = (() => {
         ])
 
         // to make cjcall work, first we load the java package like this
-        await cheerpjRunMain("com.plantuml.wasm.RunInit", `${cheerpjPath}/plantuml-wasm.jar`, `${cheerpjPath}/`)        
+        await cheerpjRunMain("com.plantuml.wasm.RunInit", `${cheerpjPath}/plantuml-core.jar`, `${cheerpjPath}/`)        
     }
 
     const renderPng = (pumlContent) => {
