@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlantUML.js Playground</title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <script src="https://cjrtnc.leaningtech.com/2.3/loader.js"></script>
+    <script src="plantuml-wasm/plantuml-svg.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .ts-control {
+        background-color: #1a2234 !important;
+        color: #f8fafc !important;
+        border-color: #243049 !important;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23a5a9b1' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+        background-repeat: no-repeat !important;
+        background-position: right 6px center !important;
+        background-size: 16px 12px !important;
+      }
+      #resizer {
+        cursor: ew-resize;
+        width: 11px;
+      }
+      #logo-title{
+        background-image: url("playground/assets/logo.png") !important;
+        background-repeat: no-repeat !important;
+        background-position: left 24% top 50% !important;
+        background-size: 30px 30px !important;
+      }
+    </style>
+  </head>
+  <body class="bg-white font-poppins antialiased">
+    <div class="contaier">
+      <div class="flex">
+        <div class="h-full w-screen flex flex-row">
+          <aside style="z-index: 999;" class="w-3/5" id="sidePanel">
+            <div id="sidebar" class="bg-gray-900 h-screen md:block shadow-xl px-0 w-full overflow-x-hidden transition-transform duration-300 ease-in-out">
+              <div class="space-y-2 md:space-y-2 mt-2">
+                <h1 class="md:block font-bold text-sm md:text-xl text-center px-3 text-white" id="logo-title">
+                  <span>PlantUML.js Playground</span>
+                </h1>
+                <div class="px-3">
+                  <select id="example-files" placeholder="Choose an example..." class="example-files"></select>
+                </div>
+                <div class="flex flex-col h-full text-white">
+                  <div id="editor" style="position: relative; width: 100%; height: 100vh;" class="text-white">@startuml
+Bob -> Alice: Hello!
+@enduml
+</div>
+                </div>
+              </div>
+            </div>
+          </aside>
+          <div id="resizer" class="vertical bg-gray-50"></div>
+          <main class="p-4 w-full h-full">
+            <div class="space-x-2 flex justify-end text-right">
+              <a href="https://github.com/plantuml/plantuml.js/new/main/playground/example-pumls/community/?filename=community/new_diagram.puml&value=%40startuml%0A%27%20Copy%20your%20diagram%20content%20here%0A%40enduml%0A" target="_blank">Share this diagram with the Community</a>
+              <a href="https://github.com/plantuml/plantuml.js" target="_blank">Github</a>
+            </div>
+            <div id="right-panel-image-wrapper" class="flex justify-center">
+              <img id="render-image" src="playground/assets/loading.png" />
+            </div>  
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <script src="playground/assets/ace.js" type="text/javascript" charset="utf-8"></script>
+    <link href="playground/assets/tom-select.min.css" rel="stylesheet">
+    <script src="playground/assets/tom-select.complete.min.js"></script>
+    <script src="playground/assets/examplePumls.js"></script>
+    <script src="playground/assets/panzoom.min.js"></script>
+    <script src="playground/assets/plantuml-decoder.min.js"></script>
+    <script src="LAST_COMMIT.js"></script>
+
+    <script>
+      // load parameters
+      const pathname = window.location.pathname.match(/^.*[\/]/)[0] // until the trailing slash, do not include the filename
+      const hashParams = window.location.hash.substr(1).split('&').reduce(function (res, item) {
+              var parts = item.split('=')
+              res[parts[0]] = parts[1]
+              return res
+      }, {})
+
+      // set up editor
+      ace.config.set("loadWorkerFromBlob", false)
+      const editor = ace.edit("editor")
+      editor.setTheme("ace/theme/monokai")
+      editor.session.setMode("ace/mode/javascript")
+      if(hashParams['encodedString']){
+        editor.setValue(plantumlEncoder.decode(hashParams['encodedString']), -1)
+      }
+      editor.focus()
+
+      function _render(){
+        plantuml.renderPng(editor.getValue()).then((blob) => {
+          document.getElementById('render-image').src = window.URL.createObjectURL(blob)
+        }).catch((error) => {
+          console.log(error)
+        })
+      }
+
+      function debounce(func, delay = 400) {
+          let timerId;
+          return (...args) => {
+              clearTimeout(timerId);
+              timerId = setTimeout(() => {
+                  func.apply(this, args);
+              }, delay);
+          };
+      }
+
+      const debouncedRender = debounce(() => _render())
+
+      async function loadFromUrl(url){
+        window.location.hash = `#example=${url}`
+        const response = await fetch(url)
+        const pumlContent = await response.text()
+        editor.setValue(pumlContent, -1)
+        editor.focus()
+        return
+      }
+      const debouncedLoadFromUrl = debounce((url) => loadFromUrl(url))
+
+      const jarPath = "/app" + pathname + "plantuml-wasm"
+      plantuml.initialize(jarPath).then(() => {
+        debouncedRender()
+
+        editor.session.on('change', function(delta) {
+          debouncedRender()
+        })
+      })
+
+      const exampleFilesSelect = new TomSelect(
+        '#example-files',
+        {
+          maxOptions: 60,
+          maxItems: 1,
+          closeAfterSelect: true,
+          valueField: 'url',
+          labelField: 'label',
+          searchField: 'label',
+          options: examplePumls,
+          onChange: function(item){
+            this.blur()
+            debouncedLoadFromUrl(item)
+          },
+          onInitialize:function(){
+            if (hashParams['example']){
+              this.clear(true)
+              this.addItem(hashParams['example'])
+            }
+          }          
+        }
+      )
+
+      var element = document.querySelector('#right-panel-image-wrapper')
+      panzoom(element)
+
+      const resizer = document.querySelector('#resizer')
+      const sidebar = document.querySelector('#sidebar')
+      const sidePanel = document.querySelector('#sidePanel')
+
+      resizer.addEventListener('mousedown', (event) => {
+        document.addEventListener('mousemove', resize, false)
+        document.addEventListener('mouseup', () => {
+          document.removeEventListener('mousemove', resize, false)
+        }, false)
+      })
+
+      function resize(e) {
+        const x = Math.max(e.x, 200)
+        const size = `${x}px`;
+        sidebar.style.width = size;
+        sidePanel.style.width = size;
+      }
+    </script>
+  </body>
+</html>

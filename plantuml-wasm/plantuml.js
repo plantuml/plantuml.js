@@ -12,7 +12,7 @@ const plantuml = (() => {
     const renderPng = (pumlContent) => {
         return new Promise((resolve, reject) => {
             const renderingStartedAt = new Date()  
-            cjCall("com.plantuml.wasm.Utils", "convertPng", "/files/result.png", pumlContent).then((exitCode) => {
+            cjCall("com.plantuml.wasm.Svg", "convert", "/files/result.png", pumlContent).then((exitCode) => {
                 if (exitCode === undefined || exitCode.value0 !== 0){
                     reject(`convertPng returned non-0: ${exitCode} ${exitCode.value0}`)
                 }
