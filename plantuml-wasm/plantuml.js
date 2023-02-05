@@ -32,8 +32,8 @@ const plantuml = (() => {
         // just do explicit fetch here for further cache hits
         // this code may evolve into bundling all resource files and pass it to cheerpj
         return await Promise.all([
-            fetch(`${urlBasePathForFiles}/plantuml-wasm.jar.js`),
-            fetch(`${urlBasePathForFiles}/plantuml-wasm.jar`)
+            fetch(`${urlBasePathForFiles}/plantuml-core.jar.js`),
+            fetch(`${urlBasePathForFiles}/plantuml-core.jar`)
         ])
     }
 
