@@ -1,0 +1,22 @@
+{
+  "name": "@plantuml/plantuml.js",
+  "version": "1.0.0",
+  "description": "PlantUML that runs completely on javascript without needing java/servers",
+  "main": "plantuml.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/plantuml/plantuml.js.git"
+  },
+  "keywords": [
+    "plantuml"
+  ],
+  "author": "Sakir Temel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/plantuml/plantuml.js/issues"
+  },
+  "homepage": "https://github.com/plantuml/plantuml.js#readme"
+}

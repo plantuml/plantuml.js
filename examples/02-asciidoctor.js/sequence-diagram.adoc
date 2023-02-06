@@ -1,0 +1,25 @@
+== PlantUML.js with Asciidoctor.js Example
+
+[source,plantuml]
+----
+@startuml
+Alice -> Bob: Authentication Request
+Bob --> Alice: Authentication Response
+
+Alice -> Bob: Another authentication Request
+Alice <-- Bob: Another authentication Response
+@enduml
+----
+
+=== Without rendering
+
+[source,plantuml,render=false]
+----
+@startuml
+Alice -> Bob: Authentication Request
+Bob --> Alice: Authentication Response
+
+Alice -> Bob: Another authentication Request
+Alice <-- Bob: Another authentication Response
+@enduml
+----

@@ -6,6 +6,8 @@ Demo URL: [https://plantuml.github.io/plantuml.js/](https://plantuml.github.io/p
 
 ![plantuml javascript](demo.png "PlantUML javascript")
 
+See `examples/` for how to integrate
+
 # Features of the editor
 
 - Auto-rendering
