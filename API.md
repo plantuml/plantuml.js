@@ -33,10 +33,14 @@ public class Utils {
 
 TO BE DONE
 
-
 ## SVG Generation
 
 TO BE DONE
+
+
+## Raw Pixel Image 
+
+We would use [new ImageData(dataArray, width, height)](https://developer.mozilla.org/en-US/docs/Web/API/ImageData/ImageData)
 
 
 ## Applet
