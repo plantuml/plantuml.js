@@ -47,11 +47,12 @@
         asciidoctor.ConverterFactory.register(new PlantUMLConverter(), ['html5'])
 
         // render asciidoctor as html
-        const content = 'include::http://localhost:8080/sequence-diagram.adoc[]'
+        const basePath = window.location.href.match(/^.*[\/]/)[0] // until the trailing slash, do not include the filename
+        const content = `include::${basePath}sequence-diagram.adoc[]`
         document.getElementById('content').innerHTML = asciidoctor.convert(content, {
             safe: 'safe',
             backend: 'html5',
-            base_dir: 'http://localhost:8080',
+            base_dir: basePath,
             doctype: 'article',
             header_footer: true,
             standalone: false,
