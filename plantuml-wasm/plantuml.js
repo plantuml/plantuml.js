@@ -6,13 +6,13 @@ const plantuml = (() => {
         ])
 
         // to make cjcall work, first we load the java package like this
-        await cheerpjRunMain("com.plantuml.wasm.RunInit", `${cheerpjPath}/plantuml-core.jar`, `${cheerpjPath}/`)        
+        await cheerpjRunMain("com.plantuml.wasm.v1.RunInit", `${cheerpjPath}/plantuml-core.jar`, `${cheerpjPath}/`)        
     }
 
     const renderPng = (pumlContent) => {
         return new Promise((resolve, reject) => {
             const renderingStartedAt = new Date()  
-            cjCall("com.plantuml.wasm.Utils", "convertPng", "/files/result.png", pumlContent).then((exitCode) => {
+            cjCall("com.plantuml.wasm.v1.Png", "convert", "light", "/files/result.png", pumlContent).then((exitCode) => {
                 if (exitCode === undefined || exitCode.value0 !== 0){
                     reject(`convertPng returned non-0: ${exitCode} ${exitCode.value0}`)
                 }
