@@ -6,20 +6,21 @@ const plantuml = (() => {
         ])
 
         // to make cjcall work, first we load the java package like this
-        await cheerpjRunMain("com.plantuml.wasm.RunInit", `${cheerpjPath}/plantuml-core.jar`, `${cheerpjPath}/`)        
+        await cheerpjRunMain("com.plantuml.wasm.v1.RunInit", `${cheerpjPath}/plantuml-core.jar`, `${cheerpjPath}/`)        
     }
 
     const renderPng = (pumlContent) => {
         return new Promise((resolve, reject) => {
             const renderingStartedAt = new Date()  
-            cjCall("com.plantuml.wasm.Utils", "convertPng", "/files/result.png", pumlContent).then((exitCode) => {
-                if (exitCode === undefined || exitCode.value0 !== 0){
-                    reject(`convertPng returned non-0: ${exitCode} ${exitCode.value0}`)
-                }
-                cjFileBlob("result.png").then((blob) => {
-                    console.log('Rendering finished in', (new Date()).getTime() - renderingStartedAt.getTime(), 'ms');
-                    resolve(blob)        
-                })
+            cjCall("com.plantuml.wasm.v1.Png", "convert", "light", "/files/result.png", pumlContent).then((result) => {
+			    console.log(result);
+				const obj = JSON.parse(result);
+				if (obj.status=='ok') {
+					cjFileBlob("result.png").then((blob) => {
+						console.log('Rendering finished in', (new Date()).getTime() - renderingStartedAt.getTime(), 'ms');
+						resolve(blob)        
+					})
+				}
             })
         })
     }
