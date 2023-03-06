@@ -11,7 +11,7 @@
     <!-- Require cheerpj dependency -->
     <script src="https://cjrtnc.leaningtech.com/2.3/loader.js"></script>
     <!-- Require PlantUML.js -->
-    <script src="node_modules/@plantuml/plantuml.js/plantuml.js"></script>
+    <script src="node_modules/@sakirtemel/plantuml.js/plantuml.js"></script>
   </head>
   <body>
     <div id="content"></div>
@@ -60,7 +60,7 @@
         })
 
         // render marked plantuml diagrams
-        plantuml.initialize('/app/node_modules/@plantuml/plantuml.js').then(() => {
+        plantuml.initialize('/app/node_modules/@sakirtemel/plantuml.js').then(() => {
             for(const element of document.querySelectorAll('.plantuml-diagram')){
                 const code = element.querySelector('*:is(code, pre)').innerText
                 const url = plantuml.renderPng(code).then((blob) => {
