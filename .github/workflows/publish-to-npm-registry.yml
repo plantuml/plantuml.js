@@ -5,10 +5,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment:
+      name: npm-registry
     defaults:
       run:
         shell: bash
-        working-directory: plantuml-wasm    
+        working-directory: plantuml-wasm
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -17,7 +19,5 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
       - run: npm publish
-        environment:
-          name: npm-registry
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
