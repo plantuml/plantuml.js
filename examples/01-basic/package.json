@@ -10,6 +10,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@sakirtemel/plantuml.js": "^1.0.0"
+    "@sakirtemel/plantuml.js": "^1.0.1"
   }
 }
