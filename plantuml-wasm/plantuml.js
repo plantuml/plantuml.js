@@ -11,14 +11,19 @@ const plantuml = (() => {
 
     const renderPng = (pumlContent) => {
         return new Promise((resolve, reject) => {
-            const renderingStartedAt = new Date()  
-            cjCall("com.plantuml.wasm.v1.Png", "convert", "light", "/files/result.png", pumlContent).then((result) => {
-			    console.log(result);
+            const renderingStartedAt = new Date()
+            const resultFileSuffix = renderingStartedAt.getTime().toString()
+            cjCall("com.plantuml.wasm.v1.Png", "convert", "light", `/files/result-${resultFileSuffix}.png`, pumlContent).then((result) => {
 				const obj = JSON.parse(result);
 				if (obj.status=='ok') {
-					cjFileBlob("result.png").then((blob) => {
-						console.log('Rendering finished in', (new Date()).getTime() - renderingStartedAt.getTime(), 'ms');
-						resolve(blob)        
+					cjFileBlob(`result-${resultFileSuffix}.png`).then((blob) => {
+                        const transaction = cheerpjGetFSMountForPath('/files/').dbConnection.transaction('files', 'readwrite')
+                        transaction.objectStore('files').delete(`/result-${resultFileSuffix}.png`)
+
+                        transaction.oncomplete = () => {
+                            console.log('Rendering finished in', (new Date()).getTime() - renderingStartedAt.getTime(), 'ms');
+                            resolve(blob)
+                        }
 					})
 				}
             })
