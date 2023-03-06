@@ -11,6 +11,13 @@ Alice <-- Bob: Another authentication Response
 @enduml
 ----
 
+[source,plantuml]
+----
+@startuml
+Bob -> Alice: Hello!
+@enduml
+----
+
 === Without rendering
 
 [source,plantuml,render=false]
