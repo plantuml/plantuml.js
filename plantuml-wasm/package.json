@@ -1,5 +1,5 @@
 {
-  "name": "plantuml.js",
+  "name": "@sakirtemel/plantuml.js",
   "version": "1.0.0",
   "description": "PlantUML that runs completely on javascript without needing java/servers",
   "main": "plantuml.js",
