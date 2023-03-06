@@ -11,6 +11,6 @@
   "license": "MIT",
   "dependencies": {
     "asciidoctor": "^2.2.6",
-    "@plantuml/plantuml.js": "file:../../plantuml-wasm"
+    "@sakirtemel/plantuml.js": "^1.0.0"
   }
 }

@@ -7,12 +7,12 @@
     <!-- Require cheerpj dependency -->
     <script src="https://cjrtnc.leaningtech.com/2.3/loader.js"></script>
     <!-- Require PlantUML.js -->
-    <script src="node_modules/@plantuml/plantuml.js/plantuml.js"></script>
+    <script src="node_modules/@sakirtemel/plantuml.js/plantuml.js"></script>
   </head>
   <body>
     <img src="loading.png" id="plantuml-diagram" />
     <script type="text/javascript">
-        plantuml.initialize('/app/node_modules/@plantuml/plantuml.js').then(() => {
+        plantuml.initialize('/app/node_modules/@sakirtemel/plantuml.js').then(() => {
             const element = document.getElementById('plantuml-diagram')
             const pumlContent = `
                 @startuml
