@@ -1,0 +1,45 @@
+name: PLANTUML DOCS Sync docs from alphadoc and process antora
+
+on:
+  workflow_dispatch:
+    inputs:
+      fetch_docs:
+        description: 'Fetch docs from alphadoc?'
+        required: true
+        default: true
+        type: boolean
+concurrency:
+  group: 'plantuml_docs_sync_and_process'
+  cancel-in-progress: true
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: plantuml-docs
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 19
+      - run: npm ci
+      - name: Fetch docs from alphadoc
+        run: |
+          npm run fetchDocsFromAlphadoc
+        if:  ${{ inputs.fetch_docs }}
+      - name: Process antora docs
+        run: |
+          npm run processAntoraDocsComponent
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v4
+        with:
+          commit-message: Fetch latest docs from alphadoc
+          delete-branch: true
+          title: '[Sync Docs] Fetch latest docs'
+          body: |
+            Automated sync docs from alphadoc.
+          labels: |
+            automated pr
