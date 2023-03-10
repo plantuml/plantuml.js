@@ -38,6 +38,6 @@ image::demo.png[]
 
 This project uses link:http://alphadoc.plantuml.com/toc/asciidoc/en[PlantUML's alphadoc] as a source of truth.
 
-To fetch the latest docs from alphadoc, `sync-docs` workflow should be manually triggered by
- going to the link:../../../actions/workflows/sync-docs.yml[actions page] or calling it via API.
+To fetch the latest docs from alphadoc, `plantuml_docs_sync_and_process` workflow should be manually triggered by
+ going to the link:../../../actions/workflows/plantuml_docs_sync_and_process.yml[actions page] or calling it via API.
 It automatically creates a PR with the updated docs.
