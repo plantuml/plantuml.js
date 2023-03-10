@@ -1,0 +1,5 @@
+== PlantUML Text Encoding
+
+DELETE, duplicate of link::text-encoding[text-encoding]
+
+

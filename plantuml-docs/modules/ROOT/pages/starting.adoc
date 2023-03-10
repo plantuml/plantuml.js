@@ -1,0 +1,38 @@
+== PlantUML for the impatient
+
+The easiest way to test PlantUML is in an online solution that has PlantUML embedded, such as our https://www.plantuml.com/plantuml[online server].
+
+
+== Local installation
+
+After testing, you may want to link::faq-install[install PlantUML locally].
+
+You need these things to run PlantUML:
+
+* https://www.java.com/en/download/[Java]
+* link::graphviz-dot[Graphviz] (optional - you don't need this if you only need link::sequence-diagram[sequence diagrams] and link::activity-diagram-beta[activity (beta) diagrams])
+
+Installed the above? Then simply download http://sourceforge.net/projects/plantuml/files/plantuml.jar/download[plantuml.jar] and run it to open PlantUML's link::gui[graphical user interface]. There is no need to unpack or install anything.
+
+
+== Run PlantUML from the command line
+
+Use PlantUML's link::command-line[command line] syntax to link::running[include it in your own scripts or documentation tools].
+
+. Create a text file with PlantUML commands, like this example called `+sequenceDiagram.txt+`:
+
+----
+@startuml
+Alice -> Bob: test
+@enduml
+----
+
+2. Run (or have your software call) PlantUML, using `+sequenceDiagram.txt+` as input. The output is an image, which either appears in the other software, or is written to an image file on disk.+++<br>+++For example:
+
+----
+java -jar plantuml.jar sequenceDiagram.txt
+----
+
+This outputs your sequence diagram to a file called `+sequenceDiagram.png+`.
+
+

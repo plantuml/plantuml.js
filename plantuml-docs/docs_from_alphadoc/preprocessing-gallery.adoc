@@ -1,0 +1,213 @@
+== Preprocessing Gallery (preprocessing-gallery)
+
+
+== Preprocessing User Gallery
+
+Gathered here all user preprocessing codes.
+
+
+== Template
+
+<plantuml>
+@startuml
+
+[code here]
+
+@enduml
+</plantuml>
+
+__[Ref. https://forum.plantuml.net[QA-nnn]]__
+
+
+== Note on Member [noteMember] (Class Diagram)
+
+<plantuml>
+@startuml
+'Source: QA-10113
+!unquoted function DRAW($x) return %set_variable_value($x, 1)
+!procedure noteMember($part, $direction, $class, $member, $note)
+  !if %variable_exists($part)
+    note $direction of $class::"$member"
+    $note
+    end note
+  !endif
+!endprocedure
+
+DRAW(PART1)
+
+!ifdef PART1
+title Elements and Notes Part1
+!endif
+
+class elementArray <<(E,#32DC32)element>> {
+  name : someId
+  name : MemberA
+  name : MemberB
+  name : MemberC
+  name : MemberD
+  name : MemberE
+}
+
+noteMember("PART1", "left", "elementArray", "name : MemberB", "Member of Interest")
+@enduml
+</plantuml>
+
+__[Ref. https://forum.plantuml.net/10113[QA-10113]]__
+
+
+== Msg (used on Sequence Diagram)
+
+<plantuml>
+@startuml
+!function LineColor() return "#blue"
+
+!unquoted procedure Msg($from, $to, $note = "", $activate = "false")
+  !if (($activate == "true") || ($activate == "TRUE"))
+    $from [LineColor()]->> $to ++
+  !else
+    $from [LineColor()]->> $to
+  !endif
+
+  !if ($note!="") 
+    note left : $note
+!endprocedure
+
+box
+  participant "Service A" as A
+  participant "Service B" as B
+end box
+
+box
+  database "Service C" as C
+end box
+
+Msg(A, B, "", true)
+Msg(B, C, "B to C msg", false)
+deactivate B
+@enduml
+</plantuml>
+
+__[Ref. https://forum.plantuml.net/9954[QA-9954]]__
+
+
+== Example of date 
+
+<plantuml>
+@startuml
+!THE_DATE=%date()
+!ANOTHER_DATE=%date("yyyy.MM.dd G' at 'HH:mm:ss z")
+Title Generated THE_DATE \nor ANOTHER_DATE
+@enduml
+</plantuml>
+
+__[Ref. https://forum.plantuml.net/5095[QA-5095]]__
+
+
+== Table and Link demo using JSON and preprocessing (Class diagram)
+
+<plantuml>
+@startuml
+'table and link demo using JSON and preprocessing
+
+hide stereotype
+hide class circle
+hide methods
+skinparam shadowing false
+skinparam defaultFontName Helvetica
+skinparam DefaultTextAlignment left
+skinparam RoundCorner 10
+skinparam pathHoverColor black
+skinparam arrow {
+  Color grey
+}
+
+skinparam class {
+  BackgroundColor grey
+  BorderColor black
+  FontColor white
+  FontStyle bold
+  AttributeFontColor white
+}
+
+title JSON Tables
+
+!$foo = {
+  "table": [
+    {
+      "table_name": "table1",
+      "description": "table1 is a table",
+      "columns": [
+        {
+          "name": "+id"
+        },
+        {
+          "name": "*name"
+        },
+        {
+          "name": "#foreign_key"
+        }
+      ]
+    },
+    {
+      "table_name": "table2",
+      "description": "table2 is a table",
+      "columns": [
+        {
+          "name": "-id"
+        },
+        {
+          "name": "~name"
+        }
+      ]
+    },
+    {
+      "table_name": "table3",
+      "description": "table3 is a table",
+      "columns": [
+        {
+          "name": "name"
+        },
+        {
+          "name": "value"
+        }
+      ]
+    }
+  ],
+  "link": [
+    {
+      "source_table": "table1",
+      "target_table": "table2",
+      "description": "table1.foreign_key = table2.id",
+      "cardinality": "M:1"
+    },
+    {
+      "source_table": "table1",
+      "target_table": "table3",
+      "description": "table1.name = table3.name",
+      "cardinality": "1:M"
+    }
+  ]
+}
+
+!foreach $tab in $foo.table
+class "%upper($tab.table_name)" as $tab.table_name {
+    !foreach $col in $tab.columns
+        $col.name
+    !endfor
+}
+url for $tab.table_name is [[{$tab.description}]]
+!endfor
+
+!foreach $link in $foo.link
+!if ($link.cardinality == "M:1")
+    $link.source_table }-- $link.target_table [[{$link.description}]]: " "
+!else
+    $link.source_table -- $link.target_table [[{$link.description}]]: " "
+!endif
+!endfor
+@enduml
+</plantuml>
+
+__[Ref. https://forum.plantuml.net/13152/do-you-like-this-puml-fom-schema?show=13189#c13189[Comment on QA-13152]]__
+
+

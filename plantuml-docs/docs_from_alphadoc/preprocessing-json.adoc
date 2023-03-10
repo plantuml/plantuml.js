@@ -1,0 +1,374 @@
+== Preprocessing JSON
+
+Some __JSON preprocessing__ capabilities are included in PlantUML, and available for all diagrams. 
+
+That extends the current link::preprocessing[preprocessing].
+
+🛈 __If you are looking for how to display JSON data: see rather link::json[Display JSON Data].__
+
+
+== Variable definition
+
+In addition to existing type (__String__ and __Integer__), you can define JSON variable.
+
+Example:
+
+----
+!$foo = { "name": "John", "age" : 30 }
+----
+
+Corresponding of this structure:
+
+<plantuml>
+@startjson
+{
+"$foo": { "name": "John", "age" : 30 }
+}
+@endjson
+</plantuml>
+
+
+== Access to data
+
+Once a variable is defined, you can access to its members:
+
+<plantuml>
+@startuml
+!$foo = { "name": "John", "age" : 30 }
+Alice -> Bob : Do you know **$foo.name** ?
+@enduml
+</plantuml>
+
+
+== Complex structures
+
+It is possible to use complex JSON objects and arrays, with definition on several lines.
+
+Let `+$foo+`, the structure:
+<plantuml>
+@startjson
+{
+"$foo":{ "company": "Skynet", "employees" : [
+  {"name" : "alice", "salary": 100 },
+  {"name" : "bob", "salary": 50} ]
+}
+}
+@endjson
+</plantuml>
+
+
+You can acess to the values:
+* `+$foo.employees[0].name+`
+* `+$foo.employees[0].salary+`
+
+
+<plantuml>
+@startuml
+!$foo = { "company": "Skynet", "employees" : [
+  {"name" : "alice", "salary": 100 },
+  {"name" : "bob", "salary": 50} ]
+}
+start
+:The salary of <u>$foo.employees[0].name</u> is <u>$foo.employees[0].salary</u>;
+@enduml
+</plantuml>
+
+
+Or using intermediate variables:
+* `+!$attribute_1="name"+`
+* `+!$attribute_2="salary"+`
+to acess to the values:
+* `+$foo.employees[0][$attribute_1]+`
+* `+$foo.employees[0][$attribute_2]+`
+
+<plantuml>
+@startuml
+!$foo = { "company": "Skynet", "employees" : [
+  {"name" : "alice", "salary": 100 },
+  {"name" : "bob", "salary": 50} ]
+}
+
+!$attribute_1="name"
+!$attribute_2="salary"
+
+start
+:The salary of <u>$foo.employees[0][$attribute_1]</u> is <u>$foo.employees[0][$attribute_2]</u>;
+@enduml
+</plantuml>
+
+
+== Loading data
+
+Some standard function provides a way to load JSON object from URL or local files:
+
+----
+!$foo = %loadJSON("http://foo.net/users/list.json")
+!$foo2 = %loadJSON("myDir/localFile.json")
+----
+
+__Available since 1.2021.15__
+
+
+== Loop [foreach]
+
+If you define array, you can loop over.
+
+<plantuml>
+@startmindmap
+!$foo = { "company": "Skynet", "employees" : [
+  {"name" : "alice", "salary": 100 },
+  {"name" : "bob", "salary": 50} ]
+}
+
+* The salary of  
+!foreach $emp in $foo.employees
+  ** **$emp.name** 
+  *** is 
+  **** **$emp.salary**
+!endfor
+@endmindmap
+</plantuml>
+
+[SW] Some remarks
+* for or better foreach ? -> `+foreach+`
+* It would be nice to also have "break" and "continue"
+* It would be nice to also have the for or while loop with a standard variable
+
+
+== Full Example
+
+From a example worked in a forum question, with this JSON structure:
+<plantuml>
+@startjson
+{
+"data":
+  {
+  "participants": [
+    {"name": "XYZ", "as": "xyz"},
+    {"name": "RST", "as": "rst"},
+    {"name": "UVW", "as": "uvw"}]
+  }
+}
+@endjson
+</plantuml>
+
+<plantuml>
+@startuml
+!unquoted function DRAW($x) return %set_variable_value($x, 1)
+
+!procedure addComponent($part, $component, $as)
+    !if %variable_exists($part)
+        participant "$component" as $as
+    !endif
+!end procedure 
+
+!procedure addBox2($part, $box, $colour, $data)
+    !if %variable_exists($part)
+        box "$box" #$colour
+            !foreach $item in $data.participants
+                addComponent($part, $item.name, $item.as)
+            !endfor
+        end box
+    !endif
+!end procedure 
+
+DRAW(PART25)
+
+!ifdef PART25
+title  TESTING  (Boxes & Participants)  //Part25//
+!endif
+
+!$data={
+  "participants": [
+    {"name": "XYZ", "as": "xyz"},
+    {"name": "RST", "as": "rst"},
+    {"name": "UVW", "as": "uvw"}]
+}
+
+addBox2("PART25", "New Box", "white", $data)
+@enduml
+</plantuml>
+
+
+== Self-descriptive example
+
+Here is a self-descriptive example:
+
+<plantuml>
+@startuml
+left to right direction
+
+!$data={"parts":[
+{"shape": "cloud",    "name": "id1", "colour": "#palegreen", "desc": "some text"},
+{"shape": "folder",   "name": "id2", "colour": "#lightblue", "desc": "more text"},
+{"shape": "database", "name": "id3", "colour": "#pink",      "desc": "even more text"}
+]}
+
+rectangle Outer {
+rectangle Inner #tan as "
+{{json
+$data
+}}
+"
+together {
+!foreach $part in $data.parts
+  $part.shape $part.colour $part.name as "$part.desc"
+  Inner --> $part.name
+!endfor
+}
+}
+@enduml
+</plantuml>
+
+__[Adapted from https://forum.plantuml.net/12917/how-to-mix-json-objects-into-a-components-diagram?show=12927#c12927[QA-12917]]__
+
+
+== `+%get_json_keys+` builtin function
+
+You can use `+%get_json_keys+` to get all the keys of one level on a JSON structure.
+
+<plantuml>
+@startuml
+!$myjson = {
+"root" : [{
+    "fruits": [
+        {"name": "apple", "colorId": "1"},
+        {"name": "pear", "colorId": "2"},
+        {"name": "pineapple", "colorId": "3"}
+    ]
+},
+{
+    "colors": [
+        {"id": "1", "name": "red"},
+        {"id": "2", "name": "green"},
+        {"id": "3", "name": "yellow"}
+    ]
+}]
+}
+
+!foreach $key in %get_json_keys($myjson.root)
+     rectangle $key
+!endfor
+@enduml
+</plantuml>
+
+<plantuml>
+@startwbs
+!$json_object = {
+  "name": "Mark McGwire", "hr": 65, "avg":  0.278
+}
+
+* json_object
+ * keys of json_object
+!foreach $key in %get_json_keys($json_object)
+  * $key
+!endfor
+@endwbs
+</plantuml>
+
+
+__[Ref. https://forum.plantuml.net/15360/ideas-for-2-new-json-builtins[QA-15360], https://forum.plantuml.net/15423/functions-check-exists-default-value-get_variable_value[QA-15423]]__
+
+
+== `+%get_json_type+` builtin function
+
+You can use `+%get_json_type+` to get the type of an element of a JSON structure (returns a string).
+<plantuml>
+@startuml
+!$json_object = {
+  "name": "Mark McGwire", "hr": 65, "avg":  0.278,
+  "letters": ["a", "b", "c"]
+}
+
+label l [
+=json_object:
+{{json
+$json_object
+}}
+
+|= $variable          |= <U+0025>get_json_type($var)         |
+| json_object         | %get_json_type($json_object)         |
+| json_object.name    | %get_json_type($json_object.name)    |
+| json_object.hr      | %get_json_type($json_object.hr)      |
+| json_object.letters | %get_json_type($json_object.letters) |
+
+Test on type:
+!if %get_json_type($json_object.letters)=="array"
+  json_object.letters is an **%get_json_type($json_object.letters)**
+!endif
+]
+@enduml
+</plantuml>
+
+__[Ref. https://forum.plantuml.net/15360/ideas-for-2-new-json-builtins[QA-15360]]__
+
+
+== `+ %json_key_exists+` builtin function
+
+You can use `+%json_key_exists+` to know if a key exists on a JSON structure (returns a boolean).
+
+<plantuml>
+@startuml
+!$json_object= {
+  "name": "Mark McGwire", "hr": 65, "avg":  0.278
+}
+
+label l [
+|= key  |= <U+0025>json_key_exists(json_object, key)   |
+| "hr"  | %json_key_exists($json_object, "hr") |
+| "foo" | %json_key_exists($json_object, "foo")|
+| null  | %json_key_exists($json_object, null) |
+]
+@enduml
+</plantuml>
+
+__[Ref. https://forum.plantuml.net/15423/functions-check-exists-default-value-get_variable_value[QA-15423]]__
+
+
+== `+ %size+` builtin function
+
+You can use `+%size+` to know the size of different elements on a JSON structure.
+
+For each type here are the return value:
+|===
+| **Type** | **Return value**
+
+| `+JSON Object+`
+| the number of pairs it contains
+
+| `+JSON Array+`
+| the number of values it contains
+
+| `+string+` value
+| the number of characters it contains
+
+| `+numeric+` value
+| zero
+
+| `+true+`/`+false+`/`+null+`
+| zero
+
+|===
+
+<plantuml>
+@startuml
+!$json_object= {
+  "name"   : "Mark McGwire",
+  "hr"     : 65,
+  "avg"    : 0.278,
+  "letters": ["a", "b", "c"]
+}
+
+label l [
+|= $variable          |= <U+0025>get_json_type($var)         |= <U+0025>size($var)         |
+| json_object         | %get_json_type($json_object)         | %size($json_object)         |
+| json_object.name    | %get_json_type($json_object.name)    | %size($json_object.name)    |
+| json_object.hr      | %get_json_type($json_object.hr)      | %size($json_object.hr)      |
+| json_object.letters | %get_json_type($json_object.letters) | %size($json_object.letters) |
+]
+@enduml
+</plantuml>
+
+__[Ref. https://forum.plantuml.net/14901/number-of-elements-in-list-during-json-preprocessing[QA-14901]]__
+
+

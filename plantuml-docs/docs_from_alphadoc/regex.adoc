@@ -1,0 +1,29 @@
+== Display Regex Data
+
+'''
+🚧 - __Under construction__
+
+🆕 functionality still in testing stage...
+These new features are still under construction 🚧
+
+🚧 - __Under construction__
+'''
+
+You can use PlantUML to visualize your https://en.wikipedia.org/wiki/Regular_expression[Regular expression (Regex)].
+
+To activate this feature, the diagram must:
+* begin with `+@startregex+` keyword
+* end with `+@endregex+` keyword. 
+
+<plantuml>
+@startregex
+repetitionZeroOrMore: a*
+@endregex
+</plantuml>
+
+Ref.:
+* https://github.com/plantuml/plantuml/tree/master/src/net/sourceforge/plantuml/regex[Regex on GH@plantuml/plantuml]
+* https://forum.plantuml.net/17112/regex-railroad-diagrams[QA-17112]
+* https://forum.plantuml.net/17357/documentation-of-hcl-and-regex[QA-17357]
+
+

@@ -1,0 +1,37 @@
+== GFM Support
+
+Some users has request support for https://github.github.com/gfm/[GitHub Flavored Markdown (GFM)] __(see https://forum.plantuml.net/11182/please-support-markdown-formatting-syntax-addition-creole[request on the forum])__
+
+
+== Subset to be supported by PlantUML
+
+__Please list here features that you are expecting to have in PlantUML.__
+
+Indeed, all gfm features will **not** be supported.
+
+
+For Italic:
+----
+*This is Italic*
+----
+
+Titles: 
+= Title 1
+== title 2
+
+Lists:
+* list item1 
+* list item2
+    - sub item1
+
+images
+![](link__to__image)
+
+
+== A chapter of gfm-support - Tables
+
+\| Header 1 \| Header 2 \| Header 3 \| Header 4 \|
+\|:---:\|:---\|---:\|---\|
+\|Centered \| Left justified \| Right Justified \| No justification (presumably equivalent to left-justified). \|
+
+

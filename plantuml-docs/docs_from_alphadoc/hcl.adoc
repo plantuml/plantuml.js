@@ -1,0 +1,32 @@
+== Display HCL Data
+
+'''
+🚧 - __Under construction__
+
+🆕 functionality still in testing stage...
+These new features are still under construction 🚧
+
+🚧 - __Under construction__
+'''
+
+You can use PlantUML to visualize your https://hcl.readthedocs.io/en/latest/index.html[HCL Configuration Languages].
+
+To activate this feature, the diagram must:
+* begin with `+@starthcl+` keyword
+* end with `+@endhcl+` keyword. 
+
+<plantuml>
+@starthcl
+{
+key = "value"
+}
+@endhcl
+</plantuml>
+
+Ref.:
+* https://github.com/hashicorp/hcl[GH@hashicorp/hcl]
+* https://hcl.readthedocs.io/en/latest/index.html[HCL Configuration Languages].
+* https://github.com/plantuml/plantuml/search?q=HCL[HCL on GH@plantuml/plantuml]
+* https://forum.plantuml.net/17357/documentation-of-hcl-and-regex[QA-17357]
+
+

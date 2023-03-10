@@ -1,0 +1,58 @@
+== Information about the PlantUML Eclipse Plugin
+
+
+The Eclipse Plugin is developed and maintained by
+http://www.ntnu.edu/employees/hal[Hallvard Trætteberg]
+(many thanks for his work!).
+
+Like the core library PlantUML itself, it is __open source__ and the plugin is distributed under EPL license.
+
+The source code https://github.com/hallvard/plantuml[is hosted on GitHub].
+
+
+
+
+== How to use it?
+First, you have to display the __PlantUML View__ (click the __Window__ menu):
+
+image::eclipse103.png[]
+
+This view displays automatically the class you are working on:
+
+image::eclipse104.png[]
+
+If you write some comment in __PlantUML language__, the corresponding diagram is automatically displayed.
+And if you have several comments with diagrams, it selects the one the cursor is in.
+
+image::eclipse105.png[]
+
+In the __Preferences__ Windows, you can also set up link::graphviz-dot[GraphViz path if needed]:
+
+image::eclipse107.png[]
+
+
+== How to install it?
+
+
+To install the plugin, you have to:
+* Go to **Help/Software Update/Find and install...** or **Help/Install new software...**
+* Create (if needed) or choose the following site as update site: `+http://hallvard.github.io/plantuml/+`+++<br>+++image::eclipse101.png[]
+* Select PlantUML features:+++<br>+++image::eclipse102.png[]
+* Restart Eclipse
+
+
+== How to improve it?
+
+The plugin is not limited to Java source file, it also works with __Ecore____/Xcore__
+files.
+
+So that you can see the corresponding class diagram in a view side-by-side the __Ecore____/Xcore__
+editor :
+
+image::xwordfeud-plantuml.png[]
+
+If you want to support other file types, you can implement a new extension to do so.
+You can have a look at
+https://github.com/hallvard/plantuml/tree/master/net.sourceforge.plantuml.xcore[the current xcore implementation].
+
+

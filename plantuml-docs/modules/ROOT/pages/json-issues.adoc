@@ -1,0 +1,25 @@
+== JSON Diagram issues (json-issues)
+
+This page lists issues on link::json[JSON Diagram].
+
+
+== JSON two-character escape sequence issues
+
+
+[[#661111#FIXME]]
+FIXME `+\n+` and `+\+` management in PlantUML 😉
+__See https://forum.plantuml.net/13066[Report Bug on QA-13066]__
+[[#661111#FIXME]]
+[plantuml]
+----
+@startjson
+[
+"\\\\",
+"\\n",
+"\\r",
+"\\t"
+]
+@endjson
+----
+
+

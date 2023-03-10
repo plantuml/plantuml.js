@@ -1,0 +1,114 @@
+== External Links
+
+If you find **PlantUML** interesting, you may like also:
+
+
+* https://bschwarz.github.io/puml-themes/[Puml themes] Themes for plantuml diagrams
+* https://github.com/Drakemor/RedDress-PlantUML[RedDress] Color skins for class diagrams
+* http://www.topbestalternatives.com/plantuml[15 Alternatives to PlantUML]
+* https://github.com/milo-minderbinder/AWS-PlantUML[PlantUML sprites, macros, stereotypes, and other goodies for creating PlantUML diagrams with AWS components]
+* http://ceur-ws.org/Vol-1285/paper08.pdf[Towards Fixing Sketchy UML Models by Leveraging Textual Notations]
+* http://www.ej-technologies.com/products/jprofiler/overview.html[JProfiler] which has been used to profile PlantUML
+* http://yuml.me[yUML] which also allows to quickly write UML diagrams
+* http://www.websequencediagrams.com[WebSequenceDiagrams.com] which allows to generate online sequence diagrams.
+* http://trace2UML.tigris.org[http://trace2UML.tigris.org]
+* TraceUML which also allows to generate sequence diagrams from a textual description.
+* http://kushalhisblog.blogspot.com/2009/08/diagrammr.html[Diagrammr]: Another text to UML tool: 
+* http://ditaa.sourceforge.net[DIagrams Through Ascii Art (DITAA)] : to easily generate many kind of diagrams though ascii art. (link::ditaa[You can use it inside PlantUML!])
+* http://www.umlgraph.org[UMLGraph]
+* http://www.mcternan.me.uk/mscgen[Mscgen] that parses Message Sequence Chart
+* Msc-generator: https://sourceforge.net/projects/msc-generator/[Msc-generator on SourceForge] and https://gitlab.com/msc-generator/msc-generator[Msc-generator on GitLab]
+* http://diagramic.com[Diagramic.com]
+* http://www.ckwnc.com/help.html[Ckwnc.com]
+* https://github.com/knsv/mermaid[Mermaid]
+* https://nomnoml.com[Nomnoml]
+* http://bramp.github.io/js-sequence-diagrams[js-sequence-diagrams]
+* http://jumly.tmtk.net[Jumly]
+* http://adrai.github.io/flowchart.js[flowchart.js]
+* https://www.lucidchart.com/blog/2016/05/27/uml-sequence-diagrams-made-easy[Lucidchart : online diagram application that makes it easy to sketch and share professional flowchart diagrams]
+* https://www.gleek.io[Gleek.io is free description-to-diagrams tool for developers. Create informal, UML class, object, or entity-relationship diagrams using your keyboard.]
+* http://carltonf.github.io/from-text-to-simple-uml-diagram-tools[From Text to simple UML diagram]
+* https://github.com/pinetr2e/napkin[Napkin - Write Python code for sequence diagram, which is translated to PlantUML script]
+* https://www.diagramexpress.com/[DiagramExpress]: Online collaboration tool for diagram creation based on PlantUML.
+
+
+== Projects using PlantUML
+* https://www.planttext.com/[PlantText] is a online environment for working with PlantUML in the browser, without the need to install anything.
+* http://code.google.com/p/plant-uml-file-watcher[PlantUML File Watcher project] gives almost instant visualisations of the changes to your PlantUML diagrams.
+* http://code.google.com/p/plantuml-android[PlantUML for Android] converts text diagrams into images using plantuml.com.
+* https://github.com/dashersw/geneJS[geneJS (pronounced genesis)] is a JavaScript tool that generates JavaScript code from PlantUML class diagram source.
+* https://github.com/jupe/puml2code[puml2code] is a JavaScript utility to generate source code from PlantUML class diagram. Supports multiple languages.
+* http://people.apache.org/~luc/plantuml-apache-commons-math[plantuml-apache-commons-math]:Some static UML class diagrams for Apache Commons Math, created using PlantUML.
+* http://testoptimal.com/wiki/index.php?Message%20Sequence%20Chart%20%28MSC%29[Automated tests with TestOptimal.]
+* http://ews.mseedsoft.com/code-docs/page1.html[EWS Software Design] from Mustard Seed Software
+* http://code.google.com/p/pyang/wiki/UMLOutput[Pyang plugin to generate UML diagrams from YANG]
+* http://community.kde.org/KWin/Class_Diagram[KWin documentation]
+* https://rtsys.informatik.uni-kiel.de/trac/kieler/wiki/Help/PlantUML[Kiel Integrated Environment for Layout]
+* http://code.google.com/p/acra/wiki/PlantUmlTest[Documentation of ACRA] (Application Crash Report for Android)
+* http://code.google.com/p/trac-enterprise-suite/[Trac Enterprise Suite]
+* http://code.google.com/p/simpleret[Small portfolio & hobby project for reverse engineering Java/Enterprise Java application] http://translate.google.com/translate?sl=ru&tl=en&u=http%3A%2F%2Fdevprom.ru%2Fnews%2F%25D0%259D%25D0%25BE%25D0%25B2%25D0%25B0%25D1%258F-%25D0%25B2%25D0%25B5%25D1%2580%25D1%2581%25D0%25B8%25D1%258F-DEVPROM-2-9-3[devprom.ru]
+* https://github.com/rsoesemann/plantuml4force[PlantUML for Force.com] : Visualises the Apex Classes and Objects in your Org as configurable UML class diagrams
+* http://arxiv.org/pdf/1405.3240v1.pdf[Flowgen] : Flowchart-Based Documentation for C++ Codes
+* https://www.npmjs.com/package/arkit[arkit] : Visualises a JavaScript, TypeScript or Flow codebase architecture
+* https://github.com/mk-conn/plant2code[plant2code] : Generates code based on puml files - written in PHP
+* https://liveuml.com[LiveUML] : online PlantUML editor with instant visualization and syntax highlighting.
+* https://real-world-plantuml.com/[Real World PlantUML]: Examples of PlantUML diagrams
+* https://github.com/isaaceindhoven/plantuml-styler[PlantUML Styler] : Edit and style plantUML sequence diagrams https://plantumlstyler.netlify.com/[right in your browser] with instant feedback.
+* https://chrome.google.com/webstore/detail/plantuml-extension/jbdmdkcjhnceacdkahhpfpijcohplgaj[PlantUML extension]: This is a Google Chrome extension that replace PlantUML code blocks into preview images.
+* https://www.diagramexpress.com/[DiagramExpress]: Online collaboration tool for diagram creation based on PlantUML.
+* https://github.com/MarcoEidinger/SwiftPlantUML[SwiftPlantUML] Generate PlantUML class diagrams from Swift source code. Available as command-line tool, Swift Package and https://github.com/MarcoEidinger/SwiftPlantUML-Xcode-Extension[Xcode extension]
+* https://github.com/palaniraja/swiftuml[SwiftUML] Generate PlantUML class diagrams from Swift source code.
+* http://www.kep-software.nl/[KEP-Diagrams] Generate Diagrams for PlantUML using interactive choices.
+
+
+== Learn & Teach with PlantUML
+
+* http://www.cs.montana.edu/courses/se322/[Montana State University] - Carroll Computer Software Engineering Labs.
+* http://www2.cs.uidaho.edu/~jeffery/courses/383/hw2.html[University of Idaho] - Computer Science 383: Software Engineering.
+* https://sites.google.com/a/etsmtl.net/log210/diagrammes-en-plantuml[ÉTS - École de technologie supérieure - Montréal] - LOG210 Analyse et conception de logiciels.
+
+
+
+
+== UML for blind people
+
+* http://www.bfg-it.de/wiki/Blind_mit_UML_arbeiten[UML for Blind people]: How PlantUML can help blind developers (http://translate.google.com/translate?u=http%3A%2F%2Fwww.bfg-it.de%2Fwiki%2FBlind_mit_UML_arbeiten&sl=de&tl=en&hl=&ie=UTF-8[translation here])
+* https://groups.yahoo.com/neo/groups/blinduml/info[blinduml Yahoo group] : Discus special needs for blind people using Uml
+* http://icchp-su.net/?q=node/158[Workshop: How to read and create UML diagrams for blind persons] : ICCHP Summer University
+
+
+
+
+== Links about UML
+
+* https://advancedweb.hu/how-to-integrate-plantuml-into-other-software[How to integrate PlantUML into other software]
+* http://modeling-languages.com/interview-plantuml[A coffee with Jordi Cabot (from MOdeling LAnguages)]
+* http://yohshiy.blog.fc2.com/blog-category-22.html[PlantUML の使い方 ]
+* http://www.uml-diagrams.org[Nice site about UML]
+* http://modeling-languages.com[Modeling Language Portal]
+* http://modeling-languages.com/uml-tools-textual-notations-define-uml-models[This article] about Textual notations/languages to define UML models.
+* http://www.martinfowler.com/bliki/UmlAsSketch.html[This Martin Fowler's article about UML]
+* http://www.devcurry.com/2010/06/free-open-source-uml-tools.html[Another list of Free Open Source UML Tools]
+
+
+== Other stuffs
+
+* https://www.thoughtworks.com/radar/tools/plantuml[Technology Radar] from ThoughtWorks
+* http://eclipsesource.com/blogs/getting-started-with-j2v8[J2V8] - Running Javascript in Java with V8 Engine
+* http://haproxy.1wt.eu[HAProxy] - The Reliable, High Performance TCP/HTTP Load Balancer
+* http://entropymine.com/jason/tweakpng[TweakPNG] to retrieve metadata generated inside PNG files
+* http://www.graphviz.org[http://www.graphviz.org] which is used by **PlantUML**
+* http://www.jave.de[Java Ascii Versatile Editor]
+* http://www.joelonsoftware.com/articles/Unicode.html[The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets]
+* http://konieczny.be/unicode.html[Online Unicode (UTF-8) to HTML entity online converter]
+* http://www.freeformatter.com/java-dotnet-escape.html#ad-output[Escapes or unescapes a Java string removing traces of offending characters that could prevent compiling]
+* http://www.alanwood.net/unicode/geometric_shapes.html[Alan Wood's Unicode resources]
+* http://www.whoishostingthis.com/resources/ascii[The Ultimate Guide to ASCII Encoding]
+* http://doc.norang.ca/org-mode.html[Org Mode - Organize Your Life In Plain Text!]
+* http://www.ibm.com/developerworks/java/library/j-jtp01274/index.html[Java theory and practice: Garbage collection and performance]
+* http://optipng.sourceforge.net[optipng]
+* https://cards-dev.twitter.com/validator[Twitter Card validator]
+* https://webp-converter.com[Online WebP Converter]
+* https://zxing.org/w/decode.jspx[ZXing Decoder Online]
+
+

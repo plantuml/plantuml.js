@@ -1,0 +1,122 @@
+== Sub-diagram
+
+On PlantUML, you can mix all diagram type and make sub-diagram.
+
+To activate this feature, the sub-diagram must:
+* begin with `+{{+`
+* end with `+}}+`. 
+
+
+== Basic example
+
+Here is a basic example of sub-diagram, with adding an **Activty diagram** on a note on a **Class diagram**:
+<plantuml>
+@startuml
+abstract ATest {
+  {static} +String id
+  {abstract} -void doit()
+}
+
+class Test {
+  -int count
+  -int max
+  -int increment
+  -void doit()
+}
+
+ATest <|-- Test
+
+note right of Test::doit()
+{{
+  skinparam backgroundcolor transparent
+  start
+
+  while (count < max?)
+    :count = count + increment;
+  endwhile
+
+  stop
+}}
+end note
+@enduml
+</plantuml>
+
+__[Ref. https://forum.plantuml.net/6947/embed-sub-diagrams-in-diagram-like-a-note?show=7070#a7070[QA-6947]]__
+
+
+By default the background color of a sub-diagram is white.
+This can be solved by adding `+skinparam Backgroundcolor transparent+` to the sub-diagram.
+
+
+<plantuml>
+@startuml
+rectangle A [
+{{
+    rectangle A
+}}
+]
+
+rectangle B [
+{{
+    skinparam Backgroundcolor transparent
+    rectangle B
+}}
+]
+@enduml
+</plantuml>
+
+Besides being used in other elements or notes, they can also be used in messages.
+For this, the sub-diagram must be all on one line:
+
+<plantuml>
+@startuml
+(A) --> (B): \tSub-diagram in a message\n{{\n(C)->(D)\n}}
+@enduml
+</plantuml>
+
+
+== Inheritage of handwritten skinparam
+
+Sub-diagram can only herite of the `+handwritten+` skinparam from the hosted diagram, as:
+
+<plantuml>
+@startuml
+skinparam handwritten true
+	component a {
+	}
+	note left of a
+		handwritten is OK
+	end note
+	
+	note right of a
+		{{
+			a->b:test
+			note right
+				handwritten is inherited
+			end note
+		}}
+	end note
+@enduml
+</plantuml>
+
+__[Ref. https://forum.plantuml.net/9043/skinparam-handwritten-inherited-within-embedded-diagram[QA-9043]]__
+
+
+== Collection of all ref. of sub-diagram:
+
+
+* https://forum.plantuml.net/2427/salt-with-minimum-flowchat-capabilities[QA-2427]
+* https://forum.plantuml.net/6947/embed-sub-diagrams-in-diagram-like-a-note[QA-6947]
+* https://forum.plantuml.net/9341/embedding-in-interface-note-fails[QA-9341]
+* https://forum.plantuml.net/10967/order-mismatch-between-note-and-rectangle-with-embedded-salt[QA-10967]
+* https://forum.plantuml.net/11476/how-to-combine-activity-beta-and-state-diagrams[QA-11476]
+* https://forum.plantuml.net/11895/embed-sub-diagrams-all-type-especially-mindmap-type-diagram[QA-11895]
+* https://forum.plantuml.net/12609/json-diagrams-accept-json-diagram-diagram-embedded-diagram[QA-12609]
+* https://forum.plantuml.net/12722/can-combine-two-graphs-together-like-sequence-state-diagram[QA-12722]
+* https://forum.plantuml.net/12820/yaml-diagrams-accept-yaml-diagram-diagram-embedded-diagram[QA-12820]
+* https://forum.plantuml.net/12821/differences-between-outputs-background-diagram-embedded[QA-12821]
+* https://forum.plantuml.net/15433/not-embed-sub-diagrams-in-a-note[QA-15433]
+* [QA-]()
+* ...
+
+

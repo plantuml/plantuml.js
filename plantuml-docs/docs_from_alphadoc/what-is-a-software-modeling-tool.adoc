@@ -1,0 +1,11 @@
+== Modeling Tool
+
+Some users like to use PlantUML as a modeling tool.
+
+The goal of this page is to answer to this simple question:
+
+* **What is a modeling tool ?**
+
+Something important for the PlantUML team is to keep PlantUML as a text driven tool. Apart from this, we are open to all suggestions, so feel free to contribute by editing this page!
+
+

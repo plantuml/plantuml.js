@@ -1,0 +1,364 @@
+== A begin for this wiki...
+
+__(in order to be on the top of the TOC... ;-)__
+
+
+== For starting
+
+You can read : link::start[the start page].
+
+
+== Issues: __"If you see something, say something"__
+
+For that, you can go the link::issues[issues page].
+
+
+== Improve Documentation
+
+Contribute by:
+* by improving the English PlantUML documentation
+* by translating the English pages
+* by adding new topics...
+* helping with the huge categorized list of https://github.com/plantuml/plantuml/issues/261[Undocumented plantuml features] (100-200 tasks gathered from the forum) that needs your help!
+* here is the page, on **this wiki**, for follow link::undocumented[Undocumented PlantUML features in order to document]
+
+Here's how to start:
+* go to the http://alphadoc.plantuml.com/toc/[TOC] or mini-TOC (below)
+* select your preferred wiki syntax
+* select your language __(if you want to translate)__
+* and select a topic.
+
+
+== Wiki Mini TOC
+
+This section lists all pages in a categorized listing, whereas http://alphadoc.plantuml.com/toc/markdown/en[Wiki TOC] also lists all subsections.
+
+=== This Documentation Wiki
+* link::start[Start]
+* link::a_begin_for_this_wiki[A Begin for This Wiki]
+* link::menu[Menu translation]
+* link::formatting[formatting]
+* link::syntax-asciidoc[syntax-asciidoc]
+* link::syntax-dokuwiki[syntax-dokuwiki]
+* link::syntax-markdown[syntax-markdown]
+* link::poll-about-wiki-syntax[poll-about-wiki-syntax]
+
+=== Intro
+* link::index[Index]
+* link::starting[Quick Start]
+* link::faq[FAQ]
+* http://plantuml.com/guide[PlantUML Language Reference Guide]
+* https://plantuml.com/running[Running with Other Tools]
+* link::what-is-a-software-modeling-tool[What is a Software Modeling Tool]
+
+=== Diagrams
+
+The default header/footer (or StartTag/EndTag) are `+@startuml+`/`+@enduml+`.
+
+|===
+| Diagram | Diagram Issues | Header | Keyword | Sub-diagram Keyword
+
+| link::activity-diagram-beta[Activity]
+| link::activity-diagram-issues[Activity Issues]
+|
+|
+|
+
+| link::activity-diagram-beta#vmm58ifz7wd3k362kj5w[Activity - Specification and Description Language (SDL)]
+|
+|
+|
+|
+
+| link::activity-diagram-legacy[Activity-legacy] [[#FF6600#deprecated]]
+|
+|
+|
+|
+
+| link::archimate-diagram[Archimate]
+|
+|
+|
+|
+
+| link::bpmn[Business Process Modeling Notation (BPMN)]
+|
+| @startbpm
+|
+|
+
+| link::board-diagram[Board or User Story Maps+++<br>+++(🚧 __under construction__)]
+|
+| @startboard
+|
+| {{board
+
+| link::class-diagram[Class]
+| link::class-diagram-issues[Class Issues]
+|
+|
+|
+
+| link::component-diagram[Component]
+| link::deployment-diagram-issues[Deployment Issue]
+|
+|
+|
+
+| link::deployment-diagram[Deployment]
+| link::deployment-diagram-issues[Deployment Issue]
+|
+|
+|
+
+| link::ebnf[EBNF+++<br>+++(🆕 functionality)]
+| link::ebnf-issues[EBNF Issues]
+| @startebnf
+|
+| {{ebnf
+
+| link::gantt-diagram[Gantt project planning]
+|
+| @startgantt
+|
+| {{gantt
+
+| link::ie-diagram[Information Engineering (IE) / Entity Relationship (ER)]
+|
+|
+|
+|
+
+| link::json[JSON]
+| link::json-issues[JSON Issues]
+| @startjson
+|
+| {{json
+
+| link::mindmap-diagram[MindMap]
+|
+| @startmindmap
+|
+| {{mindmap
+
+| link::nwdiag[Network (nwdiag)]
+| link::nwdiag-issues[Network Issue]
+| @startnwdiag
+| nwdiag {+++<br>+++}
+|
+
+| link::object-diagram[Object]
+|
+|
+|
+|
+
+| link::problem-diagram[Problem diagram]
+|
+|
+|
+|
+
+| link::sequence-diagram[Sequence]
+|
+|
+|
+|
+
+| link::state-diagram[State]
+| link::state-diagram-issues[State Issue]
+|
+|
+|
+
+| link::timing-diagram[Timing]
+| link::timing-diagram-issues[Timing Issue]
+|
+|
+|
+
+| link::use-case-diagram[Use-Case]
+| link::deployment-diagram-issues[Deployment Issue]
+|
+|
+|
+
+| link::wbs-diagram[Work Breakdown Structure (WBS)]
+|
+| @startwbs
+|
+| {{wbs
+
+| link::salt[Wireframe (SALT)]
+|
+| @startsalt
+| salt+++<br>+++{+++<br>+++}
+|
+
+| link::wire-diagram[Wire or Block Diagram+++<br>+++(🆕 __beta version to test__)]
+|
+| @startwire
+|
+| {{wire [[#00CC00#Version 1.2021.01]]
+
+| link::yaml[YAML]
+|
+| @startyaml
+|
+| {{yaml [[#00CC00#Version 1.2021.01]]
+
+|===
+
+=== Other Diagrams/Games
+
+|===
+| Diagram | Header | Keyword | Sub-diagram Keyword | Command
+
+| link::creole[Creole]
+| @startcreole
+|
+|
+|
+
+| link::ditaa[ditaa]
+| @startditaa
+| ditaa
+|
+| (--no-separation, --no-shadows, scale=<scale>)
+
+| link::dot[Dot]
+| @startdot
+| digraph <graph\_name>{+++<br>+++}
+|
+|
+
+| link::ascii-math[Math]
+| @startmath
+| `+<math>...</math>+`
+|
+|
+
+| link::ascii-math[LaTeX]
+| @startlatex
+| `+<latex>...</latex>+`
+|
+|
+
+| link::oregon-trail[Oregon Trail]
+|
+|
+|
+| run oregon trail
+
+| link::sudoku[Sudoku]
+|
+|
+|
+| sudoku
+
+| link::xearth[XEarth]
+|
+|
+|
+| xearth
+
+|===
+
+=== Common/Markup/Layout
+* link::commons[commons]
+* link::ascii-math[🧮 AsciiMath]
+* link::color[🌈 color] 
+* link::creole[creole]
+* link::font[🔤 font] 
+* link::gfm-support[GFM-support]
+* link::handwritten[✍ handwritten]
+* link::notes[🗨 notes]
+* link::link[🔗 link] 
+* link::openiconic[openiconic]
+* link::skinparam[skinparam]
+* link::sprite[sprite]
+* link::style-evolution-history[style-evolution-history]
+* link::style-evolution[🎨🖌️style-evolution (Style or CSS like style)]
+* link::using-a-citation-manager[using-a-citation-manager]
+* link::poll-about-package-and-namespace[poll-about-package-and-namespace]
+
+=== Preprocessing/Libraries
+* link::stdlib[📚 stdlib]
+* link::theme[🖼️ theme]
+* link::theme-gallery[🖼️🗃 theme Gallery]
+* link::preprocessing[⚙ preprocessing __(new)__] 
+* link::preprocessing-json[preprocessing-json]
+* link::preprocessing-gallery[⚙🗃 Preprocessing Gallery]
+* link::preprocessing-v2[preprocessing-v2 __(old)__] [[#FF6600#deprecated]]
+* link::plantumlshell[plantumlshell __(very old)__] [[#FF6600#deprecated]]
+
+=== URL Authentication
+* link::url-authentication[URL-Authentication]
+** link::url-basicauth[URL-BasicAuth]
+** link::url-oauth[URL-OAauth]
+** link::url-tokenauth[URL-TokenAuth]
+
+=== Alternative Layouters
+* link::smetana02[Smetana]
+* link::elk[ELK]
+* link::svek[Svek]
+* link::teoz[Teoz]
+* link::vizjs[VizJs]
+
+=== Executing
+* link::command-line[Command-line]
+* link::faq-install[FAQ-install]
+* link::ftp[FTP]
+* link::gui[GUI]
+* link::graphviz-dot[Graphviz-dot]
+* link::server[Server]
+* link::sources[Sources]
+* link::security[Security]
+* link::starting[Starting]
+* link::statistics-report[Statistics-report]
+* link::text-encoding[Text-encoding]
+* link::unicode[Unicode]
+* link::versioning-scheme[Versioning-scheme]
+
+=== Alternative Output
+* link::ascii-art[ASCII-art]
+* link::eps[EPS]
+* link::latex[LaTeX]
+* link::pdf[PDF]
+* link::svg[SVG]
+
+=== Integrations
+
+__(see https://plantuml.com/running[running] for a lot more links, unfortunately that page is not on alphadocs)__
+
+* link::ant-task[Ant-task]
+* link::doclet[Doclet]
+* link::docutils[Docutils]
+* link::doxygen[Doxygen]
+* link::eclipse[Eclipse]
+* link::emacs[Emacs]
+* link::javadoc[Javadoc]
+* link::jquery[JQuery]
+* link::pmwiki[PmWiki]
+* link::word[Word]
+* link::xmi[XMI]
+
+=== Programming
+* link::developers[Developers]
+* link::api[API]
+* link::code-groovy[code-groovy]
+* link::code-javascript-asynchronous[code-javascript-asynchronous]
+* link::code-javascript-synchronous[code-javascript-synchronous]
+* link::code-php[code-php]
+
+=== Support and Appreciation
+* link::patreon-support[Patreon-support]
+* link::donors[Donors]
+* link::external-links[External-links]: Projects using PlantUML, Learn & Teach with PlantUML, etc.
+* link::professional[Professional]
+* link::issues[Wiki Issues]
+* link::dedication[Dedication]
+* link::steve[Steve Jobs]
+
+

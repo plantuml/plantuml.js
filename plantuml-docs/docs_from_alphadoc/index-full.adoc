@@ -1,0 +1,55 @@
+== PlantUML in a nutshell
+
+**PlantUML** is a component that allows to quickly write :
+
+* link::sequence-diagram[Sequence diagram]
+* link::use-case-diagram[Usecase diagram]
+* link::class-diagram[Class diagram]
+* link::activity-diagram-beta[Activity diagram] (here is link::activity-diagram-legacy[the legacy syntax)]
+* link::component-diagram[Component diagram]
+* link::state-diagram[State diagram]
+* link::object-diagram[Object diagram]
+* link::deployment-diagram[Deployment diagram] image::beta-icon.gif[]
+* link::timing-diagram[Timing diagram] image::beta-icon.gif[]
+
+The following non-UML diagrams are also supported:
+
+* link::salt[Wireframe graphical interface]
+* link::archimate-diagram[Archimate diagram]
+* link::activity-diagram-beta#sdl[Specification and Description Language (SDL)]
+* link::ditaa[Ditaa diagram]
+* link::gantt-diagram[Gantt diagram] image::beta-icon.gif[]
+* link::mindmap-diagram[MindMap diagram] image::beta-icon.gif[]
+* link::wbs-diagram[Work Breakdown Structure diagram] image::beta-icon.gif[]
+* link::ascii-math[Mathematic with AsciiMath or JLaTeXMath notation]
+* link::ie-diagram[Entity Relationship diagram]
+
+Diagrams are defined using a simple and intuitive language. (link::guide[see PlantUML Language Reference Guide]).
+
+New users can read the link::starting[quick start page]. There is also a link::faq[F.A.Q. page]. PlantUML can be used within link::running[many other tools].
+
+Images can be generated in PNG, link::svg[in SVG] or link::latex[in LaTeX] format. It is also possible to generate link::ascii-art[ASCII art diagrams] (only for sequence diagrams).
+
+'''
+
+**# online generations:**
+* Since ever __4242424242__
+* Last 24 hours __42424242__
+* Last hour __4242__
+* Last minute __42__
+
+|===
+| +++<u>Example</u>+++: +++<br>+++ __(You can edit the text if you want, the diagram will be dynamically updated!)__ | +++<u>describes the following diagram :</u>+++
+
+| `+Bob->Alice : hello+`
+| image::syffkj2rkt3coknelr1io4zdosa70000.png[]
+
+|===
+
+This example is working thanks to the http://www.plantuml.com/plantuml[online demo server].
+
+'''
+
+__You can contribute on this page by clicking here.__
+
+

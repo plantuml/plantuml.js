@@ -1,0 +1,237 @@
+== Problem diagram
+
+Extension of PlantUML __(See https://github.com/plantuml/plantuml/pull/120[Pull\_Request-120])__, initiate by https://github.com/yijunyu[Yijun Yu], to draw Problem Diagrams or diagram for https://en.wikipedia.org/wiki/Problem_frames_approach[problem analysis or problem frames approach], a rather useful requirements modeling diagram based on Michael Jackson's Problem Frames.
+
+
+== Example R1
+
+<plantuml>
+@startuml
+left to right direction
+title Problem Diagram R1
+requirement "Collect and display drone flight paths on a map" as R1
+domain "Google Map" as D1       <<Designed>>
+domain "Onboard LiveBox" as D2  <<Designed>>
+domain "Drone"   as D3  <<Biddable>>
+domain "Path"    as D4  <<Lexical>>
+domain "Map"     as D5  <<Causal>>
+domain "Monitor" as M   <<Machine>>
+M -- D1:                a1
+M -- D2:                b1
+D1 -- D4:               d1
+D4 <-[dashed]- R1:      d
+D2 -- D3:               e1
+D3 -[dashed]- R1:       e
+D2 -- D4:               d2
+D5 <-[dashed]- R1:      c
+D1 -- D5:               c1
+@enduml
+</plantuml>
+
+__[from https://github.com/plantuml/plantuml/pull/120[Pull\_Request-120]]__
+
+
+== Example R1-1
+
+<plantuml>
+@startuml
+left to right direction
+title Problem Diagram R1-1
+requirement "Collect drone flight paths" as R
+domain "Drone collocated \n with Smartphone" as D31 <<Designed>> {
+    domain "Drone" as D3 <<Biddable>>
+    domain "Smartphone" as D321 <<Causal>> {
+        domain "LiveBox App" as D32 <<Designed>>
+    }
+}
+'D3 -- D321: f
+'note bottom on link
+'   assume that the smartphone and the drone are always collocated
+'end note
+domain "Path"  as D4 <<Lexical>>
+domain "Onboard LiveBox" as M <<Machine>>
+D4 <-- R: 	d
+note bottom on link
+   the flight path consists of
+   zero to many geolocations
+end note   
+D3 -- R: e
+note bottom on link
+   the drone's geolocation includes 
+   latitude, longitude, altitude
+   and the timestamp
+end note  
+M -- D4: d2
+note bottom on link
+   <(geolocation, timestamp)> 
+   by the order of timestamps
+end note
+M -- D32: e1
+note bottom on link
+   (geolocation, timestamp) from 
+   the smart phone as a payload 
+   of the drone
+end note
+@enduml
+</plantuml>
+
+Sequence:
+<plantuml>
+@startuml
+'skinparam backgroundColor lightblue
+hide footbox
+participant "Onboard LiveBox" as LB
+participant "Drone" as D
+participant "Path" as P
+D -> LB: d2: takeoff(initial location)
+LB -> P: e1: save(initial location)
+loop
+    D -> LB: d2: send(location)
+    LB -> P: e1: save(location)
+end
+D -> LB: d2: landing(final location)
+LB -> P: e1: save(final location)
+@enduml 
+</plantuml>
+
+
+== Example R1-2
+
+<plantuml>
+@startuml
+left to right direction
+title <&caret-right> Problem Diagram R1-2<&caret-left>
+
+requirement "Display paths on a map" as R1
+domain "Path"    as D4 	<<Lexical>>
+domain "Map"     as D5 	<<Causal>>
+domain "Google Map" as M 	<<Machine>>
+M -- D4: 		d1
+D4 -[dashed]- R1: 	d
+D5 <-[dashed]- R1: 	c
+M -- D5:		c1
+@enduml
+</plantuml>
+
+
+== Example LiveBox 
+
+<plantuml>
+@startuml
+hide footbox
+
+title LiveBox Scenario
+
+participant Nesta
+participant HospitalFrom
+actor Pilot
+participant Drone
+participant Controller
+participant HospitalTo
+participant NHS
+
+HospitalTo <- NHS: request delivery
+Nesta <- HospitalTo: request delivery(HospitalFrom, HospitalTo, Type, Size, Amount)
+Nesta -> Drone: select
+Nesta -> Pilot: select
+alt selected
+Nesta -> HospitalFrom: inform
+HospitalFrom -> Pilot: send payload
+Pilot -> Drone: load delivery
+Pilot -> Controller: send
+Drone <- Controller : take off
+loop
+  Pilot -> Drone: maneuver
+  Drone -> Controller: report
+  Pilot <- Controller: display
+  Nesta <- Controller: notify periodically
+end
+Pilot -> Controller: landing
+Drone <- Controller: landing
+Drone -> Controller: landed
+Pilot <- Controller: landed
+Nesta <- Controller: landed
+Nesta -> HospitalTo: inform
+Drone <- HospitalTo: unload
+Drone <- HospitalTo: turn off
+Nesta -> HospitalTo: package received
+Nesta -> HospitalFrom: inform successful
+Nesta -> Pilot: inform successful
+end
+
+@enduml
+</plantuml>
+
+
+== Example of Composition of two designed domains
+
+<plantuml>
+@startuml
+left to right direction
+title Composition of two designed domains
+left to right direction
+domain "Monitor" as M <<Machine>> {
+	domain "Google Map" as D1 <<Designed>>
+	domain "Onboard LiveBox" as D2 <<Designed>>
+}
+domain "Map" as D3 <<Causal>>
+domain "Path" as D4 <<Lexical>>
+domain "Drone" as D5 <<Biddable>>
+requirement "Requirements" as R {
+	requirement "Display flight paths on a map" as R1
+	requirement "Collect flight paths from a drone" as R2
+}
+R1 -[dashed]left-> D3: c 
+D4 -[dashed]-> R1: d
+R2 -[dashed]left-> D4: d
+D5 -[dashed]-> R2: e
+D1 --> D3: c1
+D1 --> D4: d1
+D2 --> D4: d2
+D2 --> D5: e1
+@enduml
+</plantuml>
+
+
+== Example of Problem
+
+<plantuml>
+@startuml
+left to right direction
+domain "Monitor" as M <<Machine>>
+domain "Display" as D1 <<Designed>>
+domain "Collect" as D2 <<Causal>>
+domain "Pilot" as P <<Biddable>>
+domain "Table" as TT <<Lexical>>
+domain "XYZ" as XYZ <<(C)>>
+requirement "R1" as R1
+M -- D1: a
+D1 -[dashed]- R1: a
+D2 <-[dashed]- R1: b
+TT -[dashed]- R1: c
+P -[dashed]- R1: d
+M -- TT: c
+M -- D2: b
+M -- P: d
+@enduml
+</plantuml>
+
+
+== Minimal example
+
+<plantuml>
+@startuml
+title Minimal example
+domain "Biddable" as B <<B>>
+domain "Causal"   as C <<C>>
+domain "Designed" as D <<D>>
+domain "Lexical"  as L <<X>>
+domain "Machine"  as M <<S>>
+domain "Problem"  as s <<P>>
+requirement "Requirement" as R
+@enduml
+</plantuml>
+
+__[Ref. https://github.com/plantuml/plantuml/pull/120[GH-120]]__
+
+

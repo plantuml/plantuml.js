@@ -1,0 +1,13 @@
+.plantuml-diagram {
+    overflow: hidden;
+}
+
+.plantuml-diagram .listingblock {
+    float: left;
+    overflow: hidden;
+}
+
+.plantuml-diagram .img {
+    float: left;
+    overflow: hidden;
+}            

@@ -1,0 +1,51 @@
+== If you see something, say something
+
+Just edit this part to tell us what is not working well.
+
+Thanks!
+
+
+== Links to target URLs with parentheses
+
+Links to URLs with parentheses `+(+` and `+)+` don't seem to work in any of the 3 syntaxes offered. See e.g. the link to `+https://en.wikipedia.org/wiki/Creole_(markup)+` at http://alphadoc.plantuml.com/doc/asciidoc/en/formatting[formatting].
+
+[[#98FB98#DONE]] With use of https://en.wikipedia.org/wiki/Percent-encoding[Percent-encoding] → https://en.wikipedia.org/wiki/Creole\_%28markup%29[Creole]
+
+
+== How to change order of the first paragraph?
+
+On __"Edit Table Of Content order"__:
+* How to change order of the first paragraph?
+
+We can change the order of all the other §, but not of the first!
+
+[[#98fb98#workaround]] A possible workaround is to overwrite the 1st §.
+And create a new §, with the old 1st §.
+
+
+== How to add code and image on table?
+
+How to add code and image on table?
+
+
+Here is a test :
+
+|===
+| code | output
+
+| `+"actor"+`
+| <plantuml>+++<br>+++"actor"+++<br>+++</plantuml>
+
+|===
+
+the `+<plantuml>+++<br>+++"actor"+++<br>+++</plantuml>+` is not evaluate?
+
+like:
+
+<plantuml>
+@startuml
+"actor"
+@enduml
+</plantuml>
+
+

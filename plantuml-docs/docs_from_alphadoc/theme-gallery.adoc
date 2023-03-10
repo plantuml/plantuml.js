@@ -1,0 +1,11674 @@
+== Theme Gallery
+
+Here is a Gallery of all the PlantUML link::theme[theme].
+
+
+== List of all themes
+
+<plantuml>
+@startuml
+help themes
+@enduml
+</plantuml>
+
+
+=== amiga
+==== Activity with `+amiga+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme amiga
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+amiga+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme amiga
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+amiga+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme amiga
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+amiga+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme amiga
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+amiga+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme amiga
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+amiga+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme amiga
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+amiga+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme amiga
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+amiga+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme amiga
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+amiga+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme amiga
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+amiga+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme amiga
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+amiga+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme amiga
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+amiga+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme amiga
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== aws-orange
+==== Activity with `+aws-orange+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme aws-orange
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+aws-orange+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme aws-orange
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+aws-orange+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme aws-orange
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+aws-orange+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme aws-orange
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+aws-orange+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme aws-orange
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+aws-orange+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme aws-orange
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+aws-orange+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme aws-orange
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+aws-orange+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme aws-orange
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+aws-orange+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme aws-orange
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+aws-orange+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme aws-orange
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+aws-orange+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme aws-orange
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+aws-orange+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme aws-orange
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+black-knight+`
+==== Activity with `+black-knight+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme black-knight
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+black-knight+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme black-knight
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+black-knight+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme black-knight
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+black-knight+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme black-knight
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+black-knight+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme black-knight
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+black-knight+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme black-knight
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+black-knight+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme black-knight
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+black-knight+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme black-knight
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+black-knight+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme black-knight
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+black-knight+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme black-knight
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+black-knight+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme black-knight
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+black-knight+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme black-knight
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+bluegray+`
+==== Activity with `+bluegray+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme bluegray
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+bluegray+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme bluegray
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+bluegray+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme bluegray
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+bluegray+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme bluegray
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+bluegray+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme bluegray
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+bluegray+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme bluegray
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+bluegray+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme bluegray
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+bluegray+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme bluegray
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+bluegray+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme bluegray
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+bluegray+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme bluegray
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+bluegray+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme bluegray
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+bluegray+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme bluegray
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+blueprint+`
+==== Activity with `+blueprint+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme blueprint
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+blueprint+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme blueprint
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+blueprint+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme blueprint
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+blueprint+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme blueprint
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+blueprint+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme blueprint
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+blueprint+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme blueprint
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+blueprint+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme blueprint
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+blueprint+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme blueprint
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+blueprint+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme blueprint
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+blueprint+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme blueprint
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+blueprint+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme blueprint
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+blueprint+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme blueprint
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+cerulean+`
+==== Activity with `+cerulean+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cerulean
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+cerulean+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cerulean
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+cerulean+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cerulean
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+cerulean+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cerulean
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+cerulean+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme cerulean
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+cerulean+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cerulean
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+cerulean+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cerulean
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+cerulean+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme cerulean
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+cerulean+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cerulean
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+cerulean+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cerulean
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+cerulean+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cerulean
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+cerulean+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme cerulean
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+cerulean-outline+`
+==== Activity with `+cerulean-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cerulean-outline
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+cerulean-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cerulean-outline
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+cerulean-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cerulean-outline
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+cerulean-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cerulean-outline
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+cerulean-outline+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme cerulean-outline
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+cerulean-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cerulean-outline
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+cerulean-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cerulean-outline
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+cerulean-outline+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme cerulean-outline
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+cerulean-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cerulean-outline
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+cerulean-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cerulean-outline
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+cerulean-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cerulean-outline
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+cerulean-outline+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme cerulean-outline
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+crt-amber+`
+==== Activity with `+crt-amber+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme crt-amber
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+crt-amber+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme crt-amber
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+crt-amber+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme crt-amber
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+crt-amber+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme crt-amber
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+crt-amber+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme crt-amber
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+crt-amber+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme crt-amber
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+crt-amber+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme crt-amber
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+crt-amber+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme crt-amber
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+crt-amber+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme crt-amber
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+crt-amber+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme crt-amber
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+crt-amber+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme crt-amber
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+crt-amber+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme crt-amber
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+crt-green+`
+==== Activity with `+crt-green+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme crt-green
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+crt-green+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme crt-green
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+crt-green+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme crt-green
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+crt-green+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme crt-green
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+crt-green+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme crt-green
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+crt-green+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme crt-green
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+crt-green+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme crt-green
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+crt-green+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme crt-green
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+crt-green+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme crt-green
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+crt-green+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme crt-green
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+crt-green+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme crt-green
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+crt-green+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme crt-green
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+cyborg+`
+==== Activity with `+cyborg+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cyborg
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+cyborg+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cyborg
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+cyborg+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cyborg
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+cyborg+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cyborg
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+cyborg+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme cyborg
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+cyborg+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cyborg
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+cyborg+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cyborg
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+cyborg+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme cyborg
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+cyborg+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cyborg
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+cyborg+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cyborg
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+cyborg+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cyborg
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+cyborg+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme cyborg
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+cyborg-outline+`
+==== Activity with `+cyborg-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cyborg-outline
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+cyborg-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cyborg-outline
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+cyborg-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cyborg-outline
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+cyborg-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cyborg-outline
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+cyborg-outline+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme cyborg-outline
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+cyborg-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cyborg-outline
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+cyborg-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cyborg-outline
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+cyborg-outline+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme cyborg-outline
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+cyborg-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cyborg-outline
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+cyborg-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cyborg-outline
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+cyborg-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme cyborg-outline
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+cyborg-outline+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme cyborg-outline
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+hacker+`
+==== Activity with `+hacker+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme hacker
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+hacker+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme hacker
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+hacker+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme hacker
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+hacker+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme hacker
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+hacker+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme hacker
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+hacker+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme hacker
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+hacker+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme hacker
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+hacker+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme hacker
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+hacker+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme hacker
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+hacker+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme hacker
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+hacker+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme hacker
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+hacker+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme hacker
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+lightgray+`
+==== Activity with `+lightgray+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme lightgray
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+lightgray+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme lightgray
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+lightgray+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme lightgray
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+lightgray+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme lightgray
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+lightgray+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme lightgray
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+lightgray+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme lightgray
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+lightgray+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme lightgray
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+lightgray+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme lightgray
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+lightgray+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme lightgray
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+lightgray+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme lightgray
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+lightgray+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme lightgray
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+lightgray+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme lightgray
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+materia+`
+==== Activity with `+materia+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme materia
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+materia+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme materia
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+materia+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme materia
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+materia+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme materia
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+materia+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme materia
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+materia+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme materia
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+materia+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme materia
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+materia+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme materia
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+materia+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme materia
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+materia+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme materia
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+materia+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme materia
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+materia+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme materia
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+materia-outline+`
+==== Activity with `+materia-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme materia-outline
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+materia-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme materia-outline
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+materia-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme materia-outline
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+materia-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme materia-outline
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+materia-outline+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme materia-outline
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+materia-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme materia-outline
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+materia-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme materia-outline
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+materia-outline+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme materia-outline
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+materia-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme materia-outline
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+materia-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme materia-outline
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+materia-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme materia-outline
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+materia-outline+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme materia-outline
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+metal+`
+==== Activity with `+metal+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme metal
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+metal+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme metal
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+metal+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme metal
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+metal+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme metal
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+metal+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme metal
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+metal+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme metal
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+metal+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme metal
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+metal+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme metal
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+metal+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme metal
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+metal+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme metal
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+metal+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme metal
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+metal+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme metal
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+mimeograph+`
+==== Activity with `+mimeograph+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme mimeograph
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+mimeograph+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme mimeograph
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+mimeograph+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme mimeograph
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+mimeograph+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme mimeograph
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+mimeograph+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme mimeograph
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+mimeograph+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme mimeograph
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+mimeograph+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme mimeograph
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+mimeograph+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme mimeograph
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+mimeograph+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme mimeograph
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+mimeograph+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme mimeograph
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+mimeograph+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme mimeograph
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+mimeograph+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme mimeograph
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+minty+`
+==== Activity with `+minty+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme minty
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+minty+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme minty
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+minty+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme minty
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+minty+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme minty
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+minty+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme minty
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+minty+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme minty
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+minty+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme minty
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+minty+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme minty
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+minty+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme minty
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+minty+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme minty
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+minty+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme minty
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+minty+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme minty
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+plain+`
+==== Activity with `+plain+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme plain
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+plain+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme plain
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+plain+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme plain
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+plain+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme plain
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+plain+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme plain
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+plain+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme plain
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+plain+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme plain
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+plain+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme plain
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+plain+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme plain
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+plain+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme plain
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+plain+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme plain
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+plain+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme plain
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+resume-light+`
+==== Activity with `+resume-light+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme resume-light
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+resume-light+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme resume-light
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+resume-light+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme resume-light
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+resume-light+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme resume-light
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+resume-light+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme resume-light
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+resume-light+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme resume-light
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+resume-light+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme resume-light
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+resume-light+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme resume-light
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+resume-light+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme resume-light
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+resume-light+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme resume-light
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+resume-light+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme resume-light
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+resume-light+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme resume-light
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+sandstone+`
+==== Activity with `+sandstone+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme sandstone
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+sandstone+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme sandstone
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+sandstone+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme sandstone
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+sandstone+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme sandstone
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+sandstone+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme sandstone
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+sandstone+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme sandstone
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+sandstone+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme sandstone
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+sandstone+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme sandstone
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+sandstone+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme sandstone
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+sandstone+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme sandstone
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+sandstone+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme sandstone
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+sandstone+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme sandstone
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+silver+`
+==== Activity with `+silver+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme silver
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+silver+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme silver
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+silver+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme silver
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+silver+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme silver
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+silver+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme silver
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+silver+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme silver
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+silver+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme silver
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+silver+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme silver
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+silver+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme silver
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+silver+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme silver
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+silver+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme silver
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+silver+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme silver
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+sketchy+`
+==== Activity with `+sketchy+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme sketchy
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+sketchy+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme sketchy
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+sketchy+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme sketchy
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+sketchy+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme sketchy
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+sketchy+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme sketchy
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+sketchy+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme sketchy
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+sketchy+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme sketchy
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+sketchy+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme sketchy
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+sketchy+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme sketchy
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+sketchy+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme sketchy
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+sketchy+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme sketchy
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+sketchy+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme sketchy
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+=== Theme `+sketchy-outline+`
+==== Activity with `+sketchy-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme sketchy-outline
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+
+=== Theme `+sketchy-outline+`
+==== Activity with `+sketchy-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme sketchy-outline
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+sketchy-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme sketchy-outline
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+sketchy-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme sketchy-outline
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+sketchy-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme sketchy-outline
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+sketchy-outline+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme sketchy-outline
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+sketchy-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme sketchy-outline
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+sketchy-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme sketchy-outline
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+sketchy-outline+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme sketchy-outline
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+sketchy-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme sketchy-outline
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+sketchy-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme sketchy-outline
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+sketchy-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme sketchy-outline
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+sketchy-outline+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme sketchy-outline
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+spacelab+`
+==== Activity with `+spacelab+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme spacelab
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+spacelab+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme spacelab
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+spacelab+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme spacelab
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+spacelab+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme spacelab
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+spacelab+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme spacelab
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+spacelab+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme spacelab
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+spacelab+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme spacelab
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+spacelab+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme spacelab
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+spacelab+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme spacelab
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+spacelab+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme spacelab
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+spacelab+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme spacelab
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+spacelab+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme spacelab
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+toy+`
+==== Activity with `+toy+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme toy
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+toy+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme toy
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+toy+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme toy
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+toy+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme toy
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+toy+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme toy
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+toy+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme toy
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+toy+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme toy
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+toy+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme toy
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+toy+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme toy
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+toy+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme toy
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+toy+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme toy
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+toy+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme toy
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+united+`
+==== Activity with `+united+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme united
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+united+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme united
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+united+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme united
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+united+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme united
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+united+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme united
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+united+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme united
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+united+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme united
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+united+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme united
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+united+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme united
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+united+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme united
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+united+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme united
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+united+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme united
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+vibrant+`
+==== Activity with `+vibrant+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme vibrant
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+vibrant+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme vibrant
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+vibrant+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme vibrant
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+vibrant+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme vibrant
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+vibrant+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme vibrant
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+vibrant+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme vibrant
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+vibrant+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme vibrant
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+vibrant+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme vibrant
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+vibrant+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme vibrant
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+vibrant+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme vibrant
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+vibrant+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme vibrant
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+vibrant+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme vibrant
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+superhero+`
+==== Activity with `+superhero+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme superhero
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+superhero+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme superhero
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+superhero+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme superhero
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+superhero+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme superhero
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+superhero+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme superhero
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+superhero+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme superhero
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+superhero+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme superhero
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+superhero+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme superhero
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+superhero+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme superhero
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+superhero+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme superhero
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+superhero+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme superhero
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+superhero+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme superhero
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+superhero-outline+`
+==== Activity with `+superhero-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme superhero-outline
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+superhero-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme superhero-outline
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+superhero-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme superhero-outline
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+superhero-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme superhero-outline
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+superhero-outline+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme superhero-outline
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+superhero-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme superhero-outline
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+superhero-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme superhero-outline
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+superhero-outline+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme superhero-outline
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+superhero-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme superhero-outline
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+superhero-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme superhero-outline
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+superhero-outline+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme superhero-outline
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+superhero-outline+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme superhero-outline
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+reddress-darkblue+`
+==== Activity with `+reddress-darkblue+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-darkblue
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+reddress-darkblue+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-darkblue
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+reddress-darkblue+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-darkblue
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+reddress-darkblue+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-darkblue
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+reddress-darkblue+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme reddress-darkblue
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+reddress-darkblue+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-darkblue
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+reddress-darkblue+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-darkblue
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+reddress-darkblue+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme reddress-darkblue
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+reddress-darkblue+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-darkblue
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+reddress-darkblue+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-darkblue
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+reddress-darkblue+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-darkblue
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+reddress-darkblue+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme reddress-darkblue
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+reddress-darkorange+`
+==== Activity with `+reddress-darkorange+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-darkorange
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+reddress-darkorange+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-darkorange
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+reddress-darkorange+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-darkorange
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+reddress-darkorange+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-darkorange
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+reddress-darkorange+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme reddress-darkorange
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+reddress-darkorange+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-darkorange
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+reddress-darkorange+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-darkorange
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+reddress-darkorange+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme reddress-darkorange
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+reddress-darkorange+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-darkorange
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+reddress-darkorange+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-darkorange
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+reddress-darkorange+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-darkorange
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+reddress-darkorange+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme reddress-darkorange
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+reddress-darkred+`
+==== Activity with `+reddress-darkred+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-darkred
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+reddress-darkred+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-darkred
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+reddress-darkred+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-darkred
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+reddress-darkred+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-darkred
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+reddress-darkred+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme reddress-darkred
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+reddress-darkred+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-darkred
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+reddress-darkred+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-darkred
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+reddress-darkred+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme reddress-darkred
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+reddress-darkred+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-darkred
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+reddress-darkred+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-darkred
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+reddress-darkred+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-darkred
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+reddress-darkred+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme reddress-darkred
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+reddress-lightblue+`
+==== Activity with `+reddress-lightblue+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightblue
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+reddress-lightblue+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightblue
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+reddress-lightblue+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightblue
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+reddress-lightblue+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightblue
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+reddress-lightblue+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme reddress-lightblue
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+reddress-lightblue+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightblue
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+reddress-lightblue+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightblue
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+reddress-lightblue+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme reddress-lightblue
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+reddress-lightblue+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightblue
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+reddress-lightblue+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightblue
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+reddress-lightblue+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightblue
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+reddress-lightblue+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme reddress-lightblue
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+=== Theme `+reddress-lightgreen+`
+==== Activity with `+reddress-lightgreen+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightgreen
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+
+=== Theme `+reddress-lightgreen+`
+==== Class with `+reddress-lightgreen+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightgreen
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+reddress-lightgreen+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightgreen
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+reddress-lightgreen+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightgreen
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+reddress-lightgreen+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme reddress-lightgreen
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+reddress-lightgreen+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightgreen
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+reddress-lightgreen+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightgreen
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+reddress-lightgreen+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme reddress-lightgreen
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+reddress-lightgreen+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightgreen
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+reddress-lightgreen+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightgreen
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+reddress-lightgreen+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightgreen
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+reddress-lightgreen+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme reddress-lightgreen
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+reddress-lightorange+`
+==== Activity with `+reddress-lightorange+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightorange
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+reddress-lightorange+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightorange
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+reddress-lightorange+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightorange
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+reddress-lightorange+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightorange
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+reddress-lightorange+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme reddress-lightorange
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+reddress-lightorange+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightorange
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+reddress-lightorange+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightorange
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+reddress-lightorange+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme reddress-lightorange
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+reddress-lightorange+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightorange
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+reddress-lightorange+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightorange
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+reddress-lightorange+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightorange
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+reddress-lightorange+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme reddress-lightorange
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+=== Theme `+reddress-lightred+`
+==== Activity with `+reddress-lightred+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightred
+start
+:init;
+-> test of color;
+if (color?) is (<color:red>red) then
+:print red;
+else 
+:print not red;
+note right: no color
+endif
+partition End {
+:end;
+}
+-> this is the end;
+end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Class with `+reddress-lightred+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightred
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+interface       interface
+@enduml
+
+@enduml
+</plantuml>
+
+==== Deployment with `+reddress-lightred+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightred
+actor actor
+actor/ "actor/"
+agent agent
+artifact artifact
+boundary boundary
+card card
+circle circle
+cloud cloud
+collections collections
+component component
+control control
+database database
+entity entity
+file file
+folder folder
+frame frame
+hexagon hexagon
+interface interface
+label label
+node node
+package package
+person person
+queue queue
+rectangle rectangle
+stack stack
+storage storage
+usecase usecase
+usecase/ "usecase/"
+@enduml
+
+@enduml
+</plantuml>
+
+==== Gantt with `+reddress-lightred+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightred
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@enduml
+
+@enduml
+</plantuml>
+
+==== Mindmap with `+reddress-lightred+` theme
+<plantuml>
+@startuml
+
+@startmindmap
+!theme reddress-lightred
++ root
+**:right_1.1
+right_1.2;
+++ right_2
+
+left side
+
+-- left_1
+-- left_2
+**:left_3.1
+left_3.2;
+@endmindmap
+
+@enduml
+</plantuml>
+
+==== Nwdiag  with `+reddress-lightred+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightred
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+
+@enduml
+</plantuml>
+
+==== Object with `+reddress-lightred+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightred
+
+object user1
+user1 : name = "Dummy"
+user1 : id = 123
+
+object user2 {
+  name = "Dummy"
+  id = 123
+}
+
+object o1
+object o2
+diamond dia
+object o3
+
+o1  --> dia
+o2  --> dia
+dia --> o3
+@enduml
+
+@enduml
+</plantuml>
+
+==== Salt with `+reddress-lightred+` theme
+<plantuml>
+@startuml
+
+@startsalt
+!theme reddress-lightred
+{+
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+@endsalt
+@enduml
+</plantuml>
+
+==== Sequence with `+reddress-lightred+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightred
+participant Participant as Foo
+actor       Actor       as Foo1
+boundary    Boundary    as Foo2
+control     Control     as Foo3
+entity      Entity      as Foo4
+database    Database    as Foo5
+collections Collections as Foo6
+queue       Queue       as Foo7
+Foo -> Foo1 : To actor 
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+@enduml
+
+@enduml
+</plantuml>
+
+==== State with `+reddress-lightred+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightred
+state choice1 <<choice>>
+state fork1   <<fork>>
+state join2   <<join>>
+state end3    <<end>>
+
+[*]     --> choice1 : from start\nto choice
+choice1 --> fork1   : from choice\nto fork
+choice1 --> join2   : from choice\nto join
+choice1 --> end3    : from choice\nto end
+
+fork1   ---> State1 : from fork\nto state
+fork1   --> State2  : from fork\nto state
+
+State2  --> join2   : from state\nto join
+State1  --> [*]     : from state\nto end
+
+join2   --> [*]     : from join\nto end
+@enduml
+
+@enduml
+</plantuml>
+
+==== Timing with `+reddress-lightred+` theme
+<plantuml>
+@startuml
+
+@startuml
+!theme reddress-lightred
+robust "Web Browser" as WB
+concise "Web User" as WU
+
+WB is Initializing
+WU is Absent
+
+@WB
+0 is idle
++200 is Processing
++100 is Waiting
+WB@0 <-> @50 : {50 ms lag}
+
+@WU
+0 is Waiting
++500 is ok
+@200 <-> @+150 : {150 ms}
+@enduml
+
+@enduml
+</plantuml>
+
+==== WBS with `+reddress-lightred+` theme
+<plantuml>
+@startuml
+
+@startwbs
+!theme reddress-lightred
+* World
+** America 
+***_ Canada 
+***_ Mexico
+***_ USA
+** Europe
+***_  England
+***_  Germany
+***_  Spain
+@endwbs
+
+@enduml
+</plantuml>
+
+
+== 🚧 Under construction...
+
+ 
+Currently missing:
+* All activity
+* Object
+* Timing
+* Network (nwdiag)
+* Salt
+* Archimate
+* Gantt
+* JSON/YAML
+* Git/Wire/...
+
+

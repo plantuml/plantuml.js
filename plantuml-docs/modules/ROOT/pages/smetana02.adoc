@@ -1,0 +1,52 @@
+== Context of the Smetana project
+PlantUML uses link::graphviz-dot[Graphviz/DOT] to compute node positionning for some UML diagrams (only link::use-case-diagram[usecase diagrams], link::class-diagram[class diagrams], link::object-diagram[object diagrams], link::component-diagram[component diagrams], link::deployment-diagram[deployment diagram], link::state-diagram[state diagrams] and link::activity-diagram-legacy[Legacy activity diagrams]).
+The fact that DOT computes automatically the position of node is a key feature, and algorithms implemented in DOT usually give very good result.
+
+However, there are some drawbacks of using DOT :
+the computation is done by an external program (`+dot.exe+` on Windows, `+dot+` on linux), and that means that :
+
+*     PlantUML has to create a new process for each diagram, (and communication with this new process could be source of bugs).
+*     Users have to install link::graphviz-dot[DOT] on their system, in addition of Java.
+*     PlantUML is not fully portable.
+
+Another way of using DOT would be to use it as a library, and to link it with PlantUML using JNI
+(Java Native Interface) but that would not be perfect thought.
+
+If a Java version of Graphviz/DOT would exist, this would allow to greatly simplify the installation and the use of PlantUML.
+So we have started a port from C to Java of GraphViz/DOT source code: see https://github.com/plantuml/smetana[Smetana project]
+
+
+== Using Smetana
+
+Smetana code has been integrated into PlantUML, so you can use the `+!pragma layout smetana+` directive
+to force PlantUML to use https://github.com/plantuml/smetana[Smetana] (the internal Java port of GraphViz/Dot embedded in PlantUML sources) instead of the regular dot process.
+
+
+[plantuml]
+----
+@startuml
+!pragma layout smetana
+class Foo1
+
+Foo1 --> Foo2
+Foo1 --> Foo3
+Foo1 ---> Foo4 : test 4
+Foo1 ----> Foo5 : test 5
+
+@enduml
+----
+
+**The key point is that this image has been generated without launching Graphviz/DOT!**
+
+You can use the `+-P+` link::command-line[command-line] option to specify the pragma, rather than putting it in the puml file:
+----
+java -jar plantuml.jar -Playout=smetana
+----
+__[Ref. https://github.com/plantuml/plantuml/issues/582[issue-582]]__
+
+
+== Alternative layout engines
+
+See link::elk[elk] and link::vizjs[vizjs] for other alternatives to link::graphviz-dot[graphviz-dot].
+
+

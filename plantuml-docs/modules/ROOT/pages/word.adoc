@@ -1,0 +1,34 @@
+== Word Add-in
+Adriaan van den Brand has made many improvements to the Word Add-in.
+
+He has created a Word Template that allows a very good integration between __Word__ and PlantUML and better performance.
+
+With this Word Add-in, a new bar will be available within Word:
+
+image::word_bar1.png[]
+
+By click on __"Preferences"__, you can now choose to use EPS instead of PNG for diagrams to improve print quality
+(because EPS is a vector image format.)
+
+This template allows using PlantUML directly from __MS Word 2010__ without need to alter document templates
+or edit VBA macro's. __MS Word Versions 2007__ and __2013__ might work, but are not tested.
+
+Everything is documented in the template itself, that you can
+https://github.com/plantuml/word-template[download here].
+
+Many thanks for his works!
+
+The macro searches the `+plantuml.jar+` file in that order:
+
+* In the same directory as your document
+* Then, in the parent directory of this directory
+* Then, in the parent directory of the parent... up to the root folder
+* Then, in the same directory as the `+normal.dot+` file
+* Then, in the parent directory of this directory
+* Then, in the parent directory of the parent... up to the root folder
+
+If the `+plantuml.jar+` file is not found, a box display the list of all searched directories.
+
+
+
+

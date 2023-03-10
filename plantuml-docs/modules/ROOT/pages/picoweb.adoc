@@ -1,0 +1,37 @@
+== PlantUML PicoWeb Server
+
+Many plugins take advantage http://plantuml.com/plantuml[of the online web server] to generate images.
+
+For some reasons (security, performance...) you may need to use your own local server instead. This is possible link::server[thanks to the PlantUML Server which is available here].
+
+However, installing and configuring a full webserver may be too complex for some users so we have decided to integrate a tiny webserver inside `+plantuml.jar+`.
+
+This means that you only need a Java Runtime Environment and `+plantuml.jar+` to run this very simple web server.
+
+
+== Running the server
+
+Running the server is pretty simple. You just have to launch:
+
+----
+java -jar plantuml.jar -picoweb
+----
+
+__Attention__: By default, the server listens on __all__ interfaces on port `+8080+`. To change the default behavior, you can specify a colon separated port (still listening on all interfaces) or, both, a port and a bind address:
+
+----
+java -jar plantuml.jar -picoweb:8000
+java -jar plantuml.jar -picoweb:8000:127.0.0.1
+----
+
+The server is __really__ basic. It only understands GET requests with following patterns:
+
+* `+/plantuml/png/xyz....+`
+* `+/plantuml/svg/xyz....+`
+
+Those GET requests are used by various PlantUML plugins.
+Once you have launched your server, you can simply test it. With any web browser, you just have to point to: `+http://127.0.0.1:8080+`.
+
+This way, you can very easily use any plugins which need some PlantUML HTTP server __without__ the official online server.
+
+

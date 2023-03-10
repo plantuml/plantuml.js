@@ -1,0 +1,511 @@
+== Use Case Diagram
+
+
+Let's have a few examples:
+
+
+== Usecases
+Use cases are enclosed using between parentheses (because two
+parentheses looks like an oval).
+
+You can also use the `+usecase+` keyword to define a
+usecase.
+And you can define an alias, using the `+as+` keyword.
+This alias will be used later, when defining relations.
+<plantuml>
+@startuml
+
+(First usecase)
+(Another usecase) as (UC2)
+usecase UC3
+usecase (Last\nusecase) as UC4
+
+@enduml
+</plantuml>
+
+
+== Actors
+
+The name defining an actor is enclosed between colons.
+
+You can also use the `+actor+` keyword to define an actor.
+An alias can be assigned using the `+as+` keyword and can be used later instead of the actor's name, e. g. when defining relations.
+
+You can see from the following examples, that the actor definitions are optional.
+<plantuml>
+@startuml
+
+:First Actor:
+:Another\nactor: as Man2
+actor Woman3
+actor :Last actor: as Person1
+
+@enduml
+</plantuml>
+
+
+== Change Actor style
+
+You can change the actor style from stick man __(by default)__ to:
+* an awesome man with the `+skinparam actorStyle awesome+` command;
+* a hollow man with the `+skinparam actorStyle hollow +` command.
+
+=== Stick man __(by default)__
+<plantuml>
+@startuml
+:User: --> (Use)
+"Main Admin" as Admin
+"Use the application" as (Use)
+Admin --> (Admin the application)
+@enduml
+</plantuml>
+
+=== Awesome man 
+<plantuml>
+@startuml
+skinparam actorStyle awesome
+:User: --> (Use)
+"Main Admin" as Admin
+"Use the application" as (Use)
+Admin --> (Admin the application)
+@enduml
+</plantuml>
+
+__[Ref. https://forum.plantuml.net/10493/how-can-i-customize-the-actor-icon-in-svg-output?show=10513#c10513[QA-10493]]__
+
+=== Hollow man 
+<plantuml>
+@startuml
+skinparam actorStyle Hollow 
+:User: --> (Use)
+"Main Admin" as Admin
+"Use the application" as (Use)
+Admin --> (Admin the application)
+@enduml
+</plantuml>
+
+__[Ref. https://github.com/plantuml/plantuml/pull/396[PR#396]]__
+
+
+== Usecases description
+
+
+If you want to have a description spanning several lines, you can use quotes.
+
+You can also use the following separators:
+* `+--+` (dashes)
+* `+..+` (periods)
+* `+==+` (equals)
+* `+__+` (underscores)
+
+By using them pairwise and enclosing text between them, you can created separators with titles.
+
+<plantuml>
+@startuml
+
+usecase UC1 as "You can use
+several lines to define your usecase.
+You can also use separators.
+--
+Several separators are possible.
+==
+And you can add titles:
+..Conclusion..
+This allows large description."
+
+@enduml
+</plantuml>
+
+
+== Use package
+
+You can use packages to group actors or use cases.
+
+<plantuml>
+@startuml
+left to right direction
+actor Guest as g
+package Professional {
+  actor Chef as c
+  actor "Food Critic" as fc
+}
+package Restaurant {
+  usecase "Eat Food" as UC1
+  usecase "Pay for Food" as UC2
+  usecase "Drink" as UC3
+  usecase "Review" as UC4
+}
+fc --> UC4
+g --> UC1
+g --> UC2
+g --> UC3
+@enduml
+</plantuml>
+
+
+You can use `+rectangle+` to change the display of the package.
+
+<plantuml>
+@startuml
+left to right direction
+actor "Food Critic" as fc
+rectangle Restaurant {
+  usecase "Eat Food" as UC1
+  usecase "Pay for Food" as UC2
+  usecase "Drink" as UC3
+}
+fc --> UC1
+fc --> UC2
+fc --> UC3
+@enduml
+</plantuml>
+
+
+== Basic example
+
+
+To link actors and use cases, the arrow `+-->+` is
+used.
+
+The more dashes `+-+` in the arrow, the longer the
+arrow.
+You can add a label on the arrow, by adding a `+:+`
+character in the arrow definition.
+
+In this example, you see that __User__ has not been defined
+before, and is used as an actor.
+<plantuml>
+@startuml
+
+User -> (Start)
+User --> (Use the application) : A small label
+
+:Main Admin: ---> (Use the application) : This is\nyet another\nlabel
+
+@enduml
+</plantuml>
+
+
+
+
+== Extension
+
+If one actor/use case extends another one, you can use the symbol `+<|--+`.
+
+<plantuml>
+@startuml
+:Main Admin: as Admin
+(Use the application) as (Use)
+
+User <|-- Admin
+(Start) <|-- (Use)
+
+@enduml
+</plantuml>
+
+
+
+== Using notes
+
+You can use the `+note left of+` , `+note right of+` ,
+`+note top of+` , `+note bottom of+` keywords to
+define notes related to a single object.
+
+A note can be also define alone with the `+note+`
+keywords, then linked to other objects using the `+..+` symbol.
+
+<plantuml>
+@startuml
+:Main Admin: as Admin
+(Use the application) as (Use)
+
+User -> (Start)
+User --> (Use)
+
+Admin ---> (Use)
+
+note right of Admin : This is an example.
+
+note right of (Use)
+  A note can also
+  be on several lines
+end note
+
+note "This note is connected\nto several objects." as N2
+(Start) .. N2
+N2 .. (Use)
+@enduml
+</plantuml>
+
+
+
+== Stereotypes
+
+You can add stereotypes while defining actors and use cases using `+<<+` and `+>>+`.
+
+<plantuml>
+@startuml
+User << Human >>
+:Main Database: as MySql << Application >>
+(Start) << One Shot >>
+(Use the application) as (Use) << Main >>
+
+User -> (Start)
+User --> (Use)
+
+MySql --> (Use)
+
+@enduml
+</plantuml>
+
+
+
+== Changing arrows direction
+
+By default, links between classes have two dashes `+--+` and are vertically oriented.
+It is possible to use horizontal link by putting a single dash (or dot) like this:
+
+<plantuml>
+@startuml
+:user: --> (Use case 1)
+:user: -> (Use case 2)
+@enduml
+</plantuml>
+
+You can also change directions by reversing the link:
+
+<plantuml>
+@startuml
+(Use case 1) <.. :user:
+(Use case 2) <- :user:
+@enduml
+</plantuml>
+
+It is also possible to change arrow direction by adding `+left+`, `+right+`, `+up+`
+or `+down+` keywords inside the arrow:
+
+<plantuml>
+@startuml
+:user: -left-> (dummyLeft)
+:user: -right-> (dummyRight)
+:user: -up-> (dummyUp)
+:user: -down-> (dummyDown)
+@enduml
+</plantuml>
+
+You can shorten the arrow by using only the first character of the direction (for example, `+-d-+` instead of
+`+-down-+`)
+or the two first characters (`+-do-+`).
+
+Please note that you should not abuse this functionality : __Graphviz__ gives usually good results without
+tweaking.
+
+And with the link::use-case-diagram#d551e48d272b2b07[`+left to right direction+`] parameter: 
+<plantuml>
+@startuml
+left to right direction
+:user: -left-> (dummyLeft)
+:user: -right-> (dummyRight)
+:user: -up-> (dummyUp)
+:user: -down-> (dummyDown)
+@enduml
+</plantuml>
+
+
+== Splitting diagrams
+
+The `+newpage+` keywords to split your diagram into several pages or images.
+<plantuml>
+@startuml
+:actor1: --> (Usecase1)
+newpage
+:actor2: --> (Usecase2)
+@enduml
+</plantuml>
+
+
+
+== Left to right direction
+
+The general default behavior when building diagram is **top to bottom**.
+<plantuml>
+@startuml
+'default
+top to bottom direction
+user1 --> (Usecase 1)
+user2 --> (Usecase 2)
+
+@enduml
+</plantuml>
+You may change to **left to right** using the `+left to right direction+` command.
+The result is often better with this direction.
+
+<plantuml>
+@startuml
+
+left to right direction
+user1 --> (Usecase 1)
+user2 --> (Usecase 2)
+
+@enduml
+</plantuml>
+
+
+
+== Skinparam
+
+
+You can use the link::skinparam[skinparam]
+command to change colors and fonts for the drawing.
+
+You can use this command :
+* In the diagram definition, like any other commands,
+* In an link::preprocessing[included file],
+* In a configuration file, provided in link::command-line[the command line] or link::ant-task[the ANT task].
+
+You can define specific color and fonts for stereotyped actors and usecases.
+
+<plantuml>
+@startuml
+skinparam handwritten true
+
+skinparam usecase {
+BackgroundColor DarkSeaGreen
+BorderColor DarkSlateGray
+
+BackgroundColor<< Main >> YellowGreen
+BorderColor<< Main >> YellowGreen
+
+ArrowColor Olive
+ActorBorderColor black
+ActorFontName Courier
+
+ActorBackgroundColor<< Human >> Gold
+}
+
+User << Human >>
+:Main Database: as MySql << Application >>
+(Start) << One Shot >>
+(Use the application) as (Use) << Main >>
+
+User -> (Start)
+User --> (Use)
+
+MySql --> (Use)
+
+@enduml
+</plantuml>
+
+
+
+== Complete example
+
+
+<plantuml>
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor customer
+actor clerk
+rectangle checkout {
+  customer -- (checkout)
+  (checkout) .> (payment) : include
+  (help) .> (checkout) : extends
+  (checkout) -- clerk
+}
+@enduml
+</plantuml>
+
+
+== Business Use Case
+
+You can add  `+/+` to make Business Use Case.
+
+=== Business Usecase
+<plantuml>
+@startuml
+
+(First usecase)/
+(Another usecase)/ as (UC2)
+usecase/ UC3
+usecase/ (Last\nusecase) as UC4
+
+@enduml
+</plantuml>
+
+=== Business Actor
+<plantuml>
+@startuml
+
+:First Actor:/
+:Another\nactor:/ as Man2
+actor/ Woman3
+actor/ :Last actor: as Person1
+
+@enduml
+</plantuml>
+
+
+__[Ref. https://forum.plantuml.net/12179/[QA-12179]]__
+
+
+== Change arrow color and style (inline style)
+
+You can change the link::color[color] or style of individual arrows using the inline following notation:
+
+* `+#color;line.[bold|dashed|dotted];text:color+`
+
+<plantuml>
+@startuml
+actor foo
+foo --> (bar) : normal
+foo --> (bar1) #line:red;line.bold;text:red  : red bold
+foo --> (bar2) #green;line.dashed;text:green : green dashed 
+foo --> (bar3) #blue;line.dotted;text:blue   : blue dotted
+@enduml
+</plantuml>
+
+__[Ref. https://forum.plantuml.net/3770[QA-3770] and https://forum.plantuml.net/3816[QA-3816]]__
+__[See similar feature on link::deployment-diagram#qjxu5xkj874qkedanfcf[deployment-diagram] or link::class-diagram#b5b0e4228f2e5022[class diagram]]__
+
+
+== Change element color and style (inline style)
+
+You can change the link::color[color] or style of individual element using the following notation: 
+* `+#[color|back:color];line:color;line.[bold|dashed|dotted];text:color+`
+
+<plantuml>
+@startuml
+actor a
+actor b #pink;line:red;line.bold;text:red
+usecase c #palegreen;line:green;line.dashed;text:green
+usecase d #aliceblue;line:blue;line.dotted;text:blue
+@enduml
+</plantuml>
+
+__[Ref. https://forum.plantuml.net/5340[QA-5340] and adapted from https://forum.plantuml.net/6852[QA-6852]]__ 
+
+
+== Display JSON Data on Usecase diagram
+
+=== Simple example
+<plantuml>
+@startuml
+allowmixing
+
+actor     Actor
+usecase   Usecase
+
+json JSON {
+   "fruit":"Apple",
+   "size":"Large",
+   "color": ["Red", "Green"]
+}
+@enduml
+</plantuml>
+
+__[Ref. https://forum.plantuml.net/15481/possible-link-elements-from-two-jsons-with-both-jsons-embeded?show=15567#c15567[QA-15481]]__
+
+For another example, see on link::json#2fyxla9p9ob6l3t3tjre[JSON page].
+
+

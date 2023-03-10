@@ -1,0 +1,460 @@
+== Beta implementation
+
+Following the __First Round Of Brainstorming__, some functionalities have been implemented in http://beta.plantuml.net/plantuml.jar[last beta] (V1.2019.4beta14)
+
+We have somehow changed our mind since the __First Round Of Brainstorming__. Instead of having scripts features that would have been executed after the existing preprocessing, we have decided to completely rewrite the preprocessor with all new functionalities. The idea is to keep ascending compatibilies with the current (legacy now) preprocessor.
+
+* You have to switch to the new preprocessor using a special directive `+!preprocessorV2+`
+* Error management is very basic
+
+Things are now working fine. The idea is to let people play with this beta to see if we are on the right path, talking about syntax.
+
+
+
+== Variable definition
+
+Although this is not mandotary, we highly suggest that variable name start with a `+$+`.
+There are two kind of data:
+* Integer number
+* String, that must be surrended by simple quote or double quote.
+
+----
+@startuml
+!preprocessorV2
+!$ab = "foo1"
+!$cd = "foo2"
+!$ed = $ab + $cd
+
+Alice -> Bob : $ab
+Alice -> Bob : $cd
+Alice -> Bob : $ef
+@enduml
+----
+
+
+
+
+== Conditions
+
+* You can use expression in condition.
+* __else__ is also implemented
+
+----
+@startuml
+!preprocessorV2
+!$a = 10
+!$ijk = "foo"
+Alice -> Bob : A
+!if ($ijk == "foo") && ($a+10>=4)
+Alice -> Bob : yes
+!else
+Alice -> Bob : This should not appear
+!endif
+Alice -> Bob : B
+@enduml
+----
+
+
+
+== Void function
+
+* Function name __should__ start by a `+$+`
+* Argument names __should__ start by a `+$+`
+* Void functions can call other void functions
+
+Example:
+
+----
+@startuml
+!preprocessorV2
+!function msg($source, $destination)
+$source --> $destination
+!endfunction
+
+!function init_class($name)
+class $name {
+$addCommonMethod()
+}
+!endfunction
+
+
+!function $addCommonMethod()
+  toString()
+  hashCode()
+!endfunction
+
+
+init_class("foo1")
+init_class("foo2")
+msg("foo1", "foo2")
+@enduml
+----
+
+
+
+
+== Return function
+
+A return function does not ouput any text.
+It just define a function that you can call:
+* directly in variable definition or in diagram text
+* from other return function
+* from other void function
+
+
+* Function name __should__ start by a `+$+`
+* Argument names __should__ start by a `+$+`
+
+
+----
+@startuml
+!preprocessorV2
+!function $double($a)
+!return $a + $a
+!endfunction
+
+Alice -> Bob : The double of 3 is $double(3)
+@enduml
+----
+
+It is possible to shorten simple function definition in one line:
+
+----
+@startuml
+!preprocessorV2
+!function $double($a) return $a + $a
+
+Alice -> Bob : The double of 3 is $double(3)
+Alice -> Bob : $double("This work also for strings.")
+
+@enduml
+----
+
+
+
+
+== Default argument value
+
+In both return and void function, you can define default value for argument.
+
+
+----
+@startuml
+!preprocessorV2
+!function $inc($value, $step=1)
+!if $step==0
+!return $value
+!endif
+!return $value + $step
+!endfunction
+
+Alice -> Bob : Just one more $inc(3)
+Alice -> Bob : Add two to three : $inc(3, 2)
+@enduml
+----
+
+
+
+
+== First Round Of Brainstorming
+
+
+
+== Objectives
+
+Currently, users are doing more and more complex stuff with the preprocessor.
+
+The goal of this page is to discuss about a future implementation within PlantUML of some scripting feature within diagram text.
+Those scripts feature will be executed **after** preprocessing.
+
+A good start would be to scope the feature. What should the new functionality handle and what not, e.g.
+
+----
+* Variable initialization
+* Substitution of variable
+* Substrings and replace parts
+* Conditions (if, else)
+    * arithmetic-based
+    * string-based
+    * file-based
+    * condition concatenation || and &&
+* Loops (for, while)
+* Length of a variable
+----
+
+IMHO we should restrict the scope as much as it makes sense.
+
+You can edit this page to add your through and suggestions. We will wait until the design is complete before implementing anything.
+
+Here a first example :
+----
+@startuml
+$i = 0
+Alice -> Bob : The value of "i" is $i
+'It prints: The value of "i" is 0
+$i = $i+1
+Alice -> Bob : The value of "i" is now $i
+'It prints: The value of "i" is now 1
+$if ( $i > 0)
+Alice -> Bob : this is printed because i value is $i
+$endif
+$for ($i=0; $i<10; $i++)
+Alice -> Bob : in the for loop, "i" value is $i
+$endfor
+' If a variable is not known, it's simply ignored, and the $ is printed as usually.
+' This allows to not break compatibility with previous diagrams.
+Alice -> Bob : The $price is in USD
+@enduml
+----
+
+I think the first example looks promising. Putting $ in front of a variable to initialize and to access it is a good choice. The $if/$endif/$for/$endfor scopes the condition/loop, I guess? --> Yes
+
+If a variable is undefined, then it is simply ignored.
+MG--> Will there be a test if a variable is undefined or null?
+About variable testing, we could also test if a variable is undefined:
+----
+$ifdef $j
+Alice -> Bob : The variable j is defined and its value is $j
+$else
+Alice -> Bob : I don't know any j variable
+$endif
+----
+
+
+
+MG--> For sake of the stability yes, maybe a log should be written here in case one need to bugfix the own diagrams. However, think about two cases:
+. The variable is used as text substitution for the void function, here you can just treat is as text. --> Yes, agree
+. How do you want to handle the return function variables that are not defined?
+.. Do you ignore the whole function?  --> No
+.. Do you add a "note" with the error? --> Not exactly. Return function should be syntaxically correct. Otherwhise we print an error message like http://www.plantuml.com/plantuml/png/SoWkIImgAStDuV98BKfLICnJI2qgoYyYWUUGcfS2r0y0
+MG-->Printing the error message is perfect. I think this way the user gets the hint to correct it.
+
+
+
+== Return function
+
+A function doing some computation and returning a result is called **return function**.
+
+Return function should be syntaxically correct. Otherwhise we print an error message like http://www.plantuml.com/plantuml/png/SoWkIImgAStDuV98BKfLICnJI2qgoYyYWUUGcfS2r0y0
+
+Example:
+----
+@startuml
+$function square($i)
+$return $i*$i
+$endfunction
+
+$function inc($i)
+$return $i+1
+$endfunction
+
+$function abs($i)
+$if $i>0 then
+$return $i
+$else
+$return -$i
+$endfunction
+
+Alice -> Bob : The price is $square($inc($abs(-9)))
+' print The price is 100
+
+@enduml
+----
+
+
+
+== Void function
+A **void function** does not contain any **return**.
+It's used to generate some part of a text diagram.
+
+Example:
+----
+@startuml
+$function msg($source, $destination)
+$source --> $destination
+$endfunction
+
+$function init_class($name)
+class $name {
+  init()
+  toString()
+  hashCode()
+}
+$endfunction
+
+init_class(foo1)
+init_class(foo2)
+msg(foo1, foo2)
+@enduml
+----
+
+**void function** can call **return function** but the other way is not possible.
+
+so you can have:
+----
+@startuml
+$function msg2($source, $destination, $price)
+$source --> $destination : the price is $square($inc($abs($price)))
+$endfunction
+
+msg2(foo1, foo2, 30)
+@enduml
+----
+
+
+
+== Visibility scope of variables
+* Did you think about visibility of variables?
+** --> Not really :-)
+* Is there something like local and global space for those variables or do you want to work with global visibility of variables only?
+
+Here is our proposal:
+* variables defined in return or void function are local : they are not know outside the function
+* variables defined outside of function are global : they are visible everywhere, including from function
+
+MG -> Sounds consistent. Restricting local variables sounds perfect. Think about how to handle errors that are related to global-local overrides, meaning somebody defines first a global variable and later a local variable with the same name in the function.
+
+[chillin] Keep it simple. Forbid redefinition of a function or variable (with scope visibility). In case this happens, show a clear error message of the redefinition line, the name of the variable, and the line of the original function/variable definition (include the file name if it's a different (library) file).
+The target should be to cover most use cases while keeping the implementation and usage as simple a possible.
+Note: the scope of !included functions/variables shall depend on the location of the !include line.
+
+[SW].OK to forbid redefinition of a function or variable. In order to avoid problems with identical variable names, it would be wise to propose to prefix global variables with \_<libname>\_ (or something else).  It would be a great pity to define global variables such as i or j (idem for functions).
+
+
+== Data types and arithmethic expressions
+Supported data types are:
+
+* String
+* Integer [SW](32-64 bits?)
+* Boolean
+* Float [SW](32-64 bits?)
+
+Proposal [chillin]: define boolean states by built-in global variables $true and $false. This makes a clear and easy distinction of a boolean and string definition.
+
+When using arithmetic functions the following cases for data types are possible, e.g.:
+* String + String = concatenated string (no implicit conversion needed)
+* String + Integer = concatenated string (implicitly does "string + str(integer)")
+* String + Float = concatenated string (implicitly does "string + str(float)")
+* Integer + Integer = Integer
+* Float + Float = Float
+* [SW]Integer + Float = Float
+* [SW]Float + Integer  = Float
+
+Example:
+----
+ $a = "a_string"
+ $b = "and a non-string operation always results in "
+ $i = 1
+ $z_final = " string"
+
+ A -> B : $a + $b + $i + $z_final
+ 'results in:  A -> B : a_string and a non-string operation always results in 1 string
+----
+
+Support the following operators:
+
+* strings: + (concatenation)
+* float: all normal mathematical operators
+* integer: all normal mathematical operators, [SW](included % as reminder), shift and bitwise operators
+* boolean: all normal boolean operators (and, or, not, xor)
+
+An operation on the built-in $undefined symbol shall always yield $undefined.
+
+Implicit conversions and their results:
+
+* integer to string (if one of the operands is a string, python-like str() conversion)
+* float to string (if one of the operands is a string, python-like str() conversion)
+* boolean to string (if one of the operands is a string, python-like str() conversion)
+* undefined to string (if one of the operands is a string, the $undefined state results in the 'undefined' string)
+* boolean to integer (if the other operand is an integer the boolean is converted to 1 (if $true), or 0 (if $false))
+* boolean to float (if the other operand is a float the boolean is converted to 1.0 (if $true), or 0.0 (if $false))
+* [SW]integer to float
+
+Explicit conversions:
+
+* to string: via built-in function $str()
+* to boolean: via built-in function $bool()
+** from string: $false (if the string is empty or whitespace only), or $true otherwise
+** from integer: $true if non-zero, or $false otherwise
+** from float: $true if non-zero, or $false otherwise
+* [SW]to integer: via built-in function $int()
+* [SW]to float: via built-in function $float()
+
+Evaluation order is from left to right and can be controlled through parentheses.
+
+Examples:
+----
+$a = "implicit conversion results: "
+$b = 1
+$c = 0
+$d = $true
+A -> B : $a + $b + $c
+'results in: A -> B : implicit conversion results: 10
+A -> B : $a + ($b + $c)
+'results in: A -> B : implicit conversion results: 1
+A -> B : $a + ($b + $d)
+'results in: A -> B : implicit conversion results: 2
+A -> B : $a + $b + $d
+'results in: A -> B : implicit conversion results: 1 true
+----
+
+
+
+== Allowed function and variable names
+Any function and variable name shall be constructed from the symbol set [A-Zaz0-9\_]. An additional constraint is that a name shall not start with a digit.
+Function and variable names are case sensitive.
+
+This seems sufficient for most use cases and does not conflict with existing PlantUML naming conventions.
+
+
+
+== Builtin functions
+
+Some functions are defined by default. Their name starts by `+%+`
+
+|===
+| Name | Description | Example | Return
+
+| `+%strlen+`
+| Calculate the length of a String
+| `+%strlen("foo")+`
+| `+3+` in the example
+
+| `+%substr+`
+| Extract a substring. Takes 2 or 3 arguments
+| `+%substr("abcdef", 3, 2)+`
+| `+"de"+` in the example
+
+| `+%strpos+`
+| Search a substring in a string
+| `+%strpos("abcdef", "ef")+`
+| 4 (position of `+ef+`)
+
+| `+%file_exists+`
+| Check if a file exists on the local filesystem
+| `+%file_exists("c:/foo/dummy.txt")+`
+| `+true+` if the file exists, this function requires an absolute path
+
+| `+%getenv+`
+| Retrieve environment variable value
+| `+%getenv("OS")+`
+| The value of `+OS+` variable
+
+| `+%dirpath+`
+| Retrieve current dirpath
+| `+%dirpath()+`
+| Current path without ending path separator
+
+| `+%filename+`
+| Retrieve current filename
+| `+%filename()+`
+| Current filename
+
+| `+%date+`
+| Retrieve current date. You can provide an optional https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html[format for the date]
+| `+%date("yyyy.MM.dd at HH:mm")+`
+| Current date
+
+|===
+
+

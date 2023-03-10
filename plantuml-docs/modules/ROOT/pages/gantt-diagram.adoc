@@ -1,0 +1,1625 @@
+== Gantt Diagram
+
+The Gantt is described in __natural__ language, using very simple sentences (subject-verb-complement).
+
+
+== Declaring tasks
+
+Tasks defined using square bracket. 
+
+=== Duration
+
+Their durations are defined using the `+last+` verb:
+
+[plantuml]
+----
+@startgantt
+[Prototype design] lasts 15 days
+[Test prototype] lasts 10 days
+-- All example --
+[Task 1 (1 day)] lasts 1 day
+[T2 (5 days)] lasts 5 days
+[T3 (1 week)] lasts 1 week
+[T4 (1 week and 4 days)] lasts 1 week and 4 days
+[T5 (2 weeks)] lasts 2 weeks
+@endgantt
+----
+
+A week is a synonym for how many non-closed days are in a week. So if you specify Saturday and Sunday as closed, a week will be equivalent to 5 days
+
+=== Start
+
+Their beginning are defined using the `+start+` verb:
+
+[plantuml]
+----
+@startgantt
+[Prototype design] lasts 15 days
+[Test prototype] lasts 10 days
+
+Project starts 2020-07-01
+[Prototype design] starts 2020-07-01
+[Test prototype] starts 2020-07-16
+@endgantt
+----
+[plantuml]
+----
+@startgantt
+[Prototype design] lasts 15 days
+[Test prototype] lasts 10 days
+
+[Prototype design] starts D+0
+[Test prototype] starts D+15
+@endgantt
+----
+
+__[Ref. for `+D+nn+` form: https://forum.plantuml.net/14494/is-it-possible-to-color-the-days-in-the-default-gantt-diagram?show=14550#c14550[QA-14494]]__
+
+=== End
+
+Their ending are defined using the `+end+` verb:
+
+[plantuml]
+----
+@startgantt
+[Prototype design] lasts 15 days
+[Test prototype] lasts 10 days
+
+Project starts 2020-07-01
+[Prototype design] ends 2020-07-15
+[Test prototype] ends 2020-07-25
+@endgantt
+----
+[plantuml]
+----
+@startgantt
+[Prototype design] lasts 15 days
+[Test prototype] lasts 10 days
+
+[Prototype design] ends D+14
+[Test prototype] ends D+24
+@endgantt
+----
+=== Start/End
+
+It is possible to define both absolutely, by specifying dates:
+[plantuml]
+----
+@startgantt
+Project starts 2020-07-01
+[Prototype design] starts 2020-07-01
+[Test prototype] starts 2020-07-16
+[Prototype design] ends 2020-07-15
+[Test prototype] ends 2020-07-25
+
+@endgantt
+----
+[plantuml]
+----
+@startgantt
+[Prototype design] starts D+0
+[Test prototype] starts D+15
+[Prototype design] ends D+14
+[Test prototype] ends D+24
+@endgantt
+----
+
+
+== One-line declaration (with the and conjunction)
+
+It is possible to combine declaration on one line with the `+and+` conjunction.
+
+[plantuml]
+----
+@startgantt
+Project starts 2020-07-01
+[Prototype design] starts 2020-07-01 and ends 2020-07-15
+[Test prototype] starts 2020-07-16 and lasts 10 days
+@endgantt
+----
+
+
+== Adding constraints
+It is possible to add constraints between tasks.
+
+[plantuml]
+----
+@startgantt
+[Prototype design] lasts 15 days
+[Test prototype] lasts 10 days
+[Test prototype] starts at [Prototype design]'s end
+@endgantt
+----
+
+[plantuml]
+----
+@startgantt
+[Prototype design] lasts 10 days
+[Code prototype] lasts 10 days
+[Write tests] lasts 5 days
+[Code prototype] starts at [Prototype design]'s end
+[Write tests] starts at [Code prototype]'s start
+@endgantt
+----
+
+
+== Short names
+It is possible to define short name for tasks with the `+as+` keyword.
+
+[plantuml]
+----
+@startgantt
+[Prototype design] as [D] lasts 15 days
+[Test prototype] as [T] lasts 10 days
+[T] starts at [D]'s end
+@endgantt
+----
+
+
+== Customize colors
+It is also possible to customize link::color[colors] with `+is colored in+`.
+
+[plantuml]
+----
+@startgantt
+[Prototype design] lasts 13 days
+[Test prototype] lasts 4 days
+[Test prototype] starts at [Prototype design]'s end
+[Prototype design] is colored in Fuchsia/FireBrick
+[Test prototype] is colored in GreenYellow/Green
+@endgantt
+----
+
+
+== Completion status
+=== Adding completion depending percentage
+You can set the completion status of a task, by the command:
+* `+is xx% completed+`
+* `+is xx% complete+` 
+
+[plantuml]
+----
+@startgantt
+[foo] lasts 21 days
+[foo] is 40% completed
+[bar] lasts 30 days and is 10% complete
+@endgantt
+----
+
+=== Change colour of completion (by style)
+
+[plantuml]
+----
+@startgantt
+
+<style>
+ganttDiagram {
+  task {
+    BackGroundColor GreenYellow
+    LineColor Green 
+    unstarted {
+      BackGroundColor Fuchsia 
+      LineColor FireBrick
+    }
+  }
+}
+</style>
+
+[Prototype design] lasts 7 days
+[Test prototype 0] lasts 4 days
+[Test prototype 10] lasts 4 days
+[Test prototype 20] lasts 4 days
+[Test prototype 30] lasts 4 days
+[Test prototype 40] lasts 4 days
+[Test prototype 50] lasts 4 days
+[Test prototype 60] lasts 4 days
+[Test prototype 70] lasts 4 days
+[Test prototype 80] lasts 4 days
+[Test prototype 90] lasts 4 days
+[Test prototype 100] lasts 4 days
+
+[Test prototype 0] starts at [Prototype design]'s end
+[Test prototype 10] starts at [Prototype design]'s end
+[Test prototype 20] starts at [Prototype design]'s end
+[Test prototype 30] starts at [Prototype design]'s end
+[Test prototype 40] starts at [Prototype design]'s end
+[Test prototype 50] starts at [Prototype design]'s end
+[Test prototype 60] starts at [Prototype design]'s end
+[Test prototype 70] starts at [Prototype design]'s end
+[Test prototype 80] starts at [Prototype design]'s end
+[Test prototype 90] starts at [Prototype design]'s end
+[Test prototype 100] starts at [Prototype design]'s end
+
+[Test prototype 0] is 0% complete
+[Test prototype 10] is 10% complete
+[Test prototype 20] is 20% complete
+[Test prototype 30] is 30% complete
+[Test prototype 40] is 40% complete
+[Test prototype 50] is 50% complete
+[Test prototype 60] is 60% complete
+[Test prototype 70] is 70% complete
+[Test prototype 80] is 80% complete
+[Test prototype 90] is 90% complete
+[Test prototype 100] is 100% complete
+
+@endgantt
+----
+
+__[Ref. https://forum.plantuml.net/8297/plant-gantt-diagram-persentage-completed-determines-color?show=14324#c14324[QA-8297]]__
+
+
+== Milestone
+You can define Milestones using the `+happen+` verb.
+
+=== Relative milestone (use of constraints)
+[plantuml]
+----
+@startgantt
+[Test prototype] lasts 10 days
+[Prototype completed] happens at [Test prototype]'s end
+[Setup assembly line] lasts 12 days
+[Setup assembly line] starts at [Test prototype]'s end
+@endgantt
+----
+
+=== Absolute milestone (use of fixed date)
+[plantuml]
+----
+@startgantt
+Project starts 2020-07-01
+[Test prototype] lasts 10 days
+[Prototype completed] happens 2020-07-10
+[Setup assembly line] lasts 12 days
+[Setup assembly line] starts at [Test prototype]'s end
+@endgantt
+----
+
+
+=== Milestone of maximum end of tasks
+[plantuml]
+----
+@startgantt
+[Task1] lasts 4 days
+then [Task1.1] lasts 4 days
+[Task1.2] starts at [Task1]'s end and lasts 7 days
+
+[Task2] lasts 5 days
+then [Task2.1] lasts 4 days
+
+[MaxTaskEnd] happens at [Task1.1]'s end
+[MaxTaskEnd] happens at [Task1.2]'s end
+[MaxTaskEnd] happens at [Task2.1]'s end
+
+@endgantt
+----
+__[Ref. https://forum.plantuml.net/10764/gantt-multiple-tasks-as-prerequisite-for-a-milestone[QA-10764]]__
+
+
+== Hyperlinks
+You can add hyperlinks to tasks.
+
+[plantuml]
+----
+@startgantt
+[task1] lasts 10 days
+[task1] links to [[http://plantuml.com]]
+@endgantt
+----
+
+
+== Calendar
+You can specify a starting date for the whole project. By default, the first task starts at this date.
+
+[plantuml]
+----
+@startgantt
+Project starts the 20th of september 2017
+[Prototype design] as [TASK1] lasts 13 days
+[TASK1] is colored in Lavender/LightBlue
+@endgantt
+----
+
+
+== Coloring days
+
+It is possible to add link::color[colors] to some days.
+
+[plantuml]
+----
+@startgantt
+Project starts the 2020/09/01 
+
+2020/09/07 is colored in salmon
+2020/09/13 to 2020/09/16 are colored in lightblue
+
+[Prototype design] as [TASK1] lasts 22 days
+[TASK1] is colored in Lavender/LightBlue
+[Prototype completed] happens at [TASK1]'s end
+@endgantt
+----
+
+
+== Changing scale
+You can change scale for very long project, with one of those parameters:
+* printscale
+* ganttscale
+* projectscale
+and one of the values:
+* daily __(by default)__
+* weekly
+* monthly
+* quarterly
+* yearly
+
+__(See https://forum.plantuml.net/11272/gantt-keyword-printscale-should-replaced-with-projectscale?show=11274#a11274[QA-11272], https://forum.plantuml.net/9041/gantt-improvement?show=10699#a10699[QA-9041] and https://forum.plantuml.net/10948/gantt-printscale-weekly?show=10949#a10949[QA-10948])__
+
+=== Daily __(by default)__
+[plantuml]
+----
+@startgantt
+saturday are closed
+sunday are closed
+
+Project starts the 1st of january 2021
+[Prototype design end] as [TASK1] lasts 19 days
+[TASK1] is colored in Lavender/LightBlue
+[Testing] lasts 14 days
+[TASK1]->[Testing]
+
+2021-01-18 to 2021-01-22 are named [End's committee]
+2021-01-18 to 2021-01-22 are colored in salmon 
+@endgantt
+----
+
+=== Weekly
+[plantuml]
+----
+@startgantt
+printscale weekly
+saturday are closed
+sunday are closed
+
+Project starts the 1st of january 2021
+[Prototype design end] as [TASK1] lasts 19 days
+[TASK1] is colored in Lavender/LightBlue
+[Testing] lasts 14 days
+[TASK1]->[Testing]
+
+2021-01-18 to 2021-01-22 are named [End's committee]
+2021-01-18 to 2021-01-22 are colored in salmon 
+@endgantt
+----
+
+[plantuml]
+----
+@startgantt
+printscale weekly
+Project starts the 20th of september 2020
+[Prototype design] as [TASK1] lasts 130 days
+[TASK1] is colored in Lavender/LightBlue
+[Testing] lasts 20 days
+[TASK1]->[Testing]
+
+2021-01-18 to 2021-01-22 are named [End's committee]
+2021-01-18 to 2021-01-22 are colored in salmon 
+@endgantt
+----
+
+=== Monthly
+[plantuml]
+----
+@startgantt
+projectscale monthly
+Project starts the 20th of september 2020
+[Prototype design] as [TASK1] lasts 130 days
+[TASK1] is colored in Lavender/LightBlue
+[Testing] lasts 20 days
+[TASK1]->[Testing]
+
+2021-01-18 to 2021-01-22 are named [End's committee]
+2021-01-18 to 2021-01-22 are colored in salmon 
+@endgantt
+----
+
+
+=== Quarterly
+[plantuml]
+----
+@startgantt
+projectscale quarterly
+Project starts the 20th of september 2020
+[Prototype design] as [TASK1] lasts 130 days
+[TASK1] is colored in Lavender/LightBlue
+[Testing] lasts 20 days
+[TASK1]->[Testing]
+
+2021-01-18 to 2021-01-22 are named [End's committee]
+2021-01-18 to 2021-01-22 are colored in salmon 
+@endgantt
+----
+
+[plantuml]
+----
+@startgantt
+projectscale quarterly
+Project starts the 1st of october 2020
+[Prototype design] as [TASK1] lasts 700 days
+[TASK1] is colored in Lavender/LightBlue
+[Testing] lasts 200 days
+[TASK1]->[Testing]
+
+2021-01-18 to 2021-03-22 are colored in salmon 
+@endgantt
+----
+
+=== Yearly
+[plantuml]
+----
+@startgantt
+projectscale yearly
+Project starts the 1st of october 2020
+[Prototype design] as [TASK1] lasts 700 days
+[TASK1] is colored in Lavender/LightBlue
+[Testing] lasts 200 days
+[TASK1]->[Testing]
+
+2021-01-18 to 2021-03-22 are colored in salmon 
+@endgantt
+----
+
+
+== Zoom (example for all scale)
+
+You can change zoom, with the parameter:
+* `+zoom <integer>+`
+
+=== Zoom on weekly scale
+==== Without zoom
+[plantuml]
+----
+@startgantt
+printscale daily
+saturday are closed
+sunday are closed
+
+Project starts the 1st of january 2021
+[Prototype design end] as [TASK1] lasts 8 days
+[TASK1] is colored in Lavender/LightBlue
+[Testing] lasts 3 days
+[TASK1]->[Testing]
+
+2021-01-18 to 2021-01-22 are named [End's committee]
+2021-01-18 to 2021-01-22 are colored in salmon 
+@endgantt
+----
+
+==== With zoom
+[plantuml]
+----
+@startgantt
+printscale daily zoom 2
+saturday are closed
+sunday are closed
+
+Project starts the 1st of january 2021
+[Prototype design end] as [TASK1] lasts 8 days
+[TASK1] is colored in Lavender/LightBlue
+[Testing] lasts 3 days
+[TASK1]->[Testing]
+
+2021-01-18 to 2021-01-22 are named [End's committee]
+2021-01-18 to 2021-01-22 are colored in salmon 
+@endgantt
+----
+__[Ref. https://forum.plantuml.net/13725/gantt-add-zoom-for-daily-scale[QA-13725]]__
+
+=== Zoom on weekly scale
+==== Without zoom
+[plantuml]
+----
+@startgantt
+printscale weekly
+saturday are closed
+sunday are closed
+
+Project starts the 1st of january 2021
+[Prototype design end] as [TASK1] lasts 19 days
+[TASK1] is colored in Lavender/LightBlue
+[Testing] lasts 14 days
+[TASK1]->[Testing]
+
+2021-01-18 to 2021-01-22 are named [End's committee]
+2021-01-18 to 2021-01-22 are colored in salmon 
+@endgantt
+----
+
+==== With zoom
+[plantuml]
+----
+@startgantt
+printscale weekly zoom 4
+saturday are closed
+sunday are closed
+
+Project starts the 1st of january 2021
+[Prototype design end] as [TASK1] lasts 19 days
+[TASK1] is colored in Lavender/LightBlue
+[Testing] lasts 14 days
+[TASK1]->[Testing]
+
+2021-01-18 to 2021-01-22 are named [End's committee]
+2021-01-18 to 2021-01-22 are colored in salmon 
+@endgantt
+----
+
+=== Zoom on monthly scale
+==== Without zoom
+[plantuml]
+----
+@startgantt
+projectscale monthly
+Project starts the 20th of september 2020
+[Prototype design] as [TASK1] lasts 130 days
+[TASK1] is colored in Lavender/LightBlue
+[Testing] lasts 20 days
+[TASK1]->[Testing]
+
+2021-01-18 to 2021-01-22 are named [End's committee]
+2021-01-18 to 2021-01-22 are colored in salmon 
+@endgantt
+----
+
+==== With zoom
+[plantuml]
+----
+@startgantt
+projectscale monthly zoom 3
+Project starts the 20th of september 2020
+[Prototype design] as [TASK1] lasts 130 days
+[TASK1] is colored in Lavender/LightBlue
+[Testing] lasts 20 days
+[TASK1]->[Testing]
+
+2021-01-18 to 2021-01-22 are named [End's committee]
+2021-01-18 to 2021-01-22 are colored in salmon 
+@endgantt
+----
+
+
+=== Zoom on quarterly scale
+==== Without zoom
+[plantuml]
+----
+@startgantt
+projectscale quarterly
+Project starts the 20th of september 2020
+[Prototype design] as [TASK1] lasts 130 days
+[TASK1] is colored in Lavender/LightBlue
+[Testing] lasts 20 days
+[TASK1]->[Testing]
+
+2021-01-18 to 2021-01-22 are named [End's committee]
+2021-01-18 to 2021-01-22 are colored in salmon 
+@endgantt
+----
+
+==== With zoom
+[plantuml]
+----
+@startgantt
+projectscale quarterly zoom 7
+Project starts the 20th of september 2020
+[Prototype design] as [TASK1] lasts 130 days
+[TASK1] is colored in Lavender/LightBlue
+[Testing] lasts 20 days
+[TASK1]->[Testing]
+
+2021-01-18 to 2021-01-22 are named [End's committee]
+2021-01-18 to 2021-01-22 are colored in salmon 
+@endgantt
+----
+
+=== Zoom on yearly scale
+==== Without zoom
+[plantuml]
+----
+@startgantt
+projectscale yearly
+Project starts the 1st of october 2020
+[Prototype design] as [TASK1] lasts 700 days
+[TASK1] is colored in Lavender/LightBlue
+[Testing] lasts 200 days
+[TASK1]->[Testing]
+
+2021-01-18 to 2021-03-22 are colored in salmon 
+@endgantt
+----
+
+==== With zoom
+[plantuml]
+----
+@startgantt
+projectscale yearly zoom 2
+Project starts the 1st of october 2020
+[Prototype design] as [TASK1] lasts 700 days
+[TASK1] is colored in Lavender/LightBlue
+[Testing] lasts 200 days
+[TASK1]->[Testing]
+
+2021-01-18 to 2021-03-22 are colored in salmon 
+@endgantt
+----
+
+
+== Close day
+It is possible to close some day.
+
+[plantuml]
+----
+@startgantt
+project starts the 2018/04/09
+saturday are closed
+sunday are closed
+2018/05/01 is closed
+2018/04/17 to 2018/04/19 is closed
+[Prototype design] lasts 14 days
+[Test prototype] lasts 4 days
+[Test prototype] starts at [Prototype design]'s end
+[Prototype design] is colored in Fuchsia/FireBrick
+[Test prototype] is colored in GreenYellow/Green
+@endgantt
+----
+
+
+Then it is possible to open some closed day.
+
+[plantuml]
+----
+@startgantt
+2020-07-07 to 2020-07-17 is closed
+2020-07-13 is open
+
+Project starts the 2020-07-01
+[Prototype design] lasts 10 days
+Then [Test prototype] lasts 10 days
+@endgantt
+----
+
+
+== Definition of a week depending of closed days
+
+A **week** is a synonym for how many non-closed days are in a week, as:
+[plantuml]
+----
+@startgantt
+Project starts 2021-03-29
+[Review 01] happens at 2021-03-29
+[Review 02 - 3 weeks] happens on 3 weeks after [Review 01]'s end
+[Review 02 - 21 days] happens on 21 days after [Review 01]'s end
+@endgantt
+----
+
+So if you specify __Saturday__ and __Sunday__ as closed, a **week** will be equivalent to 5 days, as:
+[plantuml]
+----
+@startgantt
+Project starts 2021-03-29
+saturday are closed
+sunday are closed
+[Review 01] happens at 2021-03-29
+[Review 02 - 3 weeks] happens on 3 weeks after [Review 01]'s end
+[Review 02 - 21 days] happens on 21 days after [Review 01]'s end
+@endgantt
+----
+
+__[Ref. https://forum.plantuml.net/13434/gantt-milestone-bug?show=13449#c13449[QA-13434]]__
+
+
+== Simplified task succession
+It's possible to use the `+then+` keyword to denote consecutive tasks.
+
+[plantuml]
+----
+@startgantt
+[Prototype design] lasts 14 days
+then [Test prototype] lasts 4 days
+then [Deploy prototype] lasts 6 days
+@endgantt
+----
+
+You can also use arrow `+->+`
+
+
+[plantuml]
+----
+@startgantt
+[Prototype design] lasts 14 days
+[Build prototype] lasts 4 days
+[Prepare test] lasts 6 days
+[Prototype design] -> [Build prototype]
+[Prototype design] -> [Prepare test]
+@endgantt
+----
+
+
+== Working with resources
+You can affect tasks on resources using the `+on+` keyword and brackets for resource name.
+
+
+[plantuml]
+----
+@startgantt
+[Task1] on {Alice} lasts 10 days
+[Task2] on {Bob:50%} lasts 2 days
+then [Task3] on {Alice:25%} lasts 1 days
+@endgantt
+----
+
+Multiple resources can be assigned to a task:
+
+
+[plantuml]
+----
+@startgantt
+[Task1] on {Alice} {Bob} lasts 20 days
+@endgantt
+----
+
+Resources can be marked as off on specific days:
+
+[plantuml]
+----
+@startgantt
+project starts on 2020-06-19
+[Task1] on {Alice} lasts 10 days
+{Alice} is off on 2020-06-24 to 2020-06-26
+@endgantt
+----
+
+
+== Hide resources
+
+=== Without any hiding (by default)
+
+[plantuml]
+----
+@startgantt
+[Task1] on {Alice} lasts 10 days
+[Task2] on {Bob:50%} lasts 2 days
+then [Task3] on {Alice:25%} lasts 1 days
+then [Task4] on {Alice:25%} {Bob} lasts 1 days
+@endgantt
+----
+
+
+=== Hide resources names
+
+You can hide ressources names and percentage, on tasks, using the `+hide ressources names+` keywords.
+
+[plantuml]
+----
+@startgantt
+hide ressources names
+[Task1] on {Alice} lasts 10 days
+[Task2] on {Bob:50%} lasts 2 days
+then [Task3] on {Alice:25%} lasts 1 days
+then [Task4] on {Alice:25%} {Bob} lasts 1 days
+@endgantt
+----
+
+=== Hide resources footbox
+
+You can also hide ressources names on bottom of the diagram using the `+ hide ressources footbox+` keywords.
+
+[plantuml]
+----
+@startgantt
+hide ressources footbox
+[Task1] on {Alice} lasts 10 days
+[Task2] on {Bob:50%} lasts 2 days
+then [Task3] on {Alice:25%} lasts 1 days
+then [Task4] on {Alice:25%} {Bob} lasts 1 days
+@endgantt
+----
+
+=== Hide the both (resources names and resources footbox)
+
+You can also hide the both.
+
+[plantuml]
+----
+@startgantt
+hide ressources names
+hide ressources footbox
+[Task1] on {Alice} lasts 10 days
+[Task2] on {Bob:50%} lasts 2 days
+then [Task3] on {Alice:25%} lasts 1 days
+then [Task4] on {Alice:25%} {Bob} lasts 1 days
+@endgantt
+----
+
+
+== Separator
+
+You can use `+--+` to separate sets of tasks.
+
+
+[plantuml]
+----
+@startgantt
+[Task1] lasts 10 days
+then [Task2] lasts 4 days
+-- Phase Two --
+then [Task3] lasts 5 days
+then [Task4] lasts 6 days
+@endgantt
+----
+
+
+== Complex example
+It also possible to use the `+and+` conjunction.
+
+You can also add delays in constraints.
+
+
+[plantuml]
+----
+@startgantt
+[Prototype design] lasts 13 days and is colored in Lavender/LightBlue
+[Test prototype] lasts 9 days and is colored in Coral/Green and starts 3 days after [Prototype design]'s end
+[Write tests] lasts 5 days and ends at [Prototype design]'s end
+[Hire tests writers] lasts 6 days and ends at [Write tests]'s start
+[Init and write tests report] is colored in Coral/Green
+[Init and write tests report] starts 1 day before [Test prototype]'s start and ends at [Test prototype]'s end
+@endgantt
+----
+
+
+== Comments
+
+As is mentioned on link::commons#560kta2oz3a2k362kjbm[Common Commands page]:
+> Everything that starts with `+simple quote '+` is a comment.
+>
+> You can also put comments on several lines using `+/'+` to start and `+'/+` to end.
+__(i.e.: the first character (except space character) of a comment line must be a `+simple quote '+`)__
+
+
+[plantuml]
+----
+@startgantt
+' This is a comment
+
+[T1] lasts 3 days
+
+/' this comment
+is on several lines '/
+
+[T2] starts at [T1]'s end and lasts 1 day
+@endgantt
+----
+
+
+== Using style
+
+=== Without style (by default)
+[plantuml]
+----
+@startgantt
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@endgantt
+----
+
+
+=== With style
+
+You can use link::style-evolution[style] to change rendering of elements.
+
+[plantuml]
+----
+@startgantt
+<style>
+ganttDiagram {
+	task {
+		FontName Helvetica
+		FontColor red
+		FontSize 18
+		FontStyle bold
+		BackGroundColor GreenYellow
+		LineColor blue
+	}
+	milestone {
+		FontColor blue
+		FontSize 25
+		FontStyle italic
+		BackGroundColor yellow
+		LineColor red
+	}
+	note {
+		FontColor DarkGreen
+		FontSize 10
+		LineColor OrangeRed
+	}
+	arrow {
+		FontName Helvetica
+		FontColor red
+		FontSize 18
+		FontStyle bold
+		BackGroundColor GreenYellow
+		LineColor blue
+	}
+	separator {
+		LineColor red
+		BackGroundColor green
+		FontSize 16
+		FontStyle bold
+		FontColor purple
+	}
+}
+</style>
+[Task1] lasts 20 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+[Task2] lasts 4 days
+[Task1] -> [Task2]
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+-- end --
+@endgantt
+----
+
+__[Ref. https://forum.plantuml.net/10835[QA-10835], https://forum.plantuml.net/12045[QA-12045], https://forum.plantuml.net/11877[QA-11877] and https://github.com/plantuml/plantuml/pull/438[PR-438]]__
+
+=== With style (full example)
+
+[plantuml]
+----
+@startgantt
+<style>
+ganttDiagram {
+	task {
+		FontName Helvetica
+		FontColor red
+		FontSize 18
+		FontStyle bold
+		BackGroundColor GreenYellow
+		LineColor blue
+	}
+	milestone {
+		FontColor blue
+		FontSize 25
+		FontStyle italic
+		BackGroundColor yellow
+		LineColor red
+	}
+	note {
+		FontColor DarkGreen
+		FontSize 10
+		LineColor OrangeRed
+	}
+	arrow {
+		FontName Helvetica
+		FontColor red
+		FontSize 18
+		FontStyle bold
+		BackGroundColor GreenYellow
+		LineColor blue
+		LineStyle 8.0;13.0
+		LineThickness 3.0
+	}
+	separator {
+		BackgroundColor lightGreen
+		LineStyle 8.0;3.0
+		LineColor red
+		LineThickness 1.0
+		FontSize 16
+		FontStyle bold
+		FontColor purple
+		Margin 5
+		Padding 20
+	}
+	timeline {
+	    BackgroundColor Bisque
+	}
+	closed {
+		BackgroundColor pink
+		FontColor red
+	}
+}
+</style>
+Project starts the 2020-12-01
+
+[Task1] lasts 10 days
+sunday are closed
+
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+
+[Task2] lasts 20 days
+[Task2] starts 10 days after [Task1]'s end
+-- Separator title --
+[M1] happens on 5 days after [Task1]'s end
+
+<style>
+	separator {
+	    LineColor black
+		Margin 0
+		Padding 0
+	}
+</style>
+
+-- end --
+@endgantt
+----
+__[Ref. https://forum.plantuml.net/13570/can-you-style-the-days-and-months-of-a-gantt-chart?show=13589#a13589[QA-13570], https://forum.plantuml.net/13672[QA-13672]]__
+
+[[#00D700#DONE]]
+__Thanks for style for Separator and all style for Arrow (thickness...)__
+
+=== Clean style
+
+With style, you can also clean a Gantt diagram __(showing tasks, dependencies and relative durations only - but no actual start date and no actual scale)__: 
+[plantuml]
+----
+@startgantt
+<style>
+ganttDiagram {
+  timeline {
+    LineColor transparent
+    FontColor transparent
+ }
+}
+</style>
+
+hide footbox
+[Test prototype] lasts 7 days
+[Prototype completed] happens at [Test prototype]'s end
+[Setup assembly line] lasts 9 days
+[Setup assembly line] starts at [Test prototype]'s end
+then [Setup] lasts 5 days
+[T2] lasts 2 days and starts at [Test prototype]'s end
+then [T3] lasts 3 days
+-- end task --
+then [T4] lasts 2 days
+@endgantt
+----
+__[Ref. https://forum.plantuml.net/13971[QA-13971]]__
+
+Or:
+
+[plantuml]
+----
+@startgantt
+<style>
+ganttDiagram {
+  timeline {
+    LineColor transparent
+    FontColor transparent
+  }
+  closed {
+    FontColor transparent
+  }
+}
+</style>
+
+hide footbox
+project starts the 2018/04/09
+saturday are closed
+sunday are closed
+2018/05/01 is closed
+2018/04/17 to 2018/04/19 is closed
+[Prototype design] lasts 9 days
+[Test prototype] lasts 5 days
+[Test prototype] starts at [Prototype design]'s end
+[Prototype design] is colored in Fuchsia/FireBrick
+[Test prototype] is colored in GreenYellow/Green
+@endgantt
+----
+__[Ref. https://forum.plantuml.net/13464[QA-13464]]__
+
+
+== Add notes
+
+[plantuml]
+----
+@startgantt
+[task01] lasts 15 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+
+[task01] -> [task02]
+
+@endgantt
+----
+
+Example with overlap.
+[plantuml]
+----
+@startgantt
+[task01] lasts 15 days
+note bottom
+  memo1 ...
+  memo2 ...
+  explanations1 ...
+  explanations2 ...
+end note
+
+[task01] -> [task02]
+[task03] lasts 5 days
+
+@endgantt
+----
+
+
+[plantuml]
+----
+@startgantt
+
+-- test01 --
+
+[task01] lasts 4 days
+note bottom
+'note left
+memo1 ...
+memo2 ...
+explanations1 ...
+explanations2 ...
+end note
+
+[task02] lasts 8 days
+[task01] -> [task02]
+note bottom
+'note left
+memo1 ...
+memo2 ...
+explanations1 ...
+explanations2 ...
+end note
+-- test02 --
+
+[task03] as [t3] lasts 7 days
+[t3] -> [t4]
+@endgantt
+----
+
+[[#c0ffc0#DONE]]
+__Thanks for correction (of https://github.com/plantuml/plantuml/issues/386[#386] on https://plantuml.com/changes[v1.2020.18]) when overlapping__
+
+[plantuml]
+----
+@startgantt
+
+Project starts 2020-09-01
+
+[taskA] starts 2020-09-01 and lasts 3 days
+[taskB] starts 2020-09-10 and lasts 3 days
+[taskB] displays on same row as [taskA]
+
+[task01] starts 2020-09-05 and lasts 4 days
+
+then [task02] lasts 8 days
+note bottom
+  note for task02
+  more notes
+end note
+
+then [task03] lasts 7 days
+note bottom
+  note for task03
+  more notes
+end note
+
+-- separator --
+
+[taskC] starts 2020-09-02 and lasts 5 days
+[taskD] starts 2020-09-09 and lasts 5 days
+[taskD] displays on same row as [taskC]
+
+[task 10] starts 2020-09-05 and lasts 5 days
+then [task 11] lasts 5 days
+note bottom
+  note for task11
+  more notes
+end note
+@endgantt
+----
+
+
+== Pause tasks
+
+[plantuml]
+----
+@startgantt
+Project starts the 5th of december 2018
+saturday are closed
+sunday are closed
+2018/12/29 is opened
+[Prototype design] lasts 17 days
+[Prototype design] pauses on 2018/12/13
+[Prototype design] pauses on 2018/12/14
+[Prototype design] pauses on monday
+[Test prototype] starts at [Prototype design]'s end and lasts 2 weeks
+@endgantt
+----
+
+
+== Change link colors
+
+You can change link colors:
+* with this syntax: `+with <color> <style> link+`
+[plantuml]
+----
+@startgantt
+[T1] lasts 4 days
+[T2] lasts 4 days and starts 3 days after [T1]'s end with blue dotted link
+[T3] lasts 4 days and starts 3 days after [T2]'s end with green bold link
+[T4] lasts 4 days and starts 3 days after [T3]'s end with green dashed link
+@endgantt
+----
+
+
+* or directly by using arrow style
+
+[plantuml]
+----
+@startgantt
+<style>
+ganttDiagram {
+	arrow {
+		LineColor blue
+	}
+}
+</style>
+[Prototype design] lasts 7 days
+[Build prototype] lasts 4 days
+[Prepare test] lasts 6 days
+[Prototype design] -[#FF00FF]-> [Build prototype]
+[Prototype design] -[dotted]-> [Prepare test]
+Then [Run test]  lasts 4 days
+@endgantt
+----
+
+__[Ref. https://forum.plantuml.net/13693[QA-13693]]__
+
+
+== Tasks or Milestones on the same line
+
+You can put Tasks or Milestones on the same line, with this syntax: 
+* `+[T|M] displays on same row as [T|M]+`
+
+[plantuml]
+----
+@startgantt
+[Prototype design] lasts 13 days
+[Test prototype] lasts 4 days and 1 week
+[Test prototype] starts 1 week and 2 days after [Prototype design]'s end
+[Test prototype] displays on same row as [Prototype design]
+[r1] happens on 5 days after [Prototype design]'s end
+[r2] happens on 5 days after [r1]'s end
+[r3] happens on 5 days after [r2]'s end
+[r2] displays on same row as [r1]
+[r3] displays on same row as [r1]
+@endgantt
+----
+
+
+== Highlight today
+
+[plantuml]
+----
+@startgantt
+Project starts the 20th of september 2018
+sunday are close
+2018/09/21 to 2018/09/23 are colored in salmon
+2018/09/21 to 2018/09/30 are named [Vacation in the Bahamas] 
+
+today is 30 days after start and is colored in #AAF
+[Foo] happens 40 days after start
+[Dummy] lasts 10 days and starts 10 days after start
+
+@endgantt
+----
+
+
+== Task between two milestones
+
+[plantuml]
+----
+@startgantt
+project starts on 2020-07-01
+[P_start] happens 2020-07-03
+[P_end]   happens 2020-07-13
+[Prototype design] occurs from [P_start] to [P_end]
+@endgantt
+----
+
+
+== Grammar and verbal form
+
+|===
+| Verbal form | Example
+
+| [__T__] starts
+|
+
+| [__M__] happens
+|
+
+|===
+
+
+== Add title, header, footer, caption or legend
+
+[plantuml]
+----
+@startgantt
+
+header some header
+
+footer some footer
+
+title My title
+
+[Prototype design] lasts 13 days
+
+legend
+The legend
+end legend
+
+caption This is caption
+
+@endgantt
+----
+
+__(See also: link::commons[Common commands])__
+
+
+== Removing Foot Boxes (example for all scale)
+
+You can use the `+hide footbox+` keywords to remove the foot boxes
+of the gantt diagram __(as for link::sequence-diagram[sequence diagram])__.
+
+Examples on:
+
+* daily scale __(without project start)__
+[plantuml]
+----
+@startgantt
+
+hide footbox
+title Foot Box removed
+
+[Prototype design] lasts 15 days
+[Test prototype] lasts 10 days
+@endgantt
+----
+
+* daily scale
+[plantuml]
+----
+@startgantt
+
+Project starts the 20th of september 2017
+[Prototype design] as [TASK1] lasts 13 days
+[TASK1] is colored in Lavender/LightBlue
+
+hide footbox
+@endgantt
+----
+
+* weekly scale
+[plantuml]
+----
+@startgantt
+hide footbox
+
+printscale weekly
+saturday are closed
+sunday are closed
+
+Project starts the 1st of january 2021
+[Prototype design end] as [TASK1] lasts 19 days
+[TASK1] is colored in Lavender/LightBlue
+[Testing] lasts 14 days
+[TASK1]->[Testing]
+
+2021-01-18 to 2021-01-22 are named [End's committee]
+2021-01-18 to 2021-01-22 are colored in salmon 
+@endgantt
+----
+
+
+* monthly scale
+[plantuml]
+----
+@startgantt
+
+hide footbox
+
+projectscale monthly
+Project starts the 20th of september 2020
+[Prototype design] as [TASK1] lasts 130 days
+[TASK1] is colored in Lavender/LightBlue
+[Testing] lasts 20 days
+[TASK1]->[Testing]
+
+2021-01-18 to 2021-01-22 are named [End's committee]
+2021-01-18 to 2021-01-22 are colored in salmon 
+@endgantt
+----
+
+* quarterly scale
+[plantuml]
+----
+@startgantt
+
+hide footbox
+
+projectscale quarterly
+Project starts the 1st of october 2020
+[Prototype design] as [TASK1] lasts 700 days
+[TASK1] is colored in Lavender/LightBlue
+[Testing] lasts 200 days
+[TASK1]->[Testing]
+
+2021-01-18 to 2021-03-22 are colored in salmon 
+@endgantt
+----
+
+* yearly scale
+[plantuml]
+----
+@startgantt
+
+hide footbox
+
+projectscale yearly
+Project starts the 1st of october 2020
+[Prototype design] as [TASK1] lasts 700 days
+[TASK1] is colored in Lavender/LightBlue
+[Testing] lasts 200 days
+[TASK1]->[Testing]
+
+2021-01-18 to 2021-03-22 are colored in salmon 
+@endgantt
+----
+
+
+== Language of the calendar
+
+You can choose the language of the Gantt calendar, with the `+language <xx>+` command where `+<xx>+` is the https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes[ISO 639 code] of the language.
+
+
+=== English  __(en, by default)__
+[plantuml]
+----
+@startgantt
+saturday are closed
+sunday are closed
+
+Project starts 2021-01-01
+[Prototype design end] as [TASK1] lasts 19 days
+[TASK1] is colored in Lavender/LightBlue
+[Testing] lasts 14 days
+[TASK1]->[Testing]
+
+2021-01-18 to 2021-01-22 are colored in salmon 
+@endgantt
+----
+
+=== Deutsch (de)
+[plantuml]
+----
+@startgantt
+language de
+saturday are closed
+sunday are closed
+
+Project starts 2021-01-01
+[Prototype design end] as [TASK1] lasts 19 days
+[TASK1] is colored in Lavender/LightBlue
+[Testing] lasts 14 days
+[TASK1]->[Testing]
+
+2021-01-18 to 2021-01-22 are colored in salmon 
+@endgantt
+----
+
+=== Japanese (ja)
+[plantuml]
+----
+@startgantt
+language ja
+saturday are closed
+sunday are closed
+
+Project starts 2021-01-01
+[Prototype design end] as [TASK1] lasts 19 days
+[TASK1] is colored in Lavender/LightBlue
+[Testing] lasts 14 days
+[TASK1]->[Testing]
+
+2021-01-18 to 2021-01-22 are colored in salmon 
+@endgantt
+----
+
+=== Chinese (zh)
+[plantuml]
+----
+@startgantt
+language zh
+saturday are closed
+sunday are closed
+
+Project starts 2021-01-01
+[Prototype design end] as [TASK1] lasts 19 days
+[TASK1] is colored in Lavender/LightBlue
+[Testing] lasts 14 days
+[TASK1]->[Testing]
+
+2021-01-18 to 2021-01-22 are colored in salmon 
+@endgantt
+----
+
+=== Korean (ko)
+[plantuml]
+----
+@startgantt
+language ko
+saturday are closed
+sunday are closed
+
+Project starts 2021-01-01
+[Prototype design end] as [TASK1] lasts 19 days
+[TASK1] is colored in Lavender/LightBlue
+[Testing] lasts 14 days
+[TASK1]->[Testing]
+
+2021-01-18 to 2021-01-22 are colored in salmon 
+@endgantt
+----
+
+
+== Delete Tasks or Milestones
+
+You can mark some Tasks or Milestones as `+deleted+` instead of normally completed to distinguish tasks that may possibly have been discarded, postponed or whatever.
+
+[plantuml]
+----
+@startgantt
+[Prototype design] lasts 1 weeks
+then [Prototype completed]  lasts 4 days
+[End Prototype completed] happens at [Prototype completed]'s end
+then [Test prototype] lasts 5 days
+[End Test prototype] happens at [Test prototype]'s end
+
+[Prototype completed] is deleted
+[End Prototype completed] is deleted
+@endgantt
+----
+
+__[Ref. https://forum.plantuml.net/9129[QA-9129]]__
+
+

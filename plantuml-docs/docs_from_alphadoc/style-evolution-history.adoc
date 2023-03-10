@@ -1,0 +1,1248 @@
+== Elements that can be styled
+
+
+Here is a simplified list of __some__ of the element types, especially those that have built-in "default" styles.
+
+> This will need to be expanded to show the proper hierarchy, and which elements are supported for styling.
+
+
+|===
+| Element | in which diagram type ? | Hardcoded styles used
+
+| Actor
+| SequenceDiagram
+| `+root, element, sequenceDiagram, actor+`
+
+| Stereotype of Actor
+| SequenceDiagram
+| `+root, element, sequenceDiagram, actor, stereotype+`
+
+| Boundary
+| SequenceDiagram
+| `+root, element, sequenceDiagram, boundary+`
+
+| Stereotype of Boundary
+| SequenceDiagram
+| `+root, element, sequenceDiagram, boundary, stereotype+`
+
+| messages
+| SequenceDiagram
+| `+root, element, sequenceDiagram, message+`
+
+| Actor
+| ComponentDiagram
+| `+root, element, componentDiagram, actor+`
+
+| Stereotype of Actor
+| ComponentDiagram
+| `+root, element, componentDiagram, actor, stereotype+`
+
+| Boundary
+| ComponentDiagram
+| `+root, element, componentDiagram, boundary+`
+
+| Stereotype of Boundary
+| ComponentDiagram
+| `+root, element, componentDiagram, boundary, stereotype+`
+
+| Title
+| SequenceDiagram
+| `+root, sequenceDiagram, title+`
+
+| Title
+| ComponentDiagram
+| `+root, componentDiagram, title+`
+
+| Title
+| ClassDiagram
+| `+root, classDiagram, title+`
+
+| Footer
+| SequenceDiagram
+| `+root, sequenceDiagram, footer+`
+
+| Footer
+| ComponentDiagram
+| `+root, componentDiagram, footer+`
+
+| Footer
+| ClassDiagram
+| `+root, classDiagram, footer+`
+
+|===
+
+(We use `+classDiagram+` because later we will need `+class+` which will only apply to actual UML `+class+` entities.)
+
+> Note that Title, Footer, and Caption are not __real__ UML elements, and will be dealt with differently.
+
+
+
+
+== Older model and discussion (history)
+
+
+
+== Targeting Specific Diagram Element
+
+We have to define how we apply style so a specific element of a UML diagram (for example, only for participant Bob or for a specific message between Alice and Bob).
+
+To me, some style can be defined, but the style definition should not mention the specific element (otherwise it means that the style definition is specific to one diagram).
+
+I know that this is different from what CSS allows.
+
+
+
+== Option 3
+
+In **Option 3** proposal, styles cannot inherit from each other. However, each element can have several styles (like in CSS) and there are a mecanism based on priority to solve multiple inheritance issues in property value.
+
+Let's first focus on some elements (actor, boundary which can be used in several diagram type).
+
+
+If you want use blue color for text everywhere:
+
+<plantuml>
+@startuml
+skinparam useBetaStyle true
+title Styling example
+<style>
+root {
+  FontColor blue
+}
+</style>
+Alice -> Bob : hello
+@enduml
+</plantuml>
+<plantuml>
+@startuml
+skinparam useBetaStyle true
+title Styling example
+<style>
+root {
+  FontColor blue
+}
+</style>
+Alice -> Bob : hello
+@enduml
+</plantuml>
+Internally, there is a "plantuml.skin" file stored in the plantuml.jar library that store all settings (so no more hardcoded value in the code). The previous example only overrides the fontcolor of the root style.
+
+So now, imagine that you want all UML elements (so not for title, footer...) in green:
+
+<plantuml>
+@startuml
+skinparam useBetaStyle true
+title Styling example
+<style>
+root {
+  FontColor blue
+}
+element {
+  FontColor green
+}
+</style>
+Alice -> Bob : hello
+@enduml
+</plantuml>
+<plantuml>
+@startuml
+skinparam useBetaStyle true
+title Styling example
+<style>
+root {
+  FontColor blue
+}
+element {
+  FontColor green
+}
+</style>
+Alice -> Bob : hello
+@enduml
+</plantuml>
+The order of declaration is important: since "element" is defined after "root", the priority of green setting is higher than the priority of blue setting.
+
+Now, you want also all actor printed in red:
+
+<plantuml>
+@startuml
+skinparam useBetaStyle true
+title Styling example
+<style>
+root {
+  FontColor blue
+}
+element {
+  FontColor green
+}
+actor {
+  FontColor red
+}
+</style>
+actor Alice
+Alice -> Bob : hello
+@enduml
+</plantuml>
+
+<plantuml>
+@startuml
+skinparam useBetaStyle true
+title Styling example
+<style>
+root {
+  FontColor blue
+}
+element {
+  FontColor green
+}
+actor {
+  FontColor red
+}
+</style>
+actor Alice
+Alice -> Bob : hello
+@enduml
+</plantuml>
+Now, you want also sequence diagrams printed in purple:
+
+<plantuml>
+@startuml
+skinparam useBetaStyle true
+title Styling example
+<style>
+root {
+  FontColor blue
+}
+element {
+  FontColor green
+}
+actor {
+  FontColor red
+}
+sequenceDiagram {
+  FontColor purple
+}
+</style>
+' In that case, actor from sequence diagrams will be in purple, because purple is defined after red.
+actor Alice
+Alice -> Bob : hello
+@enduml
+</plantuml>
+
+<plantuml>
+@startuml
+skinparam useBetaStyle true
+title Styling example
+<style>
+root {
+  FontColor blue
+}
+element {
+  FontColor green
+}
+actor {
+  FontColor red
+}
+sequenceDiagram {
+  FontColor purple
+}
+</style>
+' In that case, actor from sequence diagrams will be in purple, because purple is defined after red.
+actor Alice
+Alice -> Bob : hello
+@enduml
+</plantuml>
+
+<plantuml>
+@startuml
+skinparam useBetaStyle true
+title Styling example
+<style>
+root {
+  FontColor blue
+}
+element {
+  FontColor green
+}
+actor {
+  FontColor red
+}
+sequenceDiagram {
+  FontColor purple
+}
+' In that case, actor from sequence diagrams will be in purple, because purple is defined after red.
+</style>
+actor Alice
+Alice -> Bob : hello
+@enduml
+</plantuml>
+
+Changing the order definition will only change the color of actor in sequence diagram:
+<plantuml>
+@startuml
+skinparam useBetaStyle true
+title Styling example
+<style>
+root {
+  FontColor blue
+}
+element {
+  FontColor green
+}
+sequenceDiagram {
+  FontColor purple
+}
+actor {
+  FontColor red
+}
+</style>
+' In that case, actor from sequence diagrams will be in red, because red is defined after purple.
+actor Alice
+Alice -> Bob : hello
+@enduml
+</plantuml>
+
+<plantuml>
+@startuml
+skinparam useBetaStyle true
+title Styling example
+<style>
+root {
+  FontColor blue
+}
+element {
+  FontColor green
+}
+sequenceDiagram {
+  FontColor purple
+}
+actor {
+  FontColor red
+}
+</style>
+' In that case, actor from sequence diagrams will be in red, because red is defined after purple.
+actor Alice
+Alice -> Bob : hello
+@enduml
+</plantuml>
+
+Finally, there is also a way to change a setting for a element which have two or more precise styles:
+
+<plantuml>
+@startuml
+skinparam useBetaStyle true
+title Styling example
+<style>
+sequenceDiagram+actor {
+  FontColor blue
+}
+</style>
+' In that case, only actor from sequence diagram are printed in blue.
+' Actors in other diagram and other sequence element are unchanged.
+actor Alice
+Alice -> Bob : hello
+@enduml
+</plantuml>
+
+<plantuml>
+@startuml
+skinparam useBetaStyle true
+title Styling example
+<style>
+sequenceDiagram+actor {
+  FontColor blue
+}
+</style>
+' In that case, only actor from sequence diagram are printed in blue.
+' Actors in other diagram and other sequence element are unchanged.
+actor Alice
+Alice -> Bob : hello
+@enduml
+</plantuml>
+
+You can also defined your own style. In that case, they could be used when needed with the stererotype notation :
+----
+@startuml
+<style>
+actor {
+  Padding 10
+}
+MorePadding {
+  Image <&check>
+  ImagePosition BeforeText
+  ' or AfterText
+  ' <img:> convention also supported
+  fontSize 24
+  Size 32
+  Padding 20
+}
+message {
+  fontSize 24
+}
+SmallFont {
+  fontSize 10
+}
+</style>
+
+participant Bob
+actor Alice <<MorePadding>>
+'In that case Alice with use the style "root, element, sequence, actor, MorePadding"
+participant Sally
+
+Bob->Alice: Hello
+Alice->Sally: Also Hello! <<SmallFont>>
+' This is new: you can use stereotype on message
+@enduml
+----
+
+Here is another example:
+
+<plantuml>
+@startuml
+<style>
+message {
+  fontSize 24
+}
+BobAndAliceMessage {
+  fontSize 10
+}
+</style>
+
+participant Bob
+actor Alice
+participant Sally
+
+Bob->Alice: Hello <<BobAndAliceMessage>>
+Alice->Sally: Also Hello!
+@enduml
+</plantuml>
+<plantuml>
+@startuml
+<style>
+message {
+  fontSize 24
+}
+.BobAndAliceMessage {
+  fontSize 10
+}
+</style>
+participant Bob
+actor Alice
+participant Sally
+
+Bob->Alice: Hello <<BobAndAliceMessage>>
+Alice->Sally: Also Hello!
+@enduml
+</plantuml>
+Unfortunately here, you have to manually set `+<<BobAndAliceMessage>>+`.
+
+
+== Varying style
+
+There is another limitation of current skinparam features: the parameter are defined once along the diagram and you cannot change values across the diagram.
+
+The idea here is to allow a style to be different in some context (for example a package) or to change over the execution of the diagram.
+
+For example:
+
+<plantuml>
+@startuml
+skinparam useBetaStyle true
+style message  {
+  FontColor blue
+}
+Alice -> Bob : this is printed in blue
+style message  {
+  FontColor red
+}
+Alice -> Bob : this is printed in red
+@enduml
+</plantuml>
+
+Or in some usecase diagram:
+
+----
+@startuml
+style actor {
+  FontColor blue
+}
+'foo1 is printed in blue
+actor foo1
+
+package myPackage {
+' Style modification in this package are local
+  style actor {
+    FontColor red
+  }
+  'foo2 is printed in red
+  actor foo2
+}
+
+' We left the package, so we're back to previous style definition
+'foo3 is also printed in blue
+actor foo3
+@enduml
+----
+
+
+
+
+== Mixing style and stereotype
+
+Styles and stereotypes are going to be very close notions.
+
+Stereotypes could be defined as style to change colors, font...
+The only difference is that a stereotype is printed on diagrams using standard UML notation while a style is never printed on diagrams. So styles and stereotypes affect rendering in the same way.
+
+For example, you can have:
+
+<plantuml>
+@startuml
+skinparam useBetaStyle true
+stereotype foo1 {
+  FontColor green
+}
+style dummy1 {
+  FontColor red
+}
+
+participant Alice <<foo1>>
+participant Bob <<dummy1>>
+@enduml
+</plantuml>
+
+Alice is going to be printed in green and Bob in red. However, `+<<foo1>>+` is going to be printed on the diagram while you won't see any `+dummy1+` string.
+
+Now, since stereotype are printed, you can change stereotype colors using a style named `+stereotype+`
+
+<plantuml>
+@startuml
+skinparam useBetaStyle true
+stereotype foo1 {
+  FontColor red
+}
+style stereotype {
+  FontColor green
+}
+participant Bob <<foo1>>
+@enduml
+</plantuml>
+
+So `+Bob+` is going to be printed in red and `+<<dummy1>>+` is going to be printed in green.
+
+Now you can also do complex stuff:
+
+<plantuml>
+@startuml
+skinparam useBetaStyle true
+style dummy1 {
+  FontColor purple
+  FontStyle bold
+  BackgroundColor white
+}
+
+stereotype foo3 {
+  FontColor blue
+  FontStyle bold
+}
+
+style stereotype {
+  FontColor green
+  FontSize 8
+}
+
+style stereotype+foo3 {
+  FontSize 24
+  FontColor red
+}
+
+participant Bob <<dummy1>>
+actor Alice <<foo2>>
+actor Charlie <<foo3>>
+actor David <<foo4>>
+@enduml
+</plantuml>
+
+
+
+== Potential Use Extensions
+
+[KJW]Have style Parameters  equivalent to Skin Parameters applied conditionally
+----
+!function formatConnection($sequenceArrowThickness, $from, $to, $protocol)
+   <style:sequenceArrowThickness $sequenceArrowThickness>
+   $from<<->>$to : $protocol
+   <style:sequenceArrowThickness 1>
+!endfunction
+----
+<code>box "AWS " #LightBlue
+----
+participant "aPlatform" as ap
+----
+
+end box</code>
+
+<code>box "External" #Lightgreen
+----
+participant "EXternal API" as extapi
+participant ""EXternal  Service" as exts
+----
+end box</code>
+
+
+
+<code>formatConnection("2", "ap", "extapi","<< MA-TLS >>")</code>
+
+OR
+
+<code>ap<<->>extapi : <style:sequenceArrowThickness 2> << MA-TLS >></code>
+
+Result is only this sequence line is 2 the rest are the default 1
+
+
+
+== plantuml.skin file
+
+This is the default file used by PlantUML.
+Users will be able to modify this file or to create their own foo.skin file.
+
+----
+style root {
+  FontName SansSerif
+  HyperLinkColor red
+  FontColor black
+  FontSize 14
+  FontStyle plain
+  HorizontalAlignment left
+  RoundCorner 0
+  DiagonalCorner 0
+  LineThickness 1.0
+  LineColor #A80036
+  BackGroundColor #FEFECE
+  Shadowing 0.0
+}
+
+style stereotype {
+  FontStyle italic
+}
+
+style title {
+  HorizontalAlignment center
+  FontSize 14
+  FontStyle bold
+  Padding 0
+  Margin 4
+  LineColor none
+  BackGroundColor none
+}
+
+style header {
+  HorizontalAlignment center
+  FontSize 10
+  FontColor #888888
+}
+
+style footer {
+  HorizontalAlignment left
+  FontSize 10
+  FontColor #888888
+}
+
+style legend {
+  LineColor black
+  BackGroundColor #DDDDDD
+  FontSize 14
+  RoundCorner 15
+  Padding 6
+  Margin 8
+}
+
+style caption {
+  HorizontalAlignment center
+  FontSize 14
+  Padding 0
+  Margin 1
+  LineColor none
+  BackGroundColor none
+}
+
+
+style element {
+  Shadowing 4.0
+}
+
+style sequenceDiagram {
+}
+
+style classDiagram {
+}
+
+style activityDiagram {
+}
+
+style group {
+  BackGroundColor none
+  LineColor black
+  LineThickness 2.0
+  FontSize 11
+
+  FontStyle bold
+}
+
+style groupHeader {
+  BackGroundColor #EEEEEE
+  LineColor black
+
+  FontSize 13
+  FontStyle bold
+}
+
+style lifeLine {
+  BackGroundColor none
+}
+
+style destroy {
+}
+
+style reference {
+  LineColor red
+  FontSize 10
+  FontStyle bold
+  FontColor blue
+  BackGroundColor gold
+  HorizontalAlignment right
+}
+
+style box {
+  BackGroundColor #DDDDDD
+
+  FontSize 13
+  FontStyle bold
+}
+
+style separator {
+  LineColor black
+  LineThickness 2.0
+  BackGroundColor #EEEEEE
+
+  FontSize 13
+  FontStyle bold
+}
+
+style delay {
+  FontSize 22
+  FontStyle italic
+}
+
+style participant {
+  LineThickness 1.5
+}
+
+style actor {
+  LineThickness 2.0
+}
+
+style boundary {
+}
+
+style control {
+}
+
+style entity {
+}
+
+style queue {
+}
+
+style database {
+}
+
+style collections {
+}
+
+style swimlane {
+}
+
+style diamond {
+}
+
+style arrow {
+  FontSize 13
+}
+
+style note {
+  FontSize 13
+  BackGroundColor #FBFB77
+}
+
+style partition {
+}
+
+style circle {
+}
+
+----
+
+
+
+== debug.skin file
+
+This file is used as an alternative possible skin file for debugging purpose.
+It is integrated into beta version.
+
+----
+style root {
+  FontName SansSerif
+  HyperLinkColor red
+  FontColor green
+  FontSize 19
+  FontStyle plain
+  HorizontalAlignment left
+  RoundCorner 15
+  DiagonalCorner 0
+  LineColor #3600A8
+  LineThickness 1.0
+  BackGroundColor #AAA
+  Shadowing 0.0
+}
+
+style stereotype {
+  FontColor blue
+  FontSize 8
+  FontStyle bold
+}
+
+style title {
+  HorizontalAlignment right
+  FontSize 24
+  FontColor blue
+}
+
+style header {
+  HorizontalAlignment center
+  FontSize 26
+  FontColor purple
+}
+
+style footer {
+  HorizontalAlignment left
+  FontSize 28
+  FontColor red
+}
+
+style legend {
+  FontSize 30
+  BackGroundColor yellow
+  Margin 30
+  Padding 50
+}
+
+style caption {
+  FontSize 32
+}
+
+
+style element {
+  BackGroundColor #CEFEFE
+}
+
+style sequenceDiagram {
+}
+
+style classDiagram {
+}
+
+style activityDiagram {
+}
+
+
+style group {
+  LineThickness 3.5
+  BackGroundColor MistyRose
+  LineColor DarkOrange
+
+  FontSize 12
+  FontStyle italic
+  FontColor red
+}
+
+style groupHeader {
+  BackGroundColor tan
+  LineThickness 0.5
+  LineColor yellow
+
+  FontSize 18
+  FontStyle bold
+  FontColor blue
+}
+
+style lifeLine {
+  BackGroundColor gold
+}
+
+style destroy {
+  LineColor red
+}
+
+style reference {
+  LineColor red
+  FontSize 10
+  FontStyle bold
+  FontColor blue
+  BackGroundColor gold
+  HorizontalAlignment right
+}
+
+style box {
+  LineThickness 0.1
+  LineColor FireBrick
+  BackGroundColor PowderBlue
+
+  FontSize 12
+  FontStyle italic
+  FontColor Maroon
+}
+
+style separator {
+  LineColor red
+  BackGroundColor green
+
+  FontSize 16
+  FontStyle bold
+  FontColor white
+}
+
+style delay {
+  FontSize 22
+  FontStyle italic
+}
+
+style participant {
+  LineThickness 2.5
+}
+
+style actor {
+  LineThickness 0.5
+}
+
+style boundary {
+  LineThickness 1.5
+}
+
+style control {
+  LineThickness 1.5
+}
+
+style entity {
+  LineThickness 1.5
+}
+
+style queue {
+  LineThickness 1.5
+}
+
+style database {
+  LineThickness 1.5
+}
+
+style collections {
+  LineThickness 1.5
+}
+
+style arrow {
+  FontSize 13
+  LineColor Lime
+}
+
+style note {
+  BackGroundColor GoldenRod
+}
+
+style diamond {
+}
+
+style swimlane {
+}
+
+style activity {
+  BackgroundColor #33668E
+  BorderColor #33668E
+  FontColor #888
+  FontName arial
+}
+
+style activityDiagram && diamond {
+  BackgroundColor #dae4f1
+  BorderColor #33668E
+  FontColor red
+  FontName arial
+  FontSize 5
+}
+
+style activityDiagram && arrow {
+  FontColor gold
+  FontName arial
+  FontSize 15
+}
+
+style activityDiagram && partition {
+  LineColor red
+  FontColor green
+  RoundCorner 30
+}
+
+style activityDiagram && note {
+  FontColor Blue
+  LineColor yellow
+}
+
+style circle {
+  BackgroundColor yellow
+}
+
+----
+
+
+
+== Legacy discussions
+
+We keep here some previous discussions.
+We do not delete them because they contain some interesting ideas.
+Maybe we are going to reuse them.
+
+
+
+== First style proposal
+
+A first idea is to use the same notion as CSS (cascading style sheet).
+The cascading feature may be useful to avoid duplication in skinparam/style feature.
+All elements will have one default (predefined) style, which may inherit for another default style.
+Users will be able either:
+
+* to create a new style and to apply it to some element
+* to modify any predefined style.
+
+Let's start by an simple example:
+----
+@startuml
+actor Alice
+boundary Bob
+Alice -> Bob : hello
+@enduml
+----
+
+By default, all elements uses the `+root+` style, so you can change the font name of all text of this diagram with:
+
+
+Let's say we have the following style hierarchy:
+
+<plantuml>
+@startuml
+title Style hierarchy cascade
+skinparam ranksep 30
+hide circle
+hide empty members
+class root
+class element extends root
+class actor extends element
+class boundary extends element
+class message extends root
+@enduml
+</plantuml>
+
+----
+@startuml
+style root {
+  fontName Arial
+}
+style element {
+  fontName Courier
+  fontColor Red
+}
+syle actor {
+  fontSize 14
+}
+style boundary {
+  fontColor Blue
+}
+actor Alice
+boundary Bob
+Alice -> Bob : hello
+@enduml
+----
+
+[RG] --
+If the format of CSS is followed, the above example could be extended in a similar fashion for targeting specific elements perhaps:
+----
+@startuml
+style root {
+  fontName Arial
+}
+style element {
+  fontName Courier
+  fontColor Red
+}
+style actor.Bob, boundary.Alice {
+  fontSize 14
+}
+style message {
+  fontSize 24
+}
+style message.Bob:Alice
+{
+  BackgroundColor Black
+}
+
+actor Alice
+boundary Bob
+Alice -> Bob : hello
+@enduml
+----
+The syntax for selecting the entity could take many forms. I've used `+:+` for simplicity. Implementing a full descendant selection matching like CSS is more powerful, but also likely more complex, i.e. `+ancestor > descendant+`. It seems most scenarios involve two entities at most, so a simple matching pair may be sufficient, with some minor additional flexibility for directional allowances. To continue the example above, it might look like:
+----
+@startuml
+style message {
+  fontSize 24
+}
+style message.Bob:Alice
+{
+  BackgroundColor Black
+}
+
+style message.Bob>Alice
+{
+  BackgroundColor Blue
+}
+
+actor Alice
+boundary Bob
+Alice -> Bob : hello
+'fontSize 24 &&  BackgroundColor Black
+Bob o-> Alice : hi
+'fontSize 24 &&  BackgroundColor Black && BackgroundColor Blue
+'BackgroundColor would resolve as standard cascade to last defined value, "Blue"
+'or precedence possibly, i.e. a specific relationship ">" is higher order than
+'"any" relationship ":"
+@enduml
+
+----
+It would nice to be mindful of some other outstanding requests that would like to see some form of metadata follow through into SVG output, for postprocessing with other tools. For example, I have opened the SVG in Sketch and used a tool to locate elements of a given name or type to make changes, which currently is quite hard. To incorporate that in a basic fashion:
+
+[AR] Agreed on the need for SVG ouput. I propose to use `+exportedName+` property for this purpose
+
+----
+@startuml
+style message {
+  styleName "DefaultMessage"
+  'default value, not required but processed by system if no styleName found? See example below for
+  'counter argument
+  fontSize 24
+}
+style message.Bob:Alice {
+  styleName "BobAndAliceMessage"
+  ' provided by user. If not provided by user, perhaps system generate in output with basic
+  ' convention like CamelCase to hyphens: Bob-Alice-Message
+  ' But I think it's acceptable to simply state "if user wants a value here, they should supply it"
+  fontSize 10
+}
+
+participant Bob
+actor Alice
+participant Sally
+
+Bob->Alice: Hello
+Alice->Sally: Also Hello!
+@enduml
+----
+I think the main drawback of doing the selectors in the `+style+` section is the dynamic nature of PlantUML, where new entities may be defined on the fly. But in many ways this is no different than HTML/CSS. To take a slightly different tact, focusing on style application happening in the UML itself:
+
+[AR] Here, I don't like the idea of `+style+` targeting individual element of a specific diagram. According to me, it prevent the reuse of some existing `+style+` file several diagrams.
+
+
+----
+@startuml
+style actor {
+  Padding 10
+}
+style actor {
+  styleName "MorePadding"
+  Image <&check>
+  ImagePosition BeforeText
+  ' or AfterText
+  ' <img:> convention also supported
+  fontSize 24
+  Size 32
+  Padding 20
+}
+style message {
+  styleName "DefaultMessage"
+  fontSize 24
+}
+style message {
+  styleName "SmallFont"
+  fontSize 10
+}
+
+participant Bob
+actor Alice <style:"MorePadding">
+' or actor <style:"MorePadding"> Alice
+' or !style "MorePadding"
+participant Sally
+
+Bob->Alice: Hello
+Alice->Sally: <style:"SmallFont"> Also Hello!
+@enduml
+----
+It may be a personal choice, but I feel the cleaner the UML markup itself, the better. For example, to prevent having something like a Swimlane title, that must be repeated such as `+<&check><size:24><c:blue> \nSome\nName+`. With Macros or Variables this can be easier, but still is another layer of mental abstraction. None of this prevents doing that of course, to keep compatibility as is mentioned.
+
+[AR] agreed on the cleaner the UML markup itseft, the better.
+
+
+
+== Targeting Specific Diagram types
+
+It is important meet the goal of reusing a "style set", i.e. putting many definitions in one file for many diagram types. The common example of this is a "Design System", so that a common style may be followed across different diagrams.
+
+Following the initial example, a convention could be followed such as:
+
+would result in hierarchy:
+
+<plantuml>
+@startuml
+title Style hierarchy cascade per type Option1
+skinparam ranksep 30
+hide circle
+hide empty members
+class root
+class message extends root
+class element extends root
+class actor extends element
+class "SequenceDiagram.message" extends message
+class "SequenceDiagram.actor" extends actor
+
+@enduml
+</plantuml>
+
+or alternately:
+
+<plantuml>
+@startuml
+title Style hierarchy cascade per type Option2
+skinparam ranksep 30
+hide circle
+hide empty members
+class root
+class message extends root
+class actor extends root
+class SequenceDiagram extends root
+class SequenceDiagram.message extends SequenceDiagram
+class SequenceDiagram.actor extends SequenceDiagram
+
+@enduml
+</plantuml>
+
+It would seem **Option1** makes more sense in an inheritance/parsing sense. **Option2** would likely result in challenges in traversing/cascading the styles. I also note that this conflicts with my syntax above for style assignment (reusing the `+.+` operator), so perhaps one or the other may need to change if it was difficult to manage. Perhaps: `+style message.Bob:Alice in SequenceDiagram+` or `+style SequenceDiagram.message(Bob:Alice)+` or even `+style SequenceDiagram.message.Bob:Alice+`.
+
+[AR] I fully agree on the need (except for targeting indivual element), and I will propose an **Option3**.
+
+
+

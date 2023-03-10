@@ -1,0 +1,121 @@
+== Deploy PlantUML safely
+
+Our collaboration with https://sysdream.com/[Sysdream] leads us to introduce the notion of **security profile** within PlantUML.
+
+Starting with __version 1.2020.11__, you have to choose which **security profile** use when running PlantUML. The default one is `+LEGACY+`. It emulates the behavior of older PlantUML versions. This means you can safely upgrade to __1.2020.11__. However, you should then pick up an appropriate mode for your usage.
+
+This is needed because PlantUML can be used in many different configurations which require different security setting.
+
+If you are using a version older than __1.2020.11__ and if your system is accessible from Internet, **you should probably upgrade because older versions of PlantUML may expose a little more than you would expect**. Even the new `+LEGACY+` default mode is now more secure than older PlantUML behavior.
+
+
+== Choose your Security Profile
+
+The Security Profile can be set two different ways:
+
+* Setting the OS environnement variable `+PLANTUML_SECURITY_PROFILE+`
+* Setting the Java environnement variable  `+PLANTUML_SECURITY_PROFILE+`
+
+In practice, you can do:
+
+----
+set PLANTUML_SECURITY_PROFILE=INTERNET
+----
+
+or
+
+----
+setenv PLANTUML_SECURITY_PROFILE INTERNET
+----
+
+Another way is an option in the command line (do not forget the `+-D+` flag):
+
+----
+java -DPLANTUML_SECURITY_PROFILE=INTERNET -jar /path/to/plantuml.jar ...
+----
+
+Or if you are using Java and PlantUML as a library:
+
+----
+System.setProperty("PLANTUML_SECURITY_PROFILE", "INTERNET");
+----
+
+
+== List of Security Profiles
+
+There are five different profiles you can choose from :
+
+==== UNSECURE
+
+When PlantUML runs in `+UNSECURE+` mode, it can access to all local files of the running instance and can access to any URL.
+
+Despite its name, this does not mean that you should not use it. If you are running locally PlantUML from some scripts for your generated documentation, this is completely safe and ok.
+
+It may become an issue if this is used from a Web Server which is accessible from Internet, because you cannot control what users are doing in their diagram text.
+
+
+==== LEGACY
+
+Right now, this mode is the default mode for PlantUML. It gives the same result as older PlantUML versions: full access to local files and full access to URL.
+This means that you can safely upgrade to version __1.2020.11__ without breaking your scripts.
+
+However, after upgrading, you should consider setting an appropriate Security Profile other than `+LEGACY+` because this mode will be removed in future releases and the default mode will be more restricted.
+
+==== INTERNET
+
+This mode has been designed for servers which are connected to Internet.
+
+When running in `+INTERNET+` mode, PlantUML cannot have access to any local files (except if you are using allowlists, see below). However, all URLs on port 80 or 443 are accessible. If you need some specific ports (like 8080 for some Intranet server), you can also use allowlists.
+
+
+==== ALLOWLIST
+
+In `+ALLOWLIST+` mode, PlantUML cannot have any access to local files or URL.
+You have to use allowlists to explicitely authorize access to local or remote ressources.
+
+==== SANDBOX
+
+In `+SANDBOX+` mode, PlantUML cannot have any access to local files or URL. Even allowlists lists are ignored.
+So this mode is completely close.
+
+The main interest of this one is __testing__: if someone succeed some access running this mode, it means we have a security hole and we will fix it.
+
+
+== Allowlists
+
+There are three different variables to define allowlists:
+
+* `+plantuml.allowlist.path+` for local files
+* `+plantuml.include.path+` for local files
+* `+plantuml.allowlist.url+` for remote ressources (URL)
+
+These variables can be set using the same way as `+PLANTUML_SECURITY_PROFILE+`.
+
+
+==== plantuml.allowlist.path
+
+This variable lists using `+;+` (Windows) or `+:+` (Linux) separator the folders users will be authorized to have access to.
+
+----
+java -DPLANTUML_SECURITY_PROFILE=INTERNET  -Dplantuml.allowlist.path=/usr/common/:/usr/plantuml/  ...
+----
+
+
+==== plantuml.include.path
+
+This is very close to `+plantuml.allowlist.path+`. The only difference is that users will not have to specify full path of files for those folders: PlantUML will search files in thoses folder, even if users give only filenames without full path.
+
+----
+java -DPLANTUML_SECURITY_PROFILE=INTERNET  -Dplantuml.include.path=c:/windows/plantuml/  ...
+----
+
+
+==== plantuml.allowlist.url
+
+This variable lists using `+;+` (for both Windows and Linux) separator the URLs users will be authorized to have access to.
+
+----
+java -DPLANTUML_SECURITY_PROFILE=ALLOWLIST  -Dplantuml.allowlist.url=https://plantuml.com/;http://somelocalserver:8080/commons/  ...
+----
+
+

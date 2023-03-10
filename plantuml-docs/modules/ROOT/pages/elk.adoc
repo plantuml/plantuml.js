@@ -1,0 +1,71 @@
+== Eclipse Layout Kernel
+
+PlantUML uses an external layout engine for some diagrams (classes, use cases...). By default, GraphViz/dot is used. This means that PlantUML has to call an external process to generate some diagrams.
+
+There are some work in progress to change this behavior. For example, https://plantuml.com/smetana02[a port of GraphViz to Java] is ongoing.
+
+
+Recently, https://www.ntnu.edu/employees/hal[Hallvard Trætteberg] teaches us on how to use https://www.eclipse.org/elk/[Eclipse Layout Kernel] as https://github.com/plantuml/plantuml/issues/534[a library to process the layout].
+
+This is still alpha-software, but results are very interesting. This is working starting from `+V1.2021.5+`.
+
+
+== Usage
+
+ELK is distributed as an independent library. So you have to build it yourself, or you can download http://beta.plantuml.net/elk-full.jar[the complete jar file here]. 
+
+Both `+plantuml.jar+` and `+elk-full.jar+` have to be in the very same folder. You cannot rename elk-full.jar
+
+Once installed, you can invoke ELK instead of GraphViz with the `+!pragma layout elk+` directive.
+
+**Example:**
+
+[plantuml]
+----
+@startuml
+!pragma layout elk
+
+package image {
+	package color {
+		class red
+		class green
+		
+		red->green : red to green
+	}
+	package size {
+		class big
+		class small
+	}
+	class image1
+	class image2
+	image1 <|-- image2 
+	
+	size -> color : link between packages
+}
+
+class foo
+class bar
+
+foo -> bar : foo to bar
+image1 "1" -> "*" bar
+@enduml
+----
+
+This diagram is generated using ELK.
+
+You can use the `+-P+` link::command-line[command-line] option to specify the pragma, rather than putting it in the puml file:
+----
+java -jar plantuml.jar -Playout=elk
+----
+__[Ref. https://github.com/plantuml/plantuml/issues/582[issue-582]]__
+
+Do not expect too much right now, this is really an alpha-version. The idea is to get https://forum.plantuml.net/13709/eclipse-layout-kernel[feedback] from users, to know if we should continue in this direction (that is, supporting ELK within PlantUML).
+
+Still, you can test link::class-diagram[class diagram] and link::deployment-diagram[deployment diagram] and https://forum.plantuml.net/13709/eclipse-layout-kernel[tell us what you think about the result].
+
+
+== Alternative layout engines
+
+See link::smetana02[smetana] and link::vizjs[vizjs] for other alternatives to link::graphviz-dot[graphviz-dot].
+
+

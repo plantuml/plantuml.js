@@ -1,0 +1,81 @@
+== State Diagram issues (state-diagram-issues)
+
+This page lists issues on link::state-diagram[State Diagram].
+
+
+== Change state color and style (inline style) [fixed on v1.2022.6b5+]
+
+* `+#color ##[style]color+` 
+
+With background color first (`+#color+`), then line style and line color (`+##[style]color+` ).
+
+[plantuml]
+----
+@startuml
+state FooGradient #red-green ##00FFFF
+state FooDashed #red|green ##[dashed]blue {
+}
+state FooDotted ##[dotted]blue {
+}
+state FooBold ##[bold] {
+}
+state Foo1 ##[dotted]green {
+state inner1 ##[dotted]yellow
+}
+
+state out ##[dotted]gold
+
+state Foo2 ##[bold]green {
+state inner2 ##[dotted]yellow
+}
+inner1 -> inner2
+out -> inner2
+@enduml
+----
+__[Ref. https://forum.plantuml.net/1487[QA-1487]]__
+
+
+* `+#color;line:color;line.[bold|dashed|dotted];text:color+`
+
+[[#FFD700#FIXME]] 🚩
+`+text:color+` seems not to be taken into account 
+[[#FFD700#FIXME]]
+
+[plantuml]
+----
+@startuml
+@startuml
+state FooGradient #red-green;line:00FFFF
+state FooDashed #red|green;line.dashed;line:blue {
+}
+state FooDotted #line.dotted;line:blue {
+}
+state FooBold #line.bold {
+}
+state Foo1 #line.dotted;line:green {
+state inner1 #line.dotted;line:yellow
+}
+
+state out #line.dotted;line:gold
+
+state Foo2 #line.bold;line:green {
+state inner2 #line.dotted;line:yellow
+}
+inner1 -> inner2
+out -> inner2
+@enduml
+@enduml
+----
+[plantuml]
+----
+@startuml
+state s1 : s1 description
+state s2 #pink;line:red;line.bold;text:red : s2 description
+state s3 #palegreen;line:green;line.dashed;text:green : s3 description
+state s4 #aliceblue;line:blue;line.dotted;text:blue   : s4 description
+@enduml
+----
+
+__[Adapted from https://forum.plantuml.net/3770[QA-3770]]__
+
+

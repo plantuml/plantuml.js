@@ -1,0 +1,90 @@
+== Themes
+
+Following the work from https://github.com/bschwarz/puml-themes[Brett Schwarz], we have integrated several themes into https://github.com/plantuml/plantuml/tree/master/themes[the main core library].
+
+Since those themes are included into the library, it is working out of the box: you don't need to install anything on your side.
+You just have to use the `+!theme+` directive:
+
+<plantuml>
+@startuml
+!theme spacelab
+class Example {
+  Theme spacelab
+}
+@enduml
+</plantuml>
+
+<plantuml>
+@startuml
+!theme spacelab
+a -> b
+b -> c
+@enduml
+</plantuml>
+
+
+== List of available themes
+
+Several websites are listing available themes:
+
+* https://the-lum.github.io/puml-themes-gallery/[Gallery of all official PlantUML themes].
+* https://bschwarz.github.io/puml-themes[Examples of some Puml Themes] made by https://github.com/bschwarz/puml-themes[Brett Schwarz] on https://bschwarz.github.io/puml-themes/gallery.html[the Theme Gallery].
+
+
+Finally, you can list all available themes from your PlantUML library:
+
+<plantuml>
+@startuml
+help themes
+@enduml
+</plantuml>
+
+
+== Coloring message with some procedures included on some theme
+
+Some theme includes some procedures, to help coloring message, as:
+* `+$success("<msg>")+`
+* `+$failure("<msg>")+`
+* `+$warning("<msg>")+`
+
+Example:
+
+<plantuml>
+@startuml
+!theme spacelab
+Bob -> Alice :  hello
+Bob <- Alice :  $success("success: hello B.")
+Bob -x Alice :  $failure("failure")
+Bob ->> Alice : $warning("warning")
+@enduml
+</plantuml>
+
+
+== Local themes
+
+You can create your own theme on your local file system. You can https://github.com/plantuml/plantuml/tree/master/themes[duplicate any existing theme] to create your own one.
+
+By default, a theme file is named `+puml-theme-foo.puml+` where `+foo+` is the name of the theme.
+
+To invoke a local theme, you have to use the following directive:
+
+----
+!theme foo from /path/to/themes/folder
+----
+
+
+== Themes from the Internet
+
+Other repositories can also publish themes for PlantUML.
+
+Theme files must follow the same convention: `+puml-theme-foo.puml+` where `+foo+` is the name of the theme.
+
+To use a theme from a remote repository, you have to use the following directive:
+
+----
+!theme amiga from https://raw.githubusercontent.com/plantuml/plantuml/master/themes
+----
+
+If you find any interesting theme, you can also propose a pull request so that we integrate this theme into https://github.com/plantuml/plantuml/tree/master/themes[the main core library].
+
+

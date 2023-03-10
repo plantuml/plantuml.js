@@ -1,0 +1,126 @@
+== Business Process Model and Notation (BPMN)
+
+This is preliminary works to add https://en.wikipedia.org/wiki/Business_Process_Model_and_Notation[BPMN] support in PlantUML.
+
+Right now, some quick stuff have been done.
+
+The implementation is based on ideas developped in:
+* http://wiki.plantuml.net/_media/site/kitzmann2009a.pdf[kitzmann2009a.pdf]
+* https://www.researchgate.net/publication/221542866_A_Simple_Algorithm_for_Automatic_Layout_of_BPMN_Processes[A Simple Algorithm for Automatic Layout of BPMN Processes]
+
+
+__[Ref. http://wiki.plantuml.net/site/bpmn[Wiki-BPMN]]__
+
+
+== Final examples
+
+[plantuml]
+----
+@startbpm
+:login;
+20:<+>
+:show new message1;
+30:<+>
+resume 20
+:show new task2;
+@endbpm
+----
+
+
+__[Ref. https://forum.plantuml.net/5647[QA-5647]]__
+
+[plantuml]
+----
+@startbpm
+:login;
+new branch
+:show new message1;
+else
+:show new task2;
+end branch
+new branch
+:Accept Task;
+else
+:nothing;
+else
+new branch
+:read message;
+else
+:dummy;
+end branch
+end branch
+:logout;
+@endbpm
+----
+
+__[Ref. http://wiki.plantuml.net/site/bpmn[Wiki-bpmn]]__
+
+
+== Existing diagrams
+
+Please put here pointer existing diagrams that you'd like to have supported in PlantUML.
+
+https://www.tim-zoeller.de/Basics-1.png[Basic processes with User Task, Service Task, Exclusive Gateways, and Parallel Gateways]
+
+Start with simple examples!
+
+This http://www.bpmb.de/images/BPMN2_0_Poster_EN.pdf[PDF] gives a good overview of the BPMN2.0 syntax.
+It basically boils down to boxes, circles and lines plus swimlanes.
+So it is close to an activity diagram.
+
+All shapes can be "decorated" with symbols.
+These add some more detail, but are not necessary to get an overview of the process.
+This fact should be reflected in the syntax - it should first let you design the process and then add the details.
+
+
+== Syntax
+The proposed syntax is probably not very clear.
+
+Here we have to talk about it and propose a better one.
+
+There are rules for good diagrams which might make the syntax easier to create.
+One of these rules is that when you split the process- (token-) flow, it will be merged back together with the same symbol.
+[comment: This is not neccessarily true. It is allowed to merge the flows with a different gateway, again or without any gateway at all. Also, the flows don't need to be merged]
+
+There is also the feature of "closed" swim-lanes - swim-lanes where the content is not shown because the detailed process is not known or you want to focus on other parts of the diagram.
+It should be reflected by the syntax that a swim-lane can be opened and closed with just a switch.
+
+
+
+== Example1
+image::bpm01.png[]
+----
+@startbpm
+XXXX
+@endbpm
+----
+
+
+
+== Example2
+image::bpm02.png[]
+----
+@startbpm
+XXXX
+@endbpm
+----
+
+
+
+== Example3
+image::bpm03.png[]
+----
+@startbpm
+XXXX
+@endbpm
+----
+
+
+
+== Other theorical works
+
+The following https://github.com/MarvinLudwig/bpmn_layouter[BPMN Layouter project ] may be interesting.
+link::jjc-mt.pdf[jjc-mt.pdf]
+
+
+

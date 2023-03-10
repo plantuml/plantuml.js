@@ -1,0 +1,67 @@
+== LaTeX
+
+Starting from version 7997, PlantUML allows to generate diagrams into http://en.wikipedia.org/wiki/LaTeX[LaTeX], thanks to http://en.wikipedia.org/wiki/Tikz[Tikz package].
+
+Note that this is still beta, and many things won't probably work. Since we do not want to spend time on features not used, we will wait for users http://forum.plantuml.net/1798/latex-tikz-support[to report bugs here].
+
+You just have to use the flag `+-tlatex+` with the link::command-line[command line], or `+format="latex"+` with the link::ant-task[Ant task].
+
+If you want to include the LaTeX output directly into another LaTeX document you can use `+-tlatex:nopreamble+`. This way PlantUML will only export the tikz-picture itself, without the document preamble.
+
+
+== Class diagram example
+
+----
+@startuml
+class Subscriber {
+  subscriberId
+}
+
+class AccumUsage {
+  subscriberId
+}
+
+class IpSession {
+  ipAddress
+  specificData
+  sapcOriginStateId
+  apnId
+}
+
+Subscriber "1" -[#blue]-> "1..*" IpSession
+Subscriber "1" --> "0..1" AccumUsage
+@enduml
+----
+
+https://www.writelatex.com/read/pgkkspzgzgpb[See result online] (TODO: https://github.com/plantuml/plantuml/issues/362[#362])
+
+
+== Sequence diagram example
+
+----
+@startuml
+Bob -> Alice: hello
+return Ok
+@enduml
+----
+
+https://www.writelatex.com/read/vmrvxnvzytbr[See result online] (TODO: https://github.com/plantuml/plantuml/issues/362[#362])
+
+
+== Latex Links
+
+If you use the `+hyperref+` package then you can make links to defined anchors within your Latex/PDF document.
+For example, the second and last links below are to the Latx document:
+
+----
+@startuml
+participant Bob   [[http://www.yahoo.com]]
+participant Alice [[latex://resource-interaction]]
+Bob -> Alice :    [[http://www.google.com]] hello
+Bob -> Alice :    [[latex://resource-interaction]] interact
+@enduml
+----
+
+__[Ref. https://forum.plantuml.net/3558[QA-3558]]__
+
+

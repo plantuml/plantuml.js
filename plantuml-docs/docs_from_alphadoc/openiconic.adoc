@@ -1,0 +1,40 @@
+== OpenIconic
+
+https://useiconic.com/open/[OpenIconic] is an very nice open source icon set.
+Those icons have been integrated into the link::creole[creole parser], so you can use them out-of-the-box.
+
+You can use the following syntax: `+<&ICON_NAME>+`.
+
+<plantuml>
+@startuml
+title: <size:20><&heart>Use of OpenIconic<&heart></size>
+class Wifi
+note left
+  Click on <&wifi>
+end note
+@enduml
+</plantuml>
+
+
+It also works with link::salt[salt, the graphical interface designer].
+<plantuml>
+@startsalt
+{
+  Login<&person> | "MyName   "
+  Password<&key> | "****     "
+  [Cancel <&circle-x>] | [OK <&account-login>]
+}
+@endsalt
+</plantuml>
+
+The complete list is available on https://useiconic.com/open/[OpenIconic Website], or
+you can use the following special diagram:
+
+
+<plantuml>
+@startuml
+listopeniconic
+@enduml
+</plantuml>
+
+

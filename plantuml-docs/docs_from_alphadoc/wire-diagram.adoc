@@ -1,0 +1,765 @@
+== Wire or Block Diagram
+
+
+Wire or Block diagram is a subproject included in PlantUML that may help you to design block diagram, wire or https://en.wikipedia.org/wiki/Wiring_diagram[wiring diagram].
+
+You can use @startwire and @endwire keywords.
+
+
+=== Reference
+
+See Q&A references:
+* https://forum.plantuml.net/9054/is-possible-create-functional-block-diagrams-example-given[QA-9054]
+* https://forum.plantuml.net/11066/is-there-any-way-to-produce-block-diagrams[QA-11066]
+* https://forum.plantuml.net/12518/is-there-simple-way-use-plantuml-draw-hardware-block-diagram[QA-12518]
+* https://forum.plantuml.net/12700[QA-12700]
+
+=== Caution
+
+> "There are many requests for block diagrams.
+>
+> The good news is that we have started to do some experiments...
+>
+> This is really a preliminary version so don't expect anything real useful right now. However, you can play with the syntax and tell us what you think about it."
+
+
+== Basic component
+
+Component of the wire diagram are declared with an ID starting with `+*+` and containing only letters, digit or underscore. When printed, underscores is changed to spaces. You can optionally provide a dimension to components.
+
+<plantuml>
+@startwire
+* first
+* second_box [100x50]
+* third
+@endwire
+</plantuml>
+
+
+You can start new column using `+--+` as separator
+
+Components can be nested using indentations (like in Python)
+
+<plantuml>
+@startwire
+* first
+* second_box [100x50]
+* third
+--
+* big_container
+	* foo1
+	* foo2
+	* foo3
+@endwire
+</plantuml>
+
+
+You can change the placement using two directives:
+* `+move+` for relative movement
+* `+goto+` for absolute movement
+
+<plantuml>
+@startwire
+* first [70x70]
+move(10,20)
+* second_box [90x70]
+* third [70x70]
+
+goto(100,10)
+* last [70x70]
+
+goto(300,5)
+* big_container
+	* foo1 #lightBlue
+	* foo2 #AAA
+	* foo3
+
+@endwire
+</plantuml>
+
+
+== Local reference
+
+Each component implicitely create a local referential you can use.
+
+The `+spot+` directive allows to show a point on the diagram.
+
+
+<plantuml>
+@startwire
+* first [70x70] #EEE
+move(10,20)
+* second_box [70x70]
+* third [70x70]
+
+goto(100,10)
+* last [70x70]
+
+goto(300,5)
+* big_container
+	* foo1
+	* foo2
+	* foo3
+
+spot first
+spot big_container #blue
+spot second_box(100%, 100%)
+spot second_box(10, 30) #FF00FF
+spot third(100%+10, 50%) #cyan
+@endwire
+</plantuml>
+
+
+== Arrows
+
+It is possible to add horizontal or vertical arrows on the diagram.
+It's important to note that those lines do **not** change the layout of the element.
+Furthermore, those arrows are always straight.
+
+You can put text on arrows and change their color.
+
+<plantuml>
+@startwire
+
+* DDR3 [100x200]
+--
+move(100,0)
+* SLC_NAND [100x200]
+
+DDR3 -> SLC_NAND : abcd
+DDR3 <-> SLC_NAND : abcd
+DDR3 <- SLC_NAND : abcd
+DDR3 - SLC_NAND : abcd
+DDR3 => SLC_NAND : abcd
+DDR3 <=> SLC_NAND #red : abcd
+DDR3 <= SLC_NAND : abcd
+DDR3 = SLC_NAND : abcd
+@endwire
+</plantuml>
+
+
+<plantuml>
+@startwire
+
+* DDR3 [200x100]
+move(0,200)
+* SLC_NAND [200x100]
+
+DDR3 --> SLC_NAND
+DDR3 <--> SLC_NAND
+DDR3 <-- SLC_NAND
+DDR3 -- SLC_NAND
+DDR3 ==> SLC_NAND
+DDR3 <==> SLC_NAND
+DDR3 <== SLC_NAND
+DDR3 == SLC_NAND #red
+@endwire
+</plantuml>
+
+
+== Print texts
+
+You can add some texts to your diagrams.
+
+<plantuml>
+@startwire
+
+* DDR3L #salmon
+	print("This is inside")
+
+print("This text is printed between")
+print("the components")
+
+* SLC_NAND [150x200]
+* TestPoints
+--
+* Big_Chip #AAA
+	move(10, 30)
+	print("Foo 10")
+	* PF3000 [150x300]
+		print("Foo 20")
+	
+	print("Bar")
+
+	* EEPROM #lightBlue
+@endwire
+
+</plantuml>
+
+
+== Full example
+
+<plantuml>
+@startwire
+goto(0,360)
+* DDR3L [70x70]
+* SLC_NAND [70x70]
+* TestPoints [70x30]
+* PF3000 [70x130]
+* EEPROM [70x30]
+
+--
+move(60,0)
+* i_MX7_SoC
+	* 2x_ARM [70x70]
+	* ARM [70x70]
+	* PXP [70x70]
+	* Crypto [70x30]
+	* DDR3 [70x70]
+	move(0,90)
+	* JTAG [70x30]
+	--
+	* signals
+		* 24_bit_display [85x20]
+		* 24_bit_camera [85x20]
+		* 2x_DS_DSIO [85x20]
+		* 124x_GPIO [85x20]
+		* 4x_12C [85x20]
+		* 3x_12S [85x20]
+		* 7x_UART [85x20]
+		* 2x_QuadSPI [85x20]
+		* 4x_eCSPI [85x20]
+		* 2x_CAN [85x20]
+		* 4x_Timer [85x20]
+		* Local_bus [85x20]
+		* GPMI [85x20]
+		* 2x_Gbit_MAC [85x20]
+		* 6x6_keypard [85x20]
+		* 4x_PWM [85x20]
+		* 2x_SmartCard [85x20]
+		* 4x_Watchdog [85x20]
+		* MQS [85x20]
+
+	move(35,10)
+	* ADC1 [70x30]
+	* ADC2 [70x30]
+	* MIPI_DSI [70x30]
+	* PCIe [70x30]
+	* USB2_0   [70x30]
+	* USB2_0_  [70x30]
+	* USB2_0__ [70x30]
+	* MIPI_CSI [70x30]
+
+--
+move(40, 480)
+* WLAN_BT    [100x30]
+* 1Gbit_PHY [100x30]
+* 1Gbit_PHY_ [100x30]
+move(0, 120)
+* WM_8731L [100x30]
+
+move(-40, 10)
+* SPI_FLASH [80x30]
+move(110, -50)
+* Resistive [80x30]
+
+move(-90, 80)
+* DSI_to_LVDS [100x30]
+move(0,60)
+* USB2_0 [100x30]
+
+--
+
+* 240pin [50x1220]
+
+
+DDR3L(100%,50%-10) => i_MX7_SoC.DDR3
+SLC_NAND -> i_MX7_SoC.signals
+SLC_NAND(100%, 50) -> i_MX7_SoC.signals
+
+TestPoints -> i_MX7_SoC.JTAG
+
+
+PF3000 => i_MX7_SoC #0000ff
+PF3000 => i_MX7_SoC
+PF3000 => i_MX7_SoC
+
+
+i_MX7_SoC.signals(100%,25) => 240pin
+i_MX7_SoC.signals(100%,65) => 240pin
+
+i_MX7_SoC.signals -> 240pin #red
+i_MX7_SoC.signals -> 240pin
+i_MX7_SoC.signals -> 240pin
+i_MX7_SoC.signals -> 240pin
+i_MX7_SoC.signals -> 240pin
+i_MX7_SoC.signals -> 240pin
+i_MX7_SoC.signals -> 240pin
+i_MX7_SoC.signals -> 240pin
+i_MX7_SoC.signals -> 240pin
+i_MX7_SoC.signals -> 240pin
+i_MX7_SoC.signals -> 240pin
+i_MX7_SoC.signals -> 240pin
+i_MX7_SoC.signals -> 240pin
+i_MX7_SoC.signals -> 240pin
+i_MX7_SoC.signals -> 240pin
+i_MX7_SoC.signals -> 240pin
+
+i_MX7_SoC.signals.Local_bus -> WLAN_BT
+
+@endwire
+
+</plantuml>
+
+
+== Suggestions and ideas about the new 1.2020.24 syntax
+
+
+[[#77FF00#The PlantUML Team:]] We are waiting for users feedback :-)
+
+
+== Wanted features or examples of expecting syntax
+
+=== General
+General feature requests that did not come from a QA.
+
+* Most wire diagrams have the same "device/component" in multiple locations. For instance, you could have the exact same temperature sensor in multiple spots (as if spread out over the board). A great feature would be to setup components with their connection points then replicated them throughout the layout. See item #5 in the "first impressions" section at the bottom.
+* support "rankDir" or left to right vs top to bottom layout. sometimes I would rather new componets layout left to right instead of vertically.
+
+=== From QA-11066
+
+According to https://forum.plantuml.net/11066/is-there-any-way-to-produce-block-diagrams[QA-11066]:
+
+* Add the possibility to give hspace (horizontal space) [[#00FF00#DONE]] (with `+move+`)
+* Putting block in block with defined size [[#00FF00#DONE]]
+* ~~The vspace inside block do nothing~~
+
+* Add  `+left, middle and right (or absolute offset)+` for lateral positionning of blocks
+* Name blocks and IO to be able to connect easily after. Connections are often `+1 to 1+`, but sometimes `+1 -> n+` or `+n -> 1+`.
+
+* Instead of:
+** "right:" and "left:"
+** "connector "RTN" is left" and "connector "VCC" is top" would make it more clear. -> to debate
+
+* proposal syntax:
+** `+=>+` can represent a thicker arrow like a bus [[#00FF00#DONE]]
+** `+->+` will represent a single wire and should try to be a straight as possible.  [[#00FF00#DONE]]
+** `+left of+`, `+right of+` should be for component placement. All `+left of X+` should be vertically aligned and stacked; while X should expand vertically to accept straight wires (unless absolute size is specified).
+** prefer right angles for wire connections and direction changing
+** the render of the wire will assume the same overlay layer as the highest connection point. That is, if a component(x) is overlayed another component, any wire to that component(x) will overlay the same components that the component(x) overlays
+** the name of the bus/wire will be centered on the wire and re-rendered for each "section" between connections or breaks (overlay breaks).
+ 
+
+
+
+
+image::https://www.compulab.com/wp-content/uploads/2015/10/SOM-iMX7-System-on-Module-block-diagram.png[]
+
+
+=== [[#aaff00#SW:]] From my own tests https://forum.plantuml.net/12700/wireframe-null-pointer-syntax-error-with-a-space[QA-12700]
+. Text or label on arrow with syntax like sequence diagram with the ": label" [[#00FF00#DONE]]
+. Alias with "BlockLabelwith BackSlash\_n:allowed" as BlockAlias
+. Vertical arrow with `+-->+` [[#00FF00#DONE]]
+. Arrow with 2 ends with `+<->+` [[#00FF00#DONE]]
+. Arrow with angle: if you write "$i__MX7__SoC.Crypto -> $i__MX7__SoC.signals.3x\_12S" the line go to 7x UART
+. If not possible, let create hLines and vline to create our own arrow
+. Start an arrow on a spot or at a given position
+. Stereotypes [[[#aaffaa#ThL:]]or global/local style or inline style] to be able to use new skinparams (background color, block name position and orientation, etc.)
+. Free label with position (or block without border) ([[#aaffaa#ThL:]] in order to accept special char, `+(,),-+` or `+newline+`)
+. Let space (and tab) be used before wires and spots
+. Is the `+$+` syntax the best? It is not easy when you have procedure and functions also with $. [[#aaff00#SW:]]only one syntax (even i don't like it :-) ) is better than many syntaxes (less code to maintain, less bug, etc.) [[#00FF00#DONE]] (we use `+*+` now)
+
+
+
+[[#aaffaa#ThL:]] Then for nested, use multiples `+*+` (Perhaps re-use code of mindmap...):
+----
+@startwire
+*first
+*second_box [100x300]
+*third
+--
+*big_container
+**foo1
+**foo2
+**foo3
+@endwire
+----
+
+Allow also not significant space or indentation __(especially from processing [cf. https://forum.plantuml.net/12230[QA-12230]])__
+----
+@startwire
+ *big_container
+  **foo1
+  **foo2
+  **foo3
+@endwire
+----
+
+
+
+
+
+[[#aaff00#SW:]] To be really usable in real work, the mandatory features are:
+
+. Labels (on lines and on components) [[#00FF00#DONE]] [[#aaff00#SW:]] not for vertical lines
+. Lines not only from left to right. For inspiration https://docs.python.org/3/library/turtle.html[Turtle Graphics] if not automatic
+. A base syntax to be extended easily like "nwdiag extended syntax" for example
+. [[#aaffaa#ThL:]] Could you add text on vertical mode, as:
+<plantuml>
+@startwire
+* DDR3 [200x100]
+move(0,200)
+* SLC_NAND [200x100]
+
+DDR3 --> SLC_NAND     : abcd        
+DDR3 <--> SLC_NAND    : abcd   
+DDR3 <-- SLC_NAND     : abcd  
+DDR3 -- SLC_NAND      : abcd 
+DDR3 ==> SLC_NAND     : abcd  
+DDR3 <==> SLC_NAND    : abcd   
+DDR3 <== SLC_NAND     : abcd  
+DDR3 == SLC_NAND #red : abcd        
+@endwire
+</plantuml>
+. [[#aaff00#SW:]]h and vline
+
+<plantuml>
+@startwire
+* _ [50x1]
+move (50, -20)
+* __ [1x50]
+move (-50, -20)
+* ___ [50x1]
+move (0, -20)
+* ____ [1x50]
+move (0, -20)
+* _____ [50x1]
+--
+*_______________ [50x100]
+--
+* ______ [50x1]
+move (50, -20)
+* _______ [1x50]
+move (-50, -20)
+* ________ [50x1]
+move (0, -20)
+* _________ [1x50]
+move (0, -20)
+* __________ [50x1]
+--
+* ____________ [1x100]
+move (10, -100)
+print("<&heart>\n**Happy New year**")
+move (2, 1 )
+print ("<img:http://plantuml.com/logo3.png>")
+@endwire
+</plantuml>
+----
+@startwire
+      ' simpler with
+hline [50]
+move (50, -20)
+vline (50)
+move (-50, -20)
+hline (50)
+move (0, -20)
+vline (50)
+move (0, -20)
+hline (50)
+--
+*_______________ [50x100]
+
+--
+hline (50)
+move (50, -20)
+vline (50)
+move (-50, -20)
+hline (50)
+move (0, -20)
+vline (50)
+move (0, -20)
+hline (50)
+--
+* ____________ [1x100]
+move (10, -100)
+print("<&heart>\n**Happy New year**")
+move (2, 1 )
+print ("<img:http://plantuml.com/logo3.png>")
+@endwire
+----
+
+...
+
+Any thought ?
+
+...
+
+
+=== From other... TBC...
+
+<plantuml>
+@startwire
+* foo
+@endwire
+</plantuml>
+
+or expecting syntax:
+----
+@startwire
+      ' To be complete
+@endwire
+----
+
+
+== Attempt to reproduce the full example
+
+<plantuml>
+@startwire
+goto(0,360)
+* DDR3L [70x70]      #lightgray
+* SLC_NAND [70x70]   #lightgray
+* TestPoints [70x30] #lightgray
+* PF3000 [70x130]    #lightgray
+move(0,220)
+* EEPROM [70x30]     #lightgray
+
+--
+move(60,0)
+* i_MX7_SoC #lightgray
+	* 2x_ARM [70x70] #white
+	* ARM [70x70]    #white
+	* PXP [70x70]    #white
+	* Crypto [70x30] #white
+	* DDR3 [70x70]   #white
+	move(0,90)
+	* JTAG [70x30]   #white
+	--
+	* signals #white
+		* 24_bit_display [85x20]
+		* 24_bit_camera [85x20]
+		* 2x_DS_DSIO [85x20]
+		* 124x_GPIO [85x20]
+		* 4x_12C [85x20]
+		* 3x_12S [85x20]
+		* 7x_UART [85x20]
+		* 2x_QuadSPI [85x20]
+		* 4x_eCSPI [85x20]
+		* 2x_CAN [85x20]
+		* 4x_Timer [85x20]
+		* Local_bus [85x20]
+		* GPMI [85x20]
+		* 2x_Gbit_MAC [85x20]
+		* 6x6_keypard [85x20]
+		* 4x_PWM [85x20]
+		* 2x_SmartCard [85x20]
+		* 4x_Watchdog [85x20]
+		* MQS [85x20]
+
+	move(35,10)
+	* ADC1 [70x30]     #white
+	* ADC2 [70x30]     #white
+	* MIPI_DSI [70x30] #white
+	* PCIe [70x30]     #white
+	* USB2_0   [70x30] #white
+	* USB2_0_  [70x30] #white
+	* USB2_0__ [70x30] #white
+	* MIPI_CSI [70x30] #white
+
+--
+move(40, 480)
+* WLAN_BT    [100x30] #lightgray
+* 1Gbit_PHY [100x30]  #lightgray
+* 1Gbit_PHY_ [100x30] #lightgray
+move(0, 120)
+* WM_8731L [100x30] #lightgray
+
+move(-40, 10)
+* SPI_FLASH [80x30] #lightgray
+move(110, -50)
+* Resistive [80x30] #lightgray
+
+move(-90, 80)
+* DSI_to_LVDS [100x30] #lightgray
+move(0,30)
+* USB2_0 [100x40] #lightgray
+
+--
+
+* 240pin [50x1220] #lightgray
+
+
+DDR3L(100%,50%-10) <=> i_MX7_SoC.DDR3    : 32 bit
+SLC_NAND <-> i_MX7_SoC.signals           : GPMI
+SLC_NAND(100%, 50) <-> i_MX7_SoC.signals : MMC
+
+TestPoints <-> i_MX7_SoC.JTAG            : JTAG
+
+
+PF3000 => i_MX7_SoC #0000ff : Power
+PF3000 => i_MX7_SoC : Power
+PF3000 => i_MX7_SoC : Power
+
+EEPROM <-> DSI_to_LVDS : I2C
+
+i_MX7_SoC.signals(100%,25) => 240pin : \nup to 1x PD (24-bit)\n
+i_MX7_SoC.signals(100%,65) <= 240pin : up to 1x C (P CSI)
+
+i_MX7_SoC.signals -> 240pin #red : 
+i_MX7_SoC.signals <-> 240pin : up-to 7x 
+i_MX7_SoC.signals <-> 240pin : up-to 3x
+i_MX7_SoC.signals <-> 240pin : up-to 3x
+i_MX7_SoC.signals <-> 240pin : up-to 124x
+i_MX7_SoC.signals <-> 240pin : up-to 2x
+i_MX7_SoC.signals <-> 240pin : up-to 3x
+i_MX7_SoC.signals <-> 240pin : up-to 2x
+i_MX7_SoC.signals <-> 240pin : up-to 2x
+i_MX7_SoC.signals <-> 240pin : up-to 4x PWM
+i_MX7_SoC.signals <-> 240pin : up-to 6x
+i_MX7_SoC.signals <-> 240pin : up-to 1x
+i_MX7_SoC.signals <-> 240pin : up-to 6 x 6
+i_MX7_SoC.signals <-> 240pin : up-to 2x
+i_MX7_SoC.signals <-> 240pin : up-to 4x
+i_MX7_SoC.signals <-> 240pin : up-to 1x MQS int
+
+i_MX7_SoC.signals <-> WLAN_BT : UART
+i_MX7_SoC.signals <-> WLAN_BT : MMC
+
+i_MX7_SoC.signals <-> 1Gbit_PHY : RGMII
+1Gbit_PHY <-> 240pin : 1Gbit Eth
+
+i_MX7_SoC.signals <-> 1Gbit_PHY_ : RGMII
+1Gbit_PHY_ <-> 240pin : 1Gbit Eth
+
+i_MX7_SoC.PCIe <=> 240pin : PCI Express 1
+
+i_MX7_SoC.USB2_0 <-> USB2_0 : HSIC
+USB2_0 <-> 240pin : USB 2.0 
+USB2_0 <-> 240pin : USB 2.0 
+USB2_0 <-> 240pin : USB 2.0 
+
+i_MX7_SoC.USB2_0_ <-> 240pin : USB 2.0 OTG
+i_MX7_SoC.USB2_0__ <-> 240pin : USB 2.0 HOST
+
+i_MX7_SoC.MIPI_CSI <-> 240pin : MIPI-CSI
+
+@endwire
+</plantuml>
+
+
+== Remark after first use...
+
+=== 1. Label of component
+
+`+print+` (for label of component) is not useful (for other text, why not!)
+
+* Why not create label as:
+----
+* alias [a x b] #color : long label
+----
+
+e.g. :
+----
+* WM_8731L [100x30] #green : "Audio_Codec \nWM_8731L"
+----
+or
+----
+* WM_8731L [100x30] #green : Audio_Codec \nWM_8731L
+----
+
+=== 2. Padding
+
+Could you add padding for text on double arrow `+<=>+`?
+
+=== 3. Component Label Positioning
+* I think centering the label inside a box would be a better default
+* scaling the label size with the size of the box might also be a nice feature.
+
+=== 4. Component Declaration syntax
+The use of \`\*\` to declare a component is incongruent with the rest of plantuml, where one explicitly types out the type of component they want, such as:
+----
+state myState
+actor myActor
+class myClass
+----
+I would much prefer to keep plantuml readable and suggest changing the syntax to either use "component/device/etc" over the \`\*\`.
+
+or, you could just assume (like other diagrams) the type by way of the `+startwire+`; thus you know that any object typed in should be a box of type "device/component/\*". 
+
+This would also allow for defining specifics about a "device" by use of brackets (just like the rest of plantuml).
+----
+device DDR3 {
+label is center
+
+connector 1 left
+connector 2 right
+connector 3 left
+connector VDD right
+connector gpio1 left
+connector GND right
+}
+----
+
+If you could declare a device as above, then that could set you up for replication; because we often have a lot of the same components on the same bus (e.g. 6 temperature sensors on the same spi bus).
+
+----
+device tmp125 {
+label: TMP125 \n 30Mhz
+connector somi is right
+connector simo is left
+connector vdd is top
+connector gnd is bottom
+# lightgrey
+}
+
+
+component tmp125 as tmp1
+component tmp125 as tmp2
+component tmp125 as tmp3
+
+component MicroProc{
+connector somi is right
+connector simo is right
+}
+
+MicroProc.simo -> tmp1.simo
+MicroProc.simo -> tmp2.simo
+MicroProc.simo -> tmp3.simo
+
+tmp1.somi -> MicroProc.somi
+tmp2.somi -> MicroProc.somi
+tmp3.somi -> MicroProc.somi
+----
+
+Here would be the current method of "rendering" the above.
+
+<plantuml>
+@startwire
+* MicroProc
+	* SOMI
+	* SIMO
+	* SCLK
+-------
+* TMP125_1
+	* SOMI
+	* SIMO
+	* SCLK
+* TMP125_2
+	* SOMI
+	* SIMO
+	* SCLK
+* TMP125_3
+	* SOMI
+	* SIMO
+	* SCLK
+
+
+
+
+MicroProc.SIMO -> TMP125_1 : SIMO
+MicroProc.SIMO -> TMP125_2 : SIMO
+MicroProc.SIMO -> TMP125_3 : SIMO
+
+TMP125_1.SOMI -> MicroProc.SOMI : SOMI
+TMP125_2.SOMI -> MicroProc.SOMI : SOMI
+TMP125_3.SOMI -> MicroProc.SOMI : SOMI
+
+
+@endwire
+
+</plantuml>
+
+
+=== 5. Component Sizing
+The sizing of a component should be dynamic. It should start out just big enough for the label+padding; then expand if it needs to fit stuff inside of it. like connection points+padding or other blocks/devices contained within (which should follow the same sizing rules).
+
+

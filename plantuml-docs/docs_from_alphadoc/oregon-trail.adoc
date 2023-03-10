@@ -1,0 +1,69 @@
+== The Oregon Trail
+
+The https://en.wikipedia.org/wiki/The_Oregon_Trail_%28series%29[Oregon Trail] is a __very old__ game created
+in 1971.
+
+A version from http://www.atariarchives.org/bca[David Ahl's] (named as
+http://www.atariarchives.org/bca/Chapter02_WestwardHo.php[Westward Ho!] for some reasons)
+has been ported to Java and integrated in **PlantUML**...
+
+This page is dedicated to:
+* Dan Rawitsch
+* Bill Heinemann
+* Paul Dillenberger
+* David Ahl
+
+
+== Let's play
+
+To launch the game, you will have to use the good old `+RUN+` Basic command :
+<plantuml>
+@startuml
+run oregon trail
+@enduml
+</plantuml>
+
+Every input has to be added in the text file:
+
+<plantuml>
+@startuml
+run oregon trail
+150
+@enduml
+</plantuml>
+
+Every input has to be added in the text file:
+
+<plantuml>
+@startuml
+run oregon trail
+150
+100
+10
+40
+40
+4
+@enduml
+</plantuml>
+
+For shooting, you will have to type **as fast as possible**
+the word printed on the screen (__like in the original version!__).
+
+<plantuml>
+@startuml
+run oregon trail
+150
+100
+10
+40
+40
+3
+1
+blam
+@enduml
+</plantuml>
+Good luck to you on the __Oregon Trail__ !
+
+
+
+

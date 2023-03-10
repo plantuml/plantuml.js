@@ -1,0 +1,18 @@
+== Special thanks to our sponsors and donors
+
+We would like to thanks http://sourceforge.net/donate/index.php?group_id=259736[our sponsors and donors].
+
+So we dedicate some special command to them:
+[plantuml]
+----
+@startuml
+donors
+@enduml
+----
+
+You can http://plantuml.com/paypal[participate and enlarge the list !] :-)
+
+Another way of supporting us can be http://plantuml.com/patreon[Patreon] or http://plantuml.com/lp[Liberapay]
+
+
+

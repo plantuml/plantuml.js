@@ -1,0 +1,132 @@
+== Basic Formatting
+
+You can use usual formatting.
+Text underlining is not part of standard markdown but has been added.
+
+|===
+| Style syntax | Result
+
+| `+*Italic*+`
+| __Italic__
+
+| `+**Bold**+`
+| **Bold**
+
+| `+***Italic and bold***+`
+| **__Italic and bold__**
+
+| `+__underlined__+`
+| +++<u>underlined</u>+++
+
+| `+~~striked~~+`
+| ~~striked~~
+
+| `+`raw`+`
+| `+raw+`
+
+|===
+
+
+== Lists
+
+You can use ordered and unordered lists. Right now, you can only have one level of sub-list. If you need more, just tell us!
+
+=== Unordered list
+
+----
+* First unordered list item
+  * A sublist
+* Second unordered list item
+* Third unordered list item
+----
+
+* First unordered list item
+** A sublist
+* Second unordered list item
+* Third unordered list item
+
+
+=== Ordered list
+
+----
+1. First ordered list item
+1. Second ordered list item
+1. Third ordered list item
+----
+
+. First ordered list item
+. Second ordered list item
+. Third ordered list item
+
+
+== Tables
+
+Right now, only basic table is supported.
+
+Just ask if you need more!
+
+----
+| Parameter   | Default | Description                     |
+| ----------- | ------- | ------------------------------- |
+| nbthread    | 1       | Number of thread for processing |
+| graphvizDot |         | Path of the dot executable      |
+----
+
+
+|===
+| Parameter | Default | Description
+
+| nbthread
+| 1
+| Number of thread for processing
+
+| graphvizDot
+|
+| Path of the dot executable
+
+|===
+
+
+== UML diagrams
+
+=== Image with source code
+
+You have to use `+[plantuml]
+----+` and `+----+`.
+
+----
+[plantuml]
+----
+@startuml
+Alice -> Bob : Hello
+@enduml
+----
+----
+
+[plantuml]
+----
+@startuml
+Alice -> Bob : Hello
+@enduml
+----
+
+=== Display only image
+
+Use standard `+```plantuml+` block.
+
+----
+```plantuml
+@startuml
+Alice -> Bob : Hello
+@enduml
+``` 
+----
+
+[plantuml]
+----
+@startuml
+Alice -> Bob : Hello
+@enduml
+----
+
+

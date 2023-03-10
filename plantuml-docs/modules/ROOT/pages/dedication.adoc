@@ -1,0 +1,57 @@
+== Dedication
+
+**You can integrate a personal photo or picture into PlantUML source code!**
+
+The photo will be https://en.wikipedia.org/wiki/Stream_cipher[encrypted into the source code], and will be displayed when a special sentence (__your dedication__) will be entered.
+
+It could be a photo of your pet, someone you care about, some place you love... By this way, your photo will be algorithmically set in stone and spread all over the world, everywhere PlantUML is installed, even if no one but you knows about it...
+
+There are two kinds of Dedication:
+
+* __Public__: the special sentence is publicly written in the code of PlantUML, so someone searching into the code will be able to find it and then see your photo.
+* __Private__: only https://en.wikipedia.org/wiki/SHA-2[SHA-512 signature] of the special sentence is in the source code (as the encrypted photo). **No one can guess your special sentence, neither see your photo,** since it's encrypted using the sentence itself.
+
+
+
+== Example
+
+We have made a demo with the special sentence __Write your own dedication!__
+
+It works in **each and every** deployed instance of PlantUML over the world !
+
+[plantuml]
+----
+@startuml
+Write your own dedication!
+@enduml
+----
+
+
+== Why?
+
+To support such a service, https://www.patreon.com/bePatron?patAmt=1&u=527450&rid=548118[we suggest a contribution]
+of **$5** per month.
+
+**So why would people make dedication?**
+* Because there might be some message that you want to be set in stone for eternity
+* Because it's fun to be able to generate a beautiful image from a simple sentence
+* Because it helps PlantUML to grow!
+
+
+== How?
+
+Just send mailto:plantuml@gmail.com?subject=Add%20my%20dedication[a mail to plantuml@gmail.com] with
+__"Add my dedication"__ as subject and that lists:
+* Your sentence,
+* Your photo or picture,
+* Whether you want a public or a private dedication.
+
+We will build a beta version of PlantUML with your dedication and then:
+* Send it to you,
+* Install it http://plantuml.com/plantuml[online on the PlantUML Web Server]
+So that you can check the result.
+**This is a free trial offer!**
+
+__We hope that you will appreciate the result!__
+
+

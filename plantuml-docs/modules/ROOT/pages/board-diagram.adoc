@@ -1,0 +1,45 @@
+== Board diagram
+
+https://github.com/plantuml/plantuml/issues/423[Incubation of board diagram]
+
+
+== Basic component
+
+[plantuml]
+----
+@startboard
+A1
++U1.1
+++S1 R1
+++S1 R2 
++U1.2
+A2
+@endboard
+----
+
+[plantuml]
+----
+@startboard
+Activity 1
++User Task 1a
+++Story 1 Release 1
+++Story 2 Release 1
++User Task 1b
+++Story 3 Release 1
++++Story 4 Release 1
+++++Story 5 Release 2
+
+Activity 2
++User Task 2
++++Story 6 Release 1
++++Story 7 Release 1
++++Story 8 Release 2
+Activity 3
+
++User Task 3
+++++Story 9 Release 2
+++++Story 10 Release 3
+@endboard
+----
+
+

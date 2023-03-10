@@ -1,0 +1,149 @@
+== PlantUML Text Encoding
+
+
+
+== Introduction
+
+PlantUML defines a standardized way to encode diagram text description to a simple string of characters that contains only digits, letters, underscore and minus character.
+The goal of such an encoding is to facilitate communication of diagrams through URL (see link::server[server]).
+This encoding includes compression to keep encoded strings as short as possible.
+
+The encoded metadata is stored in the generated PNG, so the diagram source can be extracted from the diagram itself! (see link::server#metadata[server#metadata]).
+
+
+== Compression
+
+
+http://en.wikipedia.org/wiki/DEFLATE[Deflate algorithm] is used by default.
+
+You can also use simple HEX encoding, see below. An initial `+~h+` is added to indicate this encoding.
+
+**Principle**
+
+For example, the following uml text description:
+
+----
+@startuml
+Alice -> Bob: Authentication Request
+Bob --> Alice: Authentication Response
+@enduml
+----
+
+is http://www.plantuml.com/plantuml/uml/Syp9J4vLqBLJSCfFib9mB2t9ICqhoKnEBCdCprC8IYqiJIqkuGBAAUW2rO0LOr5LN92VLvpA1G00[encoded as]:
+
+----
+Syp9J4vLqBLJSCfFib9mB2t9ICqhoKnEBCdCprC8IYqiJIqkuGBAAUW2rO0LOr5LN92VLvpA1G00
+----
+
+
+To achieve such encoding, the text diagram is:
+
+. Encoded in UTF-8
+. Compressed using http://en.wikipedia.org/wiki/DEFLATE[Deflate] algorithm
+. Reencoded in ASCII using a transformation __close__ to http://en.wikipedia.org/wiki/Base64[base64]
+
+
+**Why not use Base64?**
+
+The main reason is historic: this format was not created to be public at first. Now, it's too late to change it. However, the only difference is in character order.
+
+Where in base64 the mapping array for values 0-63 is:
+----
+ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/
+----
+
+For PlantUML, the mapping array for values 0-63 is:
+----
+0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_
+----
+
+
+**Compression comparison **
+
+The following diagram:
+
+<plantuml>
+@startuml
+skinparam backgroundColor #EEEBDC
+skinparam handwritten true
+
+skinparam sequenceArrowColor DeepSkyBlue
+skinparam sequenceActorBorderColor DeepSkyBlue
+skinparam sequenceLifeLineBorderColor blue
+skinparam sequenceLifeLineBackgroundColor #A9DCDF
+skinparam sequenceParticipantBorderColor DeepSkyBlue
+skinparam sequenceParticipantBackgroundColor DodgerBlue
+skinparam sequenceParticipantFontName Impact
+skinparam sequenceParticipantFontSize 17
+skinparam sequenceParticipantFontColor #A9DCDF
+skinparam sequenceActorBackgroundColor aqua
+skinparam sequenceActorFontColor DeepSkyBlue
+skinparam sequenceActorFontSize 17
+skinparam sequenceActorFontName Aapex
+
+actor User
+participant "First Class" as ParticipantA
+participant "Second Class" as ParticipantB
+participant "Last Class" as ParticipantC
+
+User -> ParticipantA: DoWork
+activate ParticipantA
+
+ParticipantA -> ParticipantB: Create Request
+activate ParticipantB
+
+ParticipantB -> ParticipantC: DoWork
+activate ParticipantC
+ParticipantC --> ParticipantB: WorkDone
+destroy ParticipantC
+
+ParticipantB --> ParticipantA: Request Created
+deactivate ParticipantB
+
+ParticipantA --> User: Done
+deactivate ParticipantA
+@enduml
+</plantuml>
+
+is compressed to a
+
+* http://www.plantuml.com/plantuml/uml/ZP4zRy8m48Pt_ueJdHawLMMe53iWLK9LLLHrFk8hM04xd9rI-kiR0u8a1CAG8SdpVja-DxP0nZNCCSiNx4ghbLivXeVnU2nJ9Vo9MABLMpOXa8N09OdQFq-Racn62RFR7WnIecAMx-Ig8Zl0B3YMZZNnFVZKV5UFfRfYteEs1oNFgKed7Oftv60oKw0DzpUgYrf9gTCBudxTnDdmXck2rtM1MUY7P-QFuF6f7-nRV3ZzLctSb7YDFPlUSQstgvwG_VG42_eL0kD7-FJ4eZXFWS74i0-WLkZz0D13RMVI96UKEQkxKTb4ftZDKmaHEy3mfP4qggxqot4UQveV3DJi8UflBQqSWMAAae-utuTE3zdma2qFTJDVrQKAXXVvKPawIq9NyUnshS7Du8lbnzh75ReowH-Gx7tYISRc--JEa_i7[428-char string length using Deflate]
+* http://www.plantuml.com/plantuml/uml/06tq404I5ENsC6cXKT6xxgxaBDG3o_tzkTRbkDJuRa4mYLIoIEFVZsapwhAr5NDHB0jrZfWK5MOp8y53KKy_J2adzUr-HCAJ8bVfEA7x6qMwXhNtcUJYCT4gMZV_c2gzJk9gimqo81bOfXLN-tkYpiaWi3aabF_wrItuxPLX5NINL6FKhAboWjmXbI8jiBfIRnXs0h40re09D-HpekC83iDO8GEXFHTCMoPlXmKCx05mLK_fTdsZCJY1geDzQhs6aar6qIIfU1V5QYHQ5wvIFj8v6xZE0zWeZksK6S5mgnjDR9L1ao9uZg7-gFLepB1EeGVeUILgETgbkEtuAelaPmmGV7kEDjEioz1d6D_0WvvYzGbScBwP8CnA9ZosEQ2vGlBk_7W00[393-char string length using Brotli]
+
+
+== Running
+
+You can use `+-encodeurl+` or `+-decodeurl+` in the link::command-line[command line] flags to encode or decode the text.
+
+You will find here some implementation of this encoder:
+
+* link::code-php[Code in PHP]
+* link::code-javascript-synchronous[Code in Javascript]
+* https://github.com/dougn/python-plantuml[Code in Python]
+* https://blog.eidinger.info/plantuml-text-encoding-in-swift[Code in Swift]
+
+
+== Simple HEX format
+
+If you find Deflate and Brotli too complex, you can try the HEX format.
+In that case, you just have to encode each character in hexadecimal format.
+
+For example :
+----
+@startuml
+Alice->Bob : I am using hex
+@enduml
+----
+
+will be turned into:
+----
+407374617274756d6c0a416c6963652d3e426f62203a204920616d207573696e67206865780a40656e64756d6c
+----
+
+To indicate the use of HEX format, you must add `+~h+` at the start of the data sent to PlantUML server.
+
+http://www.plantuml.com/plantuml/uml/~h407374617274756d6c0a416c6963652d3e426f62203a204920616d207573696e67206865780a40656e64756d6c[http://www.plantuml.com/plantuml/uml/~h4073...]
+
+Since there is no compression here, the URL will become very long as the diagram grows.
+
+
