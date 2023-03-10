@@ -1,0 +1,190 @@
+== Class Diagram issues (class-diagram-issues)
+
+This page lists issues on link::class-diagram[Class Diagram].
+
+
+== Wanted features
+
+* https://forum.plantuml.net/13773/style-the-methods-section-of-a-class-diagram[QA-13773/style-the-methods-section-of-a-class-diagram]
+
+Adding, on inline style:
+* fields
+* methods
+
++ on [beta-]style
+
+Proposal syntax:
+----
+@startuml
+class Demo1 #back:lightgreen|yellow;header:blue/red;methods:red\green;fields:pink
+@enduml
+----
+
+
+== Arrow head Groupinheritance bug
+
+* https://forum.plantuml.net/13532/groupinheritance-bug[QA-13532]
+[plantuml]
+----
+@startuml
+skinparam groupInheritance 3
+
+class A1
+
+A1 <|-- B1
+
+A2 <|-- B2
+A2 <|-- C2
+
+A3 <|-- B3
+A3 <|-- C3
+A3 <|-- D3
+
+A4 <|-- B4
+A4 <|-- C4
+A4 <|-- D4
+
+E4 --|> A4 #blue
+E6 --|> A4 #blue
+E5 --|> A4 #blue
+@enduml
+----
+
+Same on element:
+[plantuml]
+----
+@startuml
+skinparam groupInheritance 3
+
+card A1
+
+A1 <|-- B1
+
+A2 <|-- B2
+A2 <|-- C2
+
+A3 <|-- B3 #blue
+A3 <|-- C3 #blue
+A3 <|-- D3 #blue
+
+A4 <|-- B4 #blue
+A4 <|-- C4 #blue
+A4 <|-- D4 #blue
+
+E4 --|> A4
+E6 --|> A4 
+E5 --|> A4
+@enduml
+----
+
+
+== Another similar groupInheritance issue
+
+* https://github.com/plantuml/plantuml/issues/729[GH-729]
+
+[plantuml]
+----
+@startuml
+skinparam groupInheritance 2
+
+Parent <|-- Child1
+Parent <|-- Child2
+Composed --* Parent #blue
+Aggregated --o Parent #blue
+Arrow --> Parent #blue
+@enduml
+----
+
+[plantuml]
+----
+@startuml
+skinparam groupInheritance 3
+
+Parent <|-- Child1
+Parent <|-- Child2
+Composed --* Parent
+Aggregated --o Parent
+Arrow --> Parent
+@enduml
+----
+
+
+== Line thickness issue (from ~V1.2022.2) [fixed on 1.2022.6betaX]
+
+[plantuml]
+----
+@startuml
+title Bracketed line thickness
+class foo
+class bar
+bar1 : [thickness=1]
+bar2 : [thickness=2]
+bar3 : [thickness=4]
+bar4 : [thickness=8]
+bar5 : [thickness=16]
+
+foo --> bar                 : ∅
+foo -[thickness=1]-> bar1   : [1]
+foo -[thickness=2]-> bar2   : [2]
+foo -[thickness=4]-> bar3   : [4]
+foo -[thickness=8]-> bar4   : [8]
+foo -[thickness=16]-> bar5  : [16]
+
+@enduml
+----
+
+__[Ref. https://forum.plantuml.net/4949[QA-4949]]__
+
+
+== Error on Change class color and style (inline style) [fixed on 1.2022.6betaX]
+
+⚠‼⁉ +++<u>Appeared from version v1.2022.2++</u>+++ [fixed on 1.2022.6betaX]
+
+* Error on `+##[style]color+`: error on style
+
+[plantuml]
+----
+@startuml
+abstract   abstract
+annotation annotation ##[bold]red
+note bottom: Why not bold?
+class      class      ##[dashed]green
+note bottom: Why not dashed?
+interface  interface  ##[dotted]blue
+note bottom: Why not dotted?
+
+@enduml
+----
+
+
+
+* `+#[color|back:color];header:color;line:color;line.[bold|dashed|dotted];text:color+`
+
+[plantuml]
+----
+@startuml
+abstract   abstract
+annotation annotation #line:red;line.bold;text:red
+note bottom: Why not bold?
+class      class      #line:green;line.dashed;text:green
+note bottom: Why not dashed?
+interface  interface  #line:blue;line.dotted;text:blue
+note bottom: Why not dotted?
+@enduml
+----
+
+First original example:
+[plantuml]
+----
+@startuml
+class bar #line:green;back:lightblue
+class bar2 #lightblue;line:green
+
+class Foo1 #back:red;line:00FFFF
+class FooDashed #line.dashed:blue
+class FooDotted #line.dotted:blue
+class FooBold #line.bold
+@enduml
+----
+
+

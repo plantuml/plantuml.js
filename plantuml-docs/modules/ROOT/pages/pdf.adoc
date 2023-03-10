@@ -1,0 +1,54 @@
+== PDF Support
+
+Some users have asked for the ability to generate diagrams directly in PDF format.
+Unfortunately, this is not an easy task, and would require the need of several external libraries (http://xmlgraphics.apache.org/batik[Batik] and http://xmlgraphics.apache.org/fop[FOP]).
+
+This goes against the wish to keep `+plantuml.jar+` file not too big and to facilitate its integration with other products.
+
+Fortunately, it is possible to use some kind of __dynamic__ linkage, so that those libraries
+are not needed for compilation or execution if not present. A SVG file is first generated, then translated to PDF.
+
+Note that in some case, shadowing is an issue for PDF export, http://forum.plantuml.net/1026/instruction-how-enable-pdf-support-seems-not-correct-anymore[so you can find here a way to disable it].
+
+
+
+== Make it work
+So by default PDF generation is not enabled. This will probably fit a majority of users' needs.
+
+If you want to use PDF, you have to download the following files:
+
+* avalon-framework-4.2.0.jar
+* batik-all-1.7.jar
+* commons-io-1.3.1.jar
+* commons-logging-1.0.4.jar
+* fop.jar
+* xml-apis-ext-1.3.04.jar
+* xmlgraphics-commons-1.4.jar
+
+
+You have to download those files from http://xmlgraphics.apache.org/batik[Batik] and http://xmlgraphics.apache.org/fop[FOP] web site.
+
+For testing purposes only, those files have been put together in a zip http://beta.plantuml.net/batikAndFop.zip[here].
+
+Those files have to be in the very same folder as `+plantuml.jar+` (this is important).
+
+Now, you can use the `+-tpdf+` flag in the command line:
+
+----
+java -jar plantuml.jar -tpdf diagram.txt
+----
+
+Or `+format="pdf"+` in the ant task:
+
+----
+<!-- task definition -->
+<taskdef name="plantuml" classname="net.sourceforge.plantuml.ant.PlantUmlTask" classpath="plantuml.jar" />
+<!-- process diagram.txt file -->
+<target name="images">
+<plantuml format="pdf">
+<fileset file="diagram.txt" />
+----
+</target>
+----
+
+

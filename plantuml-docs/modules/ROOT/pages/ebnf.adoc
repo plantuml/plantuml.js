@@ -1,0 +1,124 @@
+== Extended Backus–Naur Form (EBNF)
+
+
+https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form[Extended Backus–Naur Form (EBNF)] is a type of formal syntax used to specify the structure of a programming language or other formal language. It is an extension of Backus-Naur Form (BNF), which was originally developed by John Backus and Peter Naur to describe the syntax of the Algol programming language.
+
+EBNF adds several additional metasymbols to the original BNF metasymbols, which allows for a more concise and readable specification of a language's syntax. It is commonly used in the specification of programming languages, and is also sometimes used to describe the syntax of other types of formal languages, such as database query languages or markup languages.
+
+Basic support for https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form[EBNF] has been introduced in PlantUML.
+
+
+== Minimal binary diagram
+
+[plantuml]
+----
+@startebnf
+binaryDigit = "0" | "1";
+@endebnf
+----
+
+
+== Example of LISP Grammar
+
+LISP Grammar with PlantUML.
+
+[plantuml]
+----
+@startebnf
+title LISP Grammar
+grammars_expression = atomic_symbol | "(", s_expression, ".", s_expression, ")" | list;
+list = "(", s_expression, { s_expression }, ")";
+atomic_symbol = letter, atom_part;
+atom_part = empty | letter, atom_part | number, atom_part;
+letter = ? a-z ?;
+number = ? 1-9 ?;
+empty = " ";
+@endebnf
+----
+
+[Ref. ]
+
+
+== All EBNF elements
+
+EBNF elements managed by PlantUML.
+
+[plantuml]
+----
+@startebnf
+title All EBNF elements managed by PlantUML
+
+(* Nodes *)
+litteral = "a";
+special = ? a ?;
+rule = a;
+
+(* Edges *)
+required = a;
+optional = [a];
+
+zero_or_more = {a};
+one_or_more = a, {a};
+one_or_more_ebnf = {a}-;
+
+zero_or_more_with_separator = [a, {',', a}];
+one_or_more_with_separator = a, {',', a};
+zero_or_more_with_terminator = {a, ','};
+one_or_more_with_terminator = a, ',', {a, ','};
+one_or_more_with_terminator_ebnf = {a, ','}-;
+
+alternative = a | b;
+group = (a | b) , c;
+without_group = a | b , c;
+@endebnf
+----
+
+
+== Notes on elements
+
+Notes may be added to elements of your diagram with ebnf comment tags.
+
+[plantuml]
+----
+@startebnf
+title Comments
+(* Notes for Rule1 *)
+Rule1 = {"a-z" (* any letter *) };
+(* Notes for Rule2 *)
+Rule2 =;
+(* Additional notes, and referances *)
+@endebnf
+----
+
+
+== EBNF of PlantUMLs EBNF grammers
+
+EBNF allows for self description, so here it is!
+
+[plantuml]
+----
+@startebnf
+grammar = { rule };
+rule = lhs , "=" (* definition *) , rhs , ";" (* termination *);
+lhs = identifier ;
+rhs = identifier
+     | terminal
+     | "[" , rhs (* optional *) , "]"
+     | "{" , rhs (* repetition *), "}"
+     | "(" , rhs (* grouping *) , ")"
+     | "(*" , rhs (* comment *) , "*)"
+     | "?" , rhs (* special sequence, aka notation *) , "?"
+     | rhs , "|" (* alternation *) , rhs
+     | rhs , "," (* concatenation *), rhs ;
+identifier = letter , { letter | digit | "_" } ;
+terminal = "'" , character , { character } , "'"
+         | '"' , character , { character } , '"' ;
+character = letter | digit | symbol | "_" ;
+symbol = "[" | "]" | "{" | "}" | "(" | ")" | "<" | ">"
+       | "'" | '"' | "=" | "|" | "." | "," | ";" ;
+digit = ? 0-9 ? ;
+letter = ? A-Z or a-z ? ;
+@endebnf
+----
+
+

@@ -1,0 +1,431 @@
+== Notes
+
+Here are some examples of notes on diagrams.
+
+
+== Appendice: Examples of "Note on link" on all diagrams
+
+=== Activity
+N/A
+
+=== Class
+<plantuml>
+@startuml
+class a
+
+a -> b: //link label//
+note on link
+  Link note
+end note
+@enduml
+</plantuml>
+
+=== Component, Deployment
+<plantuml>
+@startuml
+node a
+node b
+
+a -> b: //link label//
+note on link
+  Link note
+end note
+@enduml
+</plantuml>
+
+=== Gantt project planning
+
+N/A
+
+
+=== Object
+<plantuml>
+@startuml
+object a
+object b
+
+a -> b: //link label//
+note on link
+  Link note
+end note
+@enduml
+</plantuml>
+
+=== MindMap
+
+N/A
+
+=== Network (nwdiag)
+
+N/A
+
+
+=== Sequence
+
+N/A 
+
+=== State
+<plantuml>
+@startuml
+state a
+state b
+
+a -> b: //link label//
+note on link
+  Link note
+end note
+@enduml
+</plantuml>
+
+=== Use-Case
+<plantuml>
+@startuml
+(a)
+(b)
+
+a -> b: //link label//
+note on link
+  Link note
+end note
+@enduml
+</plantuml>
+
+
+== Appendice: Examples of "Note [top\|right\|bottom\|left] on link" on all diagrams
+
+=== Activity
+N/A
+
+=== Class
+<plantuml>
+@startuml
+class a
+
+a -> b: //link label//
+note top on link
+  Link note
+end note
+b ---> c: //link label//
+note right on link
+  Link note
+end note
+d <- c: //link label//
+note bottom on link
+  Link note
+end note
+a <--- d: //link label//
+note left on link
+  Link note
+end note
+@enduml
+</plantuml>
+
+=== Component, Deployment
+<plantuml>
+@startuml
+node a
+node b
+node c
+node d
+
+a -> b: //link label//
+note top on link
+  Link note
+end note
+b ---> c: //link label//
+note right on link
+  Link note
+end note
+d <- c: //link label//
+note bottom on link
+  Link note
+end note
+a <--- d: //link label//
+note left on link
+  Link note
+end note
+@enduml
+</plantuml>
+
+=== Gantt project planning
+
+N/A
+
+
+=== Object
+<plantuml>
+@startuml
+object a
+object b
+object c
+object d
+
+a -> b: //link label//
+note top on link
+  Link note
+end note
+b ---> c: //link label//
+note right on link
+  Link note
+end note
+d <- c: //link label//
+note bottom on link
+  Link note
+end note
+a <--- d: //link label//
+note left on link
+  Link note
+end note
+@enduml
+</plantuml>
+
+=== MindMap
+
+N/A
+
+=== Network (nwdiag)
+
+N/A
+
+
+=== Sequence
+
+N/A 
+
+=== State
+<plantuml>
+@startuml
+state a
+state b
+state c
+state d
+
+a -> b: //link label//
+note top on link
+  Link note
+end note
+b -down-> c: //link label//
+note right on link
+  Link note
+end note
+c -left-> d: //link label//
+note bottom on link
+  Link note
+end note
+d -up-> a: //link label//
+note left on link
+  Link note
+end note
+@enduml
+</plantuml>
+
+=== Use-Case
+<plantuml>
+@startuml
+(a)
+(b)
+(c)
+(d)
+
+a -> b: //link label//
+note top on link
+  Link note
+end note
+b ---> c: //link label//
+note right on link
+  Link note
+end note
+d <- c: //link label//
+note bottom on link
+  Link note
+end note
+a <--- d: //link label//
+note left on link
+  Link note
+end note
+@enduml
+</plantuml>
+
+
+== Appendice: Examples of "Note [top\|right\|bottom\|left] of link" on all diagrams
+
+Test of the new feature "Note [top\|right\|bottom\|left] **of** link"  (from v1.2020.20):
+
+* OK for Component, Deployment, Use-case
+* KO for Class, Objet, State
+
+[[#FFD700#FIXME]] 
+🚩
+FIXME for Class, Objet, State
+[[#FFD700#FIXME]] 
+
+=== Activity
+N/A
+
+=== Class
+<plantuml>
+@startuml
+class a
+
+a -> b: //link label//
+note top of link
+  Link note
+end note
+b ---> c: //link label//
+note right of link
+  Link note
+end note
+d <- c: //link label//
+note bottom of link
+  Link note
+end note
+a <--- d: //link label//
+note left of link
+  Link note
+end note
+@enduml
+</plantuml>
+
+[[#FFD700#FIXME]] 
+🚩
+FIXME for Class
+[[#FFD700#FIXME]] 
+
+
+=== Component, Deployment
+<plantuml>
+@startuml
+node a
+node b
+node c
+node d
+
+a -> b: //link label//
+note top of link
+  Link note
+end note
+b ---> c: //link label//
+note right of link
+  Link note
+end note
+d <- c: //link label//
+note bottom of link
+  Link note
+end note
+a <--- d: //link label//
+note left of link
+  Link note
+end note
+@enduml
+</plantuml>
+
+=== Gantt project planning
+
+N/A
+
+
+=== Object
+<plantuml>
+@startuml
+object a
+object b
+object c
+object d
+
+a -> b: //link label//
+note top of link
+  Link note
+end note
+b ---> c: //link label//
+note right of link
+  Link note
+end note
+d <- c: //link label//
+note bottom of link
+  Link note
+end note
+a <--- d: //link label//
+note left of link
+  Link note
+end note
+@enduml
+</plantuml>
+
+[[#FFD700#FIXME]] 
+🚩
+FIXME for Objet
+[[#FFD700#FIXME]] 
+
+=== MindMap
+
+N/A
+
+=== Network (nwdiag)
+
+N/A
+
+
+=== Sequence
+
+N/A 
+
+=== State
+<plantuml>
+@startuml
+state a
+state b
+state c
+state d
+
+a -> b: //link label//
+note top of link
+  Link note
+end note
+b -down-> c: //link label//
+note right of link
+  Link note
+end note
+c -left-> d: //link label//
+note bottom of link
+  Link note
+end note
+d -up-> a: //link label//
+note left of link
+  Link note
+end note
+@enduml
+</plantuml>
+
+[[#FFD700#FIXME]] 
+🚩
+FIXME for State
+[[#FFD700#FIXME]] 
+
+=== Use-Case
+<plantuml>
+@startuml
+(a)
+(b)
+(c)
+(d)
+
+a -> b: //link label//
+note top of link
+  Link note
+end note
+b ---> c: //link label//
+note right of link
+  Link note
+end note
+d <- c: //link label//
+note bottom of link
+  Link note
+end note
+a <--- d: //link label//
+note left of link
+  Link note
+end note
+@enduml
+</plantuml>
+
+

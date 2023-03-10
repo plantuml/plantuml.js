@@ -1,0 +1,39 @@
+== Professional usage
+
+**PlantUML is free and open source and will always be.**
+
+However hosting the service and enhancing the product takes time and money.
+
+So PlantUML can occasionally display sponsored or advertising messages. 
+Those messages are usually generated on welcome or error images and never on fonctional diagrams.
+
+Here is an example of such display:
+
+image::demo-ad.png[]
+
+If this is unacceptable for you and if you are using PlantUML in a professional environment,
+there is a way for you to disable these sponsored or advertising messages.
+
+You may indeed ask for a license key by running the following special diagram:
+----
+@startuml
+keygen
+@enduml
+----
+
+You then have to send us the result (which is a footprint of your server or machine).
+We will send you back a software key that you will install on your machine (by running another simple and special command).
+
+Once the software key is installed, we will be switched into the Professional Edition that do not print any 
+sponsored or advertising messages.
+You will be able to double check this by running:
+
+----
+@startuml
+license
+@enduml
+----
+
+Thanks for your support!
+
+

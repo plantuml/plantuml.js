@@ -1,0 +1,71 @@
+== JQuery integration
+
+Imagine that you could directly use PlantUML source code into HTML, something like:
+
+
+And that will display this:
+
+[plantuml]
+----
+@startuml
+class foo
+@enduml
+----
+
+This would be nice.
+
+
+Well, using http://jquery.com/[JQuery] library, this will work.
+
+You just have to use the following header in your html file:
+
+----
+<head>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="[[jquery_plantuml.js|jquery_plantuml.js]]"></script>
+<!-- rawdeflate.js is implicity used by jquery_plantuml.js -->
+</head>
+----
+
+
+The 3 files `+jquery.js+`, `+jquery_plantuml.js+` and `+rawdeflate.js+` have
+to be available on your server.
+
+
+
+== How does it works?
+There is nothing magic here:
+* http://jquery.com/[JQuery] simply parses the html source file on loading,
+* Then all `+uml+` descriptions are transformed into links to http://www.plantuml.com[plantuml.com] site. (like for link::code-javascript-asynchronous[Javascript integration].)
+
+And you can http://sourceforge.net/projects/plantuml/files/jquery_plantuml.zip/download[download the complete package here].
+
+
+
+== Complete source example
+
+----
+<html>
+<head>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="[[jquery_plantuml.js|jquery_plantuml.js]]"></script>
+<!-- rawdeflate.js is implicity used by jquery_plantuml.js -->
+</head>
+
+<body>
+<p>Example</p>
+<hr>
+<img uml="
+class foo
+">
+<hr>
+<img uml="
+class foo
+">
+
+</body>
+</html>
+----
+
+
+

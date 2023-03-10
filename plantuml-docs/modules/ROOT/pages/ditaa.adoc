@@ -1,0 +1,137 @@
+== Generalisation
+
+**PlantUML** now can generate diagrams other than UML. In such cases the usual `+@startuml+` does not make sense anymore. So now we allow diagrams start with `+@startXYZ+` and finish with `+@endXYZ+`, where `+XYZ+` can change with the type of diagram and can be any characters (including spaces).
+
+> This means that plugin developers are encouraged to change their code to recognize `+@start+` instead of `+@startuml+`.
+
+DITAA diagrams are usually formatted as `+@startditaa...@endditaa+`.
+
+
+== Ditaa
+
+http://ditaa.sourceforge.net[Ditaa __(DIagrams Through Ascii Art)__] is an Open Source project that allows to generate general diagrams from a text descriptions. The idea is close to **PlantUML**, and it may be useful for documentation to generate other diagrams than UML.
+
+So last version of **PlantUML** allows this :
+
+[plantuml]
+----
+@startuml
+ditaa
++--------+   +-------+    +-------+
+|        +---+ ditaa +--> |       |
+|  Text  |   +-------+    |diagram|
+|Document|   |!magic!|    |       |
+|     {d}|   |       |    |       |
++---+----+   +-------+    +-------+
+    :                         ^
+    |       Lots of work      |
+    +-------------------------+
+@enduml
+----
+
+You will find the complete documentation about **ditaa** on:
+* http://ditaa.sourceforge.net[ditaa.sourceforge.net]
+* https://github.com/stathissideris/ditaa[github.com/stathissideris/ditaa]
+
+If your plugin does not support `+@startditaa+` yet, a __temporary__ feature has been set up : it is also possible to use http://ditaa.sourceforge.net[Ditaa] with `+@startuml+` by using `+ditaa+` keyword on the very first line of your description.
+
+⚠ On PlantUML, only **PNG** generation is supported.
+
+
+== Option supported by PlantUML
+
+You can also use some option, after the `+@startditaa+` or `+ditaa+` keyword:
+
+* `+-E+` or `+--no-separation+` to remove separator
+* `+-S+` or `+--no-shadows+` to remove shadow
+* `+scale=<XYZ>+` to scale up or down the diagram
+
+=== Without option
+[plantuml]
+----
+@startditaa
++---------+  /--------\   +-------+
+| cBLU    +--+cAAA    +---+Version|
+|         |  |  Data  |   |   V3  |
+|    +----+  |  Base  |   |cRED{d}|
+|    |cPNK|  |     {s}|   +-------+
+|    |    |  \---+----/
++----+----+    
+@endditaa
+----
+
+=== Remove separator
+[plantuml]
+----
+@startditaa -E
++---------+  /--------\   +-------+
+| cBLU    +--+cAAA    +---+Version|
+|         |  |  Data  |   |   V3  |
+|    +----+  |  Base  |   |cRED{d}|
+|    |cPNK|  |     {s}|   +-------+
+|    |    |  \---+----/
++----+----+    
+@endditaa
+----
+
+=== Remove shadow or scale diagram
+[plantuml]
+----
+@startuml
+ditaa(--no-shadows, scale=0.7)
++---------+  /--------\   +-------+
+| cBLU    +--+cAAA    +---+Version|
+|         |  |  Data  |   |   V3  |
+|    +----+  |  Base  |   |cRED{d}|
+|    |cPNK|  |     {s}|   +-------+
+|    |    |  \---+----/
++----+----+    
+@enduml
+----
+
+
+== Tags
+
+|===
+| Tag | Description
+
+| {c}
+| Choice or Decision
+
+| {d}
+| Document - Symbol representing a document
+
+| {io}
+| Input/Output - Symbol representing input/output
+
+| {mo}
+| Manual operation
+
+| {o}
+| Ellipse
+
+| {s}
+| Storage - Symbol representing a form of storage, like a database or a hard disk.
+
+| {tr}
+| Trapezoid
+
+|===
+
+[plantuml]
+----
+@startditaa
++------+------+------+------+------+------+------+
+| c {c}|d {d} |io{io}|mo{mo}|o{o}  |s{s}  |tr{tr}|
++------+------+------+------+------+------+------+
+@endditaa
+----
+
+
+== More documentation
+
+You will find the complete documentation about **ditaa** on:
+* http://ditaa.sourceforge.net[ditaa.sourceforge.net]
+* https://github.com/stathissideris/ditaa[github.com/stathissideris/ditaa]
+
+

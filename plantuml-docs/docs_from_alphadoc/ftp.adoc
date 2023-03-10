@@ -1,0 +1,106 @@
+== File Transfer Protocol
+
+`+FTP+` is normally used to transfer files.
+
+However, it is possible to used this protocol to **generate** UML diagrams.
+
+The way is to launch PlantUML is FTP mode: it runs as a mock FTP server.
+You can upload text files to this server. Then, diagrams will be automatically generated in this FTP server.
+You will just have to download the image files from the FTP server.
+
+To start the ftp server, just launch the following command line:
+----
+java -jar plantuml.jar -ftp
+----
+By default, the server runs on the 4242 port, but you can specify another port:
+
+----
+java -jar plantuml.jar -ftp:12345
+----
+You can then connect to `+127.0.0.1+` on this port with any FTP client, using any user/password.
+
+The FTP server implementation is really simple: you cannot create subdirectory, you cannot rename files...
+You can only delete files.
+
+Actually, this is not a __real__ FTP server. Nothing is stored on disk, everything runs in memory.
+
+You can check http://www.codeproject.com/Articles/397629/Codeuml-design-UML-diagrams-as-fast-as-you-can-cod[codeuml] to have an example of running application.
+
+The advantage of this approach is that you can easily integrate PlantUML with any application, if that application can handle FTP.
+
+This may be simplier than launching a Java process for each diagram transfer.
+
+
+== Example of Transfer
+
+----
+Status:Connecting to 127.0.0.1:24242...
+Status:Connection established, waiting for welcome message...
+Response:220 PlantUML
+Command:USER anonymous
+Response:331 Password required
+Command:PASS ***
+Response:230 Logged in.
+Command:SYST
+Response:215 UNIX Type: L8.
+Command:FEAT
+Response:502 Command not implemented.
+Status:Connected
+Status:Retrieving directory listing...
+Command:PWD
+Response:257 "/" is current directory.
+Command:TYPE I
+Response:200 Command okay.
+Command:PASV
+Response:227 Entering Passive Mode (127,0,0,1,39,59).
+Command:LIST
+Response:150 Opening ASCII mode data
+Response:226 Listing completed.
+Status:Directory listing successful
+Status:Connecting to 127.0.0.1:24242...
+Status:Connection established, waiting for welcome message...
+Response:220 PlantUML
+Command:USER anonymous
+Response:331 Password required
+Command:PASS ***
+Response:230 Logged in.
+Status:Connected
+Status:Starting upload of data1.txt
+Command:CWD /
+Response:250 "/" is new working directory..
+Command:PWD
+Response:257 "/" is current directory.
+Command:TYPE A
+Response:200 Command okay.
+Command:PASV
+Response:227 Entering Passive Mode (127,0,0,1,39,60).
+Command:STOR data1.txt
+Response:150 FILE: data1.txt
+Response:226 Transfer complete.
+Status:File transfer successful, transferred 339 bytes in 1 second
+Status:Retrieving directory listing...
+Command:TYPE I
+Response:200 Command okay.
+Command:PASV
+Response:227 Entering Passive Mode (127,0,0,1,39,61).
+Command:LIST
+Response:150 Opening ASCII mode data
+Response:226 Listing completed.
+Status:Directory listing successful
+Status:Retrieving directory listing...
+Command:PASV
+Response:227 Entering Passive Mode (127,0,0,1,39,62).
+Command:LIST
+Response:150 Opening ASCII mode data
+Response:226 Listing completed.
+Status:Directory listing successful
+Status:Starting download of /data1.png
+Command:PASV
+Response:227 Entering Passive Mode (127,0,0,1,39,63).
+Command:RETR data1.png
+Response:150 Opening
+Response:226 Transfer complete.
+Status:File transfer successful, transferred 3705 bytes in 1 second
+----
+
+

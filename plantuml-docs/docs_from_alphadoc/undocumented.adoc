@@ -1,0 +1,248 @@
+== Undocumented PlantUML features
+
+Page for list of **Undocumented PlantUML features** in order **to document**
+
+
+== Undocumented PlantUML features in order to document
+
+The list comes from https://github.com/plantuml/plantuml/issues/261[Issue#261] thanks to https://github.com/VladimirAlexiev[@VladimirAlexiev],
+
+And the list of https://github.com/plantuml/plantuml/issues/261[Issue#261] comes mostly from https://forum.plantuml.net/7095[QA#7095], https://forum.plantuml.net/7140[QA#7140] thanks to https://github.com/Anthony-Gaudino[@Anthony-Gaudino],
+and was complemented, categorized, and converted to a task list by @VladimirAlexiev.
+
+Then the list is here in order to put, after each item:
+* [[#98FB98#DONE]]
+* [[#FFD700#TODO]]
+* [[#AA1111#BUG]]
+* [[#FF6600#deprecated]]
+* [[#1111AA#SEE]]
+* or [[#C8FBC8#__TBC__]]
+and to follow and share the state of new documentation to produce.
+
+=== Preprocessor, Includes, Sectioning
+
+link::preprocessing-v2[preprocessing-v2 (old)] & link::preprocessing[preprocessing (new)]
+
+* https://forum.plantuml.net/6577[QA#6577] Ability to include blocks ("subsections") of code
+* https://forum.plantuml.net/7838[QA#7838] `+!pragma http.proxyHost+`
+* https://forum.plantuml.net/6289[QA#6289] `+%filename%+` and `+%filenameNoExtension%+`
+* https://forum.plantuml.net/6199[QA#6199] `+%PLANTUML_VERSION%+` [[#FF6600#deprecated]][[#1111AA#SEE]] New link::preprocessing#0umqmmdy1n9yk362kjka[Builtin functions] `+%version()+`
+* https://forum.plantuml.net/5968[QA#5968] `+%filedate%+` 
+* https://forum.plantuml.net/5769[QA#5769] `+%filename%+` and `+%dirpath%+` variables [[#FF6600#deprecated]][[#1111AA#SEE]] New link::preprocessing#0umqmmdy1n9yk362kjka[Builtin functions]
+* https://forum.plantuml.net/5171[QA#5171] [[#98FB98#DONE]] Boolean not `+!+` and parenthesis on `+!ifdef+` [[#98FB98#DONE]] superseded by `+%not()+` [[#1111AA#SEE]] https://forum.plantuml.net/12320[QA#12320]
+* https://forum.plantuml.net/3868[QA#3868] Use tilde `+~+` to escape `+@startuml+`
+* https://forum.plantuml.net/5483[QA#5483] `+@startuml+` filename for automatic extensions
+* https://forum.plantuml.net/4467[QA#4467] [[#98FB98#DONE]] `+@startuml+` with identifier for includes [[#98FB98#DONE]] on link::sources[source file]
+* https://forum.plantuml.net/1466[QA#1466] [[#98FB98#DONE]] `+@startuml{OPTIONS}+` [[#98FB98#DONE]] on link::sources[source file]
+* https://forum.plantuml.net/4596[QA#4596] `+\startXXX+` instead of `+@startXXX+`
+* https://forum.plantuml.net/5769[QA#5769] [[#98FB98#DONE]] `+@startdef and @enddef+` [[#98FB98#DONE]] on link::sources[source file]
+* https://forum.plantuml.net/1525[QA#1525], https://forum.plantuml.net/5793[QA#5793] `+@pause @unpause+`
+* https://forum.plantuml.net/1525[QA#1525] `+@pause @unpause @continue @append and /' ... '/+` multiline comments [[#98FB98#DONE]] for comments [[#C8FBC8#__TBC__]] for pause/unpause/continue
+* https://forum.plantuml.net/4266[QA#4266] `+-config+` parameter
+* https://forum.plantuml.net/2410[QA#2410] Multiple include paths
+* https://forum.plantuml.net/7337[QA#7337] [[#98FB98#DONE]] `+$Tags+` to include individual pieces [[#98FB98#DONE]] for link::component-diagram[component] [[#C8FBC8#__TBC__]] for other diagram
+* https://forum.plantuml.net/7337[QA#7337] [[#98FB98#DONE]] remove / restore [[#98FB98#DONE]] for link::component-diagram[component] [[#C8FBC8#__TBC__]] for other diagram
+*  wildcards in `+remove / hide / restore+`, eg `+remove *+` [[#98FB98#DONE]] for link::component-diagram[component] [[#C8FBC8#__TBC__]] for other diagram
+
+=== Running and Output
+
+link::command-line[Command-line] [[#98FB98#DONE]]
+
+* https://forum.plantuml.net/4752[QA#4752] [[#98FB98#DONE]] Output Braille diagrams (`+-tbraille+`) [[#98FB98#DONE]] link::command-line[command-line]
+* https://forum.plantuml.net/5037[QA#5037] [[#98FB98#DONE]] `+-pipemap+` parameter (HTML clickable maps): link::command-line#standard_input_output[`+command-line#standard_input_output+`]
+* https://forum.plantuml.net/3562[QA#3562] [[#98FB98#DONE]] Diagram code is embedded in PNG metadata (`+-metadata -checkmeta+`)
+* https://forum.plantuml.net/1601[QA#1601] [[#98FB98#DONE]] `+-gui+` parameter accepts a path [[#98FB98#DONE]]
+* https://forum.plantuml.net/3214[QA#3214] [[#98FB98#DONE]] `+-eps:text+` parameter [[#98FB98#DONE]] link::command-line[command-line]
+
+link::ascii-art[ASCII art] [[#98FB98#DONE]] output with `+-ttxt+` or `+-tutxt+` [[#98FB98#DONE]] link::command-line[command-line]
+
+* https://forum.plantuml.net/4147[QA#4147] [[#98FB98#DONE]] `+skinparam maxAsciiMessageLength+` [[#98FB98#DONE]]
+
+link::latex[LaTeX] output with `+-tlatex+` through Tikz [[#98FB98#DONE]] link::command-line[command-line]
+
+* https://forum.plantuml.net/1798[QA#1798] latex-tikz-support anything more to document?
+* Latex "see result online" (eg https://www.writelatex.com/read/pgkkspzgzgpb) doesn't work because need to migrate to overleaf
+* https://forum.plantuml.net/6495[QA#6495] `+skinparam tikzFont+`
+* https://forum.plantuml.net/3558[QA#3558] Latex link [[latex://]]
+
+link::svg[SVG] output with `+-tsvg+` [[#98FB98#DONE]]
+
+* https://forum.plantuml.net/5453[QA#5453] [[#98FB98#DONE]] `+skinparam pathHoverColor+` [[#98FB98#DONE]]
+* https://forum.plantuml.net/7334[QA#7334] [[#98FB98#DONE]] `+skinparam svgDimensionStyle+` [[#98FB98#DONE]]
+
+=== Layout
+
+* https://forum.plantuml.net/4418[QA#4418], https://forum.plantuml.net/3111[QA#3111], https://forum.plantuml.net/4045[QA#4045] `+!pragma svek_trace+`
+* https://forum.plantuml.net/1343[QA#1343] `+!pragma aspect+`
+* https://forum.plantuml.net/1226[QA#1226] `+!pragma ratio+`
+* https://forum.plantuml.net/977[QA#977] `+skinparam nodesep+`
+* https://forum.plantuml.net/977[QA#977] `+skinparam ranksep+`
+* https://forum.plantuml.net/3188[QA#3188] norank arrow option
+* https://forum.plantuml.net/8365[QA#8365] hidden and norank
+* https://forum.plantuml.net/4418[QA#4418], https://forum.plantuml.net/1132[QA#1132], https://forum.plantuml.net/3231[QA#3231], https://forum.plantuml.net/3111[QA#3111], https://forum.plantuml.net/3143[QA#3143] `+!pragma horizontalLineBetweenDifferentPackageAllowed+`
+* https://forum.plantuml.net/1296[QA#1296] `+skinparam minClassWidth+` and `+skinparam sameClassWidth+`
+* https://forum.plantuml.net/4637[QA#4637] `+skinparam minClassWidth+` on sequence diagram
+* https://forum.plantuml.net/2538[QA#2538] `+layout_new_line+` for disconnected parts
+* https://forum.plantuml.net/3118[QA#3118] `+skinparam padding+`
+* https://forum.plantuml.net/5493[QA#5493] `+skinparam ParticipantPadding+` and `+skinparam BoxPadding+`
+
+=== Text and Links
+
+link::creole[Creole], link::link[Link], link::ascii-math[ASCII Math, JLatexMath]
+
+* https://forum.plantuml.net/3104[QA#3104] Use `+\+` for multiline stuff
+* https://forum.plantuml.net/3055[QA#3055] Align text with `+\l+` and `+\r+`
+* https://forum.plantuml.net/3601[QA#3601] Creole on class titles with as
+* https://github.com/plantuml/plantuml/issues/104[Issues#104] `+skinparam wrapWidth+` and `+skinparam wrapMessageWidth+`
+* https://forum.plantuml.net/3820[QA#3820] `+skinparam tabSize+`
+* https://forum.plantuml.net/5254[QA#5254] [[#98FB98#DONE]] `+<plain>...</plain>+` to remove default text style (eg `+skinparam classFontStyle+`) [[#98FB98#DONE]] link::creole#xbti2cgar0ssk362kjd9[on creole page]
+* https://forum.plantuml.net/5574[QA#5574] [[#98FB98#DONE]] tooltip over link [[#98FB98#DONE]] Page link::link[link]
+
+=== Images, Icons, Sprites, Shapes, Embellishments
+
+* https://forum.plantuml.net/4080[QA#4080] Import images from jar/zip __(Link to https://forum.plantuml.net/12578[QA#12578])__
+* https://forum.plantuml.net/3790[QA#3790] DATA URI as embeded image
+* https://forum.plantuml.net/7485[QA#7485] `+skinparam DiagonalCorner+`
+* https://forum.plantuml.net/2899[QA#2899] `+skinparam activityShape+`
+* https://forum.plantuml.net/4076[QA#4076], https://forum.plantuml.net/4079[QA#4079] Sprites on stereotypes
+* https://forum.plantuml.net/8084[QA#8084] listsprites of stdlib: link::sprite#hdvb3xdf1doekdtyqgs2[alphadoc sprite#stdlib] and link::sprite#jq1w8ezst4vzkdtyqu8b[sprite#listing-sprites]
+
+=== Color [[#98FB98#DONE]]
+
+* https://forum.plantuml.net/3770[QA#3770] [[#98FB98#DONE]] Inline set of multiple colors in various diagrams (`+text;line;back;header+`) [[#98FB98#DONE]]
+* https://forum.plantuml.net/1487[QA#1487] [[#98FB98#DONE]] `+##[style]color+` of node borders: works for class and state diagrams [[#98FB98#DONE]] link::class-diagram[on class] and link::state-diagram[state]
+* https://forum.plantuml.net/5340[QA#5340] [[#98FB98#DONE]] Inline coloring of node borders [[#98FB98#DONE]] link::use-case-diagram[on use-case] 
+* https://forum.plantuml.net/7287[QA#7287] [[#98FB98#DONE]] Automatic color [[#98FB98#DONE]] link::color[on color page] 
+* https://forum.plantuml.net/3648[QA#3648] [[#98FB98#DONE]] Transparent color [[#98FB98#DONE]] link::color[on color page] 
+
+=== Arrows
+
+* https://forum.plantuml.net/3636[QA#3636] [[#98FB98#DONE]] Arrows from/to class members [[#98FB98#DONE]]
+* https://forum.plantuml.net/3621[QA#3621] Component diagram consumer/provider arrows
+* make sure all arrow params are documented: `+dotted|dashed|plain|bold|hidden|norank|single|thickness|left|right|up|down, color+`
+* https://forum.plantuml.net/3816[QA#3816] `+skinparam ArrowColor+`, stereotyped arrows, new syntax for inline arrow style (Setting multiple arrow `+skinparams in one line+`); [[#FF6600#deprecated]] (componentArrowColor is deprecated)
+* https://forum.plantuml.net/4949[QA#4949] [[#98FB98#DONE]] Inline setting for edge style and thickness [[#98FB98#DONE]] on Class and  Deployment
+* https://forum.plantuml.net/4260[QA#4260] [[#98FB98#DONE]] bold and plain arrow styles [[#98FB98#DONE]]
+* https://forum.plantuml.net/4181[QA#4181] [[#98FB98#DONE]] bold, dashed, dotted [[#98FB98#DONE]]
+* Make sure all arrow types are documented on one page: See `+arrows+` and `+arrows-2+` at https://github.com/anoff/blog/tree/master/static/assets/plantuml/diagrams[github.com/anoff/blog/tree/master/static/assets/plantuml/diagrams]
+* https://forum.plantuml.net/1736[QA#1736] [[#98FB98#DONE]] Multiple lollipop edge styles [[#98FB98#DONE]]
+* https://forum.plantuml.net/5261[QA#5261] Crows foot edge
+* https://forum.plantuml.net/2259[QA#2259] [[#98FB98#DONE]] Class diagram `+--(+` and `+-0)-+` arrows [[#98FB98#DONE]]
+* https://forum.plantuml.net/310[QA#310] [[#98FB98#DONE]] Sequence diagram `+?->+` and `+->?+` arrows [[#98FB98#DONE]]
+
+=== Mixed and Embedded Diagrams
+
+* https://forum.plantuml.net/2335[QA#2335] [[#98FB98#DONE]] `+allow_mixing vs mix_usecase mix_actor+`... [[#98FB98#DONE]] on link::deployment-diagram#6d6863e19pu3l3t7uqw6[Deployment]
+* https://forum.plantuml.net/375[QA#375] Embed SVG in SVG diagram
+* https://forum.plantuml.net/2427[QA#2427] [[#98FB98#DONE]] Embed SALT UI diagrams in notes and other texts ("Flowchat") [[#98FB98#DONE]] See link::salt[Salt]
+
+=== Alternative Layoters
+
+* https://forum.plantuml.net/4436[QA#4436], https://forum.plantuml.net/5336[QA#5336], link::smetana02[smetana02] [[#98FB98#DONE]] `+!pragma graphviz_dot jdot+`: replace graphviz with Java code [[#98FB98#DONE]] ➥ `+!pragma layout smetana+` __See link::smetana02[smetana02]__ 
+* link::vizjs[vizjs] `+-graphvizdot vizjs+`: replace graphviz with JavaScript code
+* http://beta.plantuml.net/noditaa/[noditaa]: replace ditaa with java code
+
+=== link::class-diagram[Class Diagrams]
+
+* https://forum.plantuml.net/5835[QA#5835] [[#98FB98#DONE]] Notes on class fields [[#98FB98#DONE]]
+* https://forum.plantuml.net/3054[QA#3054] details on how the "attributes" vs "methods" boxes are formed, and what happens when you add your own divider line
+* https://forum.plantuml.net/2913[QA#2913] Hide private / protected / package class members
+* https://forum.plantuml.net/3448[QA#3448] [[#98FB98#DONE]] Tree structure inside class [[#98FB98#DONE]] __See link::creole#2u7lnfjrnmfdk362kjda[creole tree]__ 
+* https://forum.plantuml.net/3424[QA#3424] Class attribute stereotype
+* https://forum.plantuml.net/2259[QA#2259] Class diagram circle
+* https://forum.plantuml.net/2239[QA#2239] extends and implements can reference multiple nodes
+* https://forum.plantuml.net/3193[QA#3193] `+skinparam groupInheritance+` to merge inheritance arrows going to the same parent [[#98FB98#DONE]] (+ Adding link to Defect https://forum.plantuml.net/13532/groupinheritance-bug[QA#13532])
+* https://forum.plantuml.net/1638[QA#1638] [[#98FB98#DONE]] package style card [[#98FB98#DONE]] [[#C8FBC8#__TBC__]]
+
+=== link::component-diagram[Component Diagrams] [[#98FB98#DONE]] 
+
+* https://forum.plantuml.net/11052[QA#11052] [[#98FB98#DONE]] `+remove @unlinked components;+` [[#98FB98#DONE]]  [[#C8FBC8#__TBC__]] for other diagram
+* https://forum.plantuml.net/11052[QA#11052] [[#98FB98#DONE]]  `+component tags and hide/remove/restore $tag+` [[#98FB98#DONE]] for link::component-diagram[component] [[#C8FBC8#__TBC__]] for other diagram
+
+=== link::sequence-diagram[Sequence Diagrams] [[#98FB98#DONE]]
+
+link::teoz[teoz], link::sequence-diagram#anchors_and_duration[`+sequence-diagram#anchors_and_duration+`], https://forum.plantuml.net/tag/teoz[tag/teoz]: new Teoz (vs old Puma) for sequence diagrams
+
+* https://forum.plantuml.net/4247[QA#4247] [[#98FB98#DONE]] hide unlinked participants [[#98FB98#DONE]]
+* https://forum.plantuml.net/7119[QA#7119] [[#98FB98#DONE]] `+%autonumber%+`
+* https://forum.plantuml.net/8511[QA#8511] [[#98FB98#DONE]] `+autonumber inc+` [[#98FB98#DONE]]
+* https://forum.plantuml.net/2794[QA#2794] [[#98FB98#DONE]] `+skinparam lifelineStrategy+` [[#98FB98#DONE]]
+* https://forum.plantuml.net/2503[QA#2503] [[#98FB98#DONE]] Secondary group label in sequence diagram [[#98FB98#DONE]]
+* https://forum.plantuml.net/7264[QA#7264] [[#98FB98#DONE]] `+skinparam belowForResponse+` [[#98FB98#DONE]]
+* https://forum.plantuml.net/1047[QA#1047] [[#98FB98#DONE]] `+skinparam style strictuml+`: emits triangle rather than sharp arrow heads [[#98FB98#DONE]]
+* https://forum.plantuml.net/3482[QA#3482], https://forum.plantuml.net/206[QA#206] [[#98FB98#DONE]] `+skinparam sequenceMessageAlign+` [[#98FB98#DONE]]
+
+=== link::activity-diagram-beta[Activity Diagrams]
+
+* https://forum.plantuml.net/5201[QA#5201] `+skinparam swimlaneWidth+` [[#AA1111#BUG]] See https://forum.plantuml.net/12463[QA#12463]
+* https://forum.plantuml.net/2681[QA#2681] [[#98FB98#DONE]] Swimlane alias [[#98FB98#DONE]]
+* https://forum.plantuml.net/4470[QA#4470] [[#98FB98#DONE]] Label of arrows of repeat loops (repeat while) [[#98FB98#DONE]]
+* https://forum.plantuml.net/6105[QA#6105] [[#98FB98#DONE]] Activity diagram `+break+` [[#98FB98#DONE]]
+* https://forum.plantuml.net/301[QA#301] [[#98FB98#DONE]] Activity Beta `+if (...) is/equals (...) then+` [[#98FB98#DONE]]
+* https://forum.plantuml.net/265[QA#265] [[#98FB98#DONE]] Activity Beta `+kill+` [[#98FB98#DONE]]
+* https://forum.plantuml.net/3931[QA#3931] [[#98FB98#DONE]] `+!pragma useVerticalIf on+`: draw if/elseif/else structure vertically [[#98FB98#DONE]]
+* https://forum.plantuml.net/1626[QA#1626] [[#98FB98#DONE]] Activity diagram GOTO [[#98FB98#DONE]] See link::activity-diagram-beta[activity-diagram] and link::activity-diagram-issues[activity-diagram-issues]
+* https://forum.plantuml.net/2792[QA#2792] `+skinparam activityArrowFontSize+`
+* https://forum.plantuml.net/3166[QA#3166] `+skinparam activityArrowFontColor+`
+* https://forum.plantuml.net/5346[QA#5346] [[#98FB98#DONE]] Activity diagram joinspec [[#98FB98#DONE]]
+* https://forum.plantuml.net/2868[QA#2868] Activity diagram multiple halting states
+* https://forum.plantuml.net/3505[QA#3505] [[#98FB98#DONE]] Activity diagram end [[#98FB98#DONE]]
+* https://forum.plantuml.net/5826[QA#5826] Backward on loops
+* https://forum.plantuml.net/4906[QA#4906] [[#98FB98#DONE]] Gradient color on activity diagram partition [[#98FB98#DONE]]
+* https://forum.plantuml.net/2398[QA#2398] [[#98FB98#DONE]] Note on partition [[#98FB98#DONE]]
+* https://forum.plantuml.net/2793[QA#2793] [[#98FB98#DONE]] Inline coloring of partition [[#98FB98#DONE]]
+* https://forum.plantuml.net/1290[QA#1290] [[#98FB98#DONE]] `+skinparam conditionStyle+`: inside (hexagon: default), foo1 (big diamond), diamond (tiny diamond) [[#98FB98#DONE]]
+* https://forum.plantuml.net/6010[QA#6010] `+skinparam arrowMessageAlign center+`
+* https://forum.plantuml.net/4411[QA#4411] `+skinparam colorArrowSeparationSpace+`: multiple parallel arrows in activity digrams
+* [[#98FB98#DONE]] https://forum.plantuml.net/3770[QA#3770] Background color of `+alt/group+` -> to link::sequence-diagram[Sequence Diagrams]
+
+=== link::state-diagram[State Diagrams] [[#98FB98#DONE]]
+
+* https://forum.plantuml.net/1159[QA#1159] [[#98FB98#DONE]] State diagram `+<<choice>>, <<fork>>, <<join>>, <<end>>+` [[#98FB98#DONE]]
+* https://forum.plantuml.net/3672[QA#3672] [[#98FB98#DONE]] State Diagram `+<<choice>>+` [[#98FB98#DONE]]
+* https://forum.plantuml.net/10077[QA#10077] [[#98FB98#DONE]] Colored connectors in state diagrams [[#98FB98#DONE]]
+* https://forum.plantuml.net/1159[QA#1159] [[#98FB98#DONE]] Choice Pseudostate in State Diagrams [[#98FB98#DONE]]
+* https://forum.plantuml.net/1099[QA#1099] [[#98FB98#DONE]] State diagram hide empty description [[#98FB98#DONE]]
+* https://forum.plantuml.net/4309[QA#4309] [[#98FB98#DONE]] State diagram `+<<expansionInput>> and <<expansionOutput>>, <<inputPin>> and <<outputPin>>, <<entrypoint>> and <<exitpoint>> +`[[#98FB98#DONE]]
+* https://forum.plantuml.net/1812[QA#1812] [[#98FB98#DONE]] State inline color [[#98FB98#DONE]]
+
+=== link::ie-diagram[SDL and ER/IE Diagrams] [[#98FB98#DONE]]
+
+* https://forum.plantuml.net/1232[QA#1232] [[#98FB98#DONE]] SDL shapes (some undocumented) [[#98FB98#DONE]]
+* IE-diagram, https://github.com/plantuml/plantuml/pull/31[Pull#31] [[#98FB98#DONE]] ER (IE) diagrams [[#98FB98#DONE]] link::ie-diagram[IE-diagram page]
+
+=== link::salt[SALT (UI) Diagrams] [[#98FB98#DONE]]
+
+https://forum.plantuml.net/search?q=salt[search?q=salt], https://forum.plantuml.net/tag/salt[tag/salt]
+
+* https://forum.plantuml.net/5849[QA#5849] [[#98FB98#DONE]] Salt pseudo "sprite" [[#98FB98#DONE]]
+* https://forum.plantuml.net/5840[QA#5840] [[#98FB98#DONE]] Salt titled groupbox [[#98FB98#DONE]]
+* https://forum.plantuml.net/1265[QA#1265], https://forum.plantuml.net/5400[QA#5400] [[#98FB98#DONE]] Salt tree table (table-tree) [[#98FB98#DONE]]
+
+=== link::timing-diagram[Timing Diagrams] [[#98FB98#DONE]]
+
+* https://forum.plantuml.net/5776[QA#5776] [[#98FB98#DONE]] Timing diagram coloring [[#98FB98#DONE]]
+
+=== link::gantt-diagram[Gantt Charts] [[#98FB98#DONE]]
+
+* https://forum.plantuml.net/5782[QA#5782] [[#98FB98#DONE]] Arrow on Gantt Diagram [[#98FB98#DONE]]
+* https://forum.plantuml.net/5510[QA#5510] [[#98FB98#DONE]] Gantt diagram dates [[#98FB98#DONE]]
+
+=== link::bpmn[BPMN Diagrams] [[#98FB98#DONE]]
+
+* https://forum.plantuml.net/5647[QA#5647] [[#98FB98#DONE]] BPMN (`+@startbpm+` and `+@endbpm+`) [[#98FB98#DONE]] Page link::bpmn[BPMN] updated
+
+=== link::mindmap-diagram[MindMap Diagrams]
+
+=== link::wbs-diagram[WBS Diagrams]
+
+Work Breakdown Structures, Organizational Breakdown Structures (organigrams)
+
+=== link::dot[Graphviz Diagrams (DOT)]
+
+* https://forum.plantuml.net/4210[QA#4210] When using Dot, PlantUML supports strict graph and digraph
+* https://forum.plantuml.net/1206[QA#1206] Dot graph
+
+=== Not yet categorized
+
+

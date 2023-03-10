@@ -1,0 +1,943 @@
+= Network diagram (nwdiag)
+
+http://blockdiag.com/en/nwdiag/nwdiag-examples.html[nwdiag] has been created by https://twitter.com/tk0miya[Takeshi Komiya] and allows to quickly draw network diagrams. So we thank him for his creation!
+
+Since the syntax is clear and simple, this has been integrated within PlantUML.
+We reuse here the examples that Takeshi has documented.
+
+
+== Simple diagram
+
+=== Define a network
+[plantuml]
+----
+@startuml
+nwdiag {
+  network dmz {
+      address = "210.x.x.x/24"
+  }
+}
+@enduml
+----
+
+=== Define some elements or servers on a network
+[plantuml]
+----
+@startuml
+nwdiag {
+  network dmz {
+      address = "210.x.x.x/24"
+
+      web01 [address = "210.x.x.1"];
+      web02 [address = "210.x.x.2"];
+  }
+}
+@enduml
+----
+
+=== Full example
+[plantuml]
+----
+@startuml
+nwdiag {
+  network dmz {
+      address = "210.x.x.x/24"
+
+      web01 [address = "210.x.x.1"];
+      web02 [address = "210.x.x.2"];
+  }
+  network internal {
+      address = "172.x.x.x/24";
+
+      web01 [address = "172.x.x.1"];
+      web02 [address = "172.x.x.2"];
+      db01;
+      db02;
+  }
+}
+@enduml
+----
+
+
+== Define multiple addresses
+
+[plantuml]
+----
+@startuml
+nwdiag {
+  network dmz {
+      address = "210.x.x.x/24"
+
+      // set multiple addresses (using comma)
+      web01 [address = "210.x.x.1, 210.x.x.20"];
+      web02 [address = "210.x.x.2"];
+  }
+  network internal {
+      address = "172.x.x.x/24";
+
+      web01 [address = "172.x.x.1"];
+      web02 [address = "172.x.x.2"];
+      db01;
+      db02;
+  }
+}
+@enduml
+----
+
+
+== Grouping nodes
+
+=== Define group inside network definitions
+[plantuml]
+----
+@startuml
+nwdiag {
+  network Sample_front {
+    address = "192.168.10.0/24";
+
+    // define group
+    group web {
+      web01 [address = ".1"];
+      web02 [address = ".2"];
+    }
+  }
+  network Sample_back {
+    address = "192.168.20.0/24";
+    web01 [address = ".1"];
+    web02 [address = ".2"];
+    db01 [address = ".101"];
+    db02 [address = ".102"];
+
+    // define network using defined nodes
+    group db {
+      db01;
+      db02;
+    }
+  }
+}
+@enduml
+----
+
+=== Define group outside of network definitions
+[plantuml]
+----
+@startuml
+nwdiag {
+  // define group outside of network definitions
+  group {
+    color = "#FFAAAA";
+
+    web01;
+    web02;
+    db01;
+  }
+
+  network dmz {
+    web01;
+    web02;
+  }
+  network internal {
+    web01;
+    web02;
+    db01;
+    db02;
+  }
+}
+@enduml
+----
+
+=== Define several groups on same network
+==== Example with 2 group
+[plantuml]
+----
+@startuml
+nwdiag {
+  group {
+    color = "#FFaaaa";
+    web01;
+    db01;
+  }
+  group {
+    color = "#aaaaFF";
+    web02;
+    db02;
+  }
+  network dmz {
+      address = "210.x.x.x/24"
+
+      web01 [address = "210.x.x.1"];
+      web02 [address = "210.x.x.2"];
+  }
+  network internal {
+      address = "172.x.x.x/24";
+
+      web01 [address = "172.x.x.1"];
+      web02 [address = "172.x.x.2"];
+      db01 ;
+      db02 ;
+  }
+}
+@enduml
+----
+__[Ref. https://forum.plantuml.net/12663[QA-12663]]__
+
+==== Example with 3 groups
+[plantuml]
+----
+@startuml
+nwdiag {
+  group {
+    color = "#FFaaaa";
+    web01;
+    db01;
+  }
+  group {
+    color = "#aaFFaa";
+    web02;
+    db02;
+  }
+  group {
+    color = "#aaaaFF";
+    web03;
+    db03;
+  }
+
+  network dmz {
+      web01;
+      web02;
+      web03;
+  }
+  network internal {
+      web01;
+      db01 ;
+      web02;
+      db02 ;
+      web03;
+      db03;
+  }
+}
+@enduml
+----
+__[Ref. https://forum.plantuml.net/13138[QA-13138]]__
+
+
+== Extended Syntax (for network or group)
+
+=== Network 
+
+For network or network's component, you can add or change:
+* addresses __(separated by comma `+,+`)__;
+* link::color[color];
+* description;
+* link::deployment-diagram#5k3cq00k8n5ek362kjdn[shape].
+
+[plantuml]
+----
+@startuml
+nwdiag {
+  network Sample_front {
+    address = "192.168.10.0/24"
+    color = "red"
+
+    // define group
+    group web {
+      web01 [address = ".1, .2", shape = "node"]
+      web02 [address = ".2, .3"]
+    }
+  }
+  network Sample_back {
+    address = "192.168.20.0/24"
+    color = "palegreen"
+    web01 [address = ".1"]
+    web02 [address = ".2"]
+    db01 [address = ".101", shape = database ]
+    db02 [address = ".102"]
+
+    // define network using defined nodes
+    group db {
+      db01;
+      db02;
+    }
+  }
+}
+@enduml
+----
+
+=== Group
+
+For a group, you can add or change:
+* link::color[color];
+* description.
+
+[plantuml]
+----
+@startuml
+nwdiag {
+  group {
+    color = "#CCFFCC";
+    description = "Long group description";
+
+    web01;
+    web02;
+    db01;
+  }
+
+  network dmz {
+    web01;
+    web02;
+  }
+  network internal {
+    web01;
+    web02;
+    db01 [address = ".101", shape = database];
+  }
+}
+@enduml
+----
+
+__[Ref. https://forum.plantuml.net/12056[QA-12056]]__
+
+
+== Using Sprites
+
+You can use all link::sprite[sprites] (icons) from the link::stdlib[Standard Library] or any other library.
+
+Use the notation `+<$sprite>+` to use a sprite, `+\n+` to make a new line, or any other link::creole[Creole] syntax.
+
+[plantuml]
+----
+@startuml
+!include <office/Servers/application_server>
+!include <office/Servers/database_server>
+
+nwdiag {
+  network dmz {
+      address = "210.x.x.x/24"
+
+      // set multiple addresses (using comma)
+      web01 [address = "210.x.x.1, 210.x.x.20",  description = "<$application_server>\n web01"]
+      web02 [address = "210.x.x.2",  description = "<$application_server>\n web02"];
+  }
+  network internal {
+      address = "172.x.x.x/24";
+
+      web01 [address = "172.x.x.1"];
+      web02 [address = "172.x.x.2"];
+      db01 [address = "172.x.x.100",  description = "<$database_server>\n db01"];
+      db02 [address = "172.x.x.101",  description = "<$database_server>\n db02"];
+  }
+}
+@enduml
+----
+
+
+__[Ref. https://forum.plantuml.net/11862/nwdiag-beautifier?show=11866#a11866[QA-11862]]__
+
+
+== Using OpenIconic
+
+You can also use the icons from link::openiconic[OpenIconic] in network or node descriptions.
+
+Use the notation `+<&icon>+` to make an icon, `+<&icon*n>+` to multiply the size by a factor `+n+`, and `+\n+` to make a newline:
+
+[plantuml]
+----
+@startuml
+
+nwdiag {
+  group nightly {
+    color = "#FFAAAA";
+    description = "<&clock> Restarted nightly <&clock>";
+    web02;
+    db01;
+  }
+  network dmz {
+      address = "210.x.x.x/24"
+
+      user [description = "<&person*4.5>\n user1"];
+      // set multiple addresses (using comma)
+      web01 [address = "210.x.x.1, 210.x.x.20",  description = "<&cog*4>\nweb01"]
+      web02 [address = "210.x.x.2",  description = "<&cog*4>\nweb02"];
+
+  }
+  network internal {
+      address = "172.x.x.x/24";
+
+      web01 [address = "172.x.x.1"];
+      web02 [address = "172.x.x.2"];
+      db01 [address = "172.x.x.100",  description = "<&spreadsheet*4>\n db01"];
+      db02 [address = "172.x.x.101",  description = "<&spreadsheet*4>\n db02"];
+      ptr  [address = "172.x.x.110",  description = "<&print*4>\n ptr01"];
+  }
+}
+@enduml
+----
+
+
+== Same nodes on more than two networks
+
+You can use same nodes on different networks (more than two networks); __nwdiag__ use in this case __'jump line'__ over networks.
+
+[plantuml]
+----
+@startuml
+nwdiag {
+  // define group at outside network definitions
+  group {
+    color = "#7777FF";
+
+    web01;
+    web02;
+    db01;
+  }
+
+  network dmz {
+    color = "pink"
+
+    web01;
+    web02;
+  }
+
+  network internal {
+    web01;
+    web02;
+    db01 [shape = database ];
+  }
+
+  network internal2 {
+    color = "LightBlue";
+
+    web01;
+    web02;
+    db01;
+  }
+
+}
+@enduml
+----
+
+
+== Peer networks
+
+Peer networks are simple connections between two nodes, for which we don't use a horizontal "busbar" network
+[plantuml]
+----
+@startuml
+nwdiag {
+  inet [shape = cloud];
+  inet -- router;
+
+  network {
+    router;
+    web01;
+    web02;
+  }
+}
+@enduml
+----
+
+
+== Peer networks and group
+
+=== Without group
+[plantuml]
+----
+@startuml
+nwdiag {
+    internet [ shape = cloud];
+    internet -- router;
+
+    network proxy {
+        router;
+        app;
+    }
+    network default {
+    	app;
+        db;
+    }
+}
+@enduml
+----
+
+=== Group on first
+[plantuml]
+----
+@startuml
+nwdiag {
+    internet [ shape = cloud];
+    internet -- router;
+
+    group {
+      color = "pink";
+      app;
+      db;
+    }
+
+    network proxy {
+        router;
+        app;
+    }
+
+    network default {
+    	app;
+        db;
+    }
+}
+@enduml
+----
+
+=== Group on second
+[plantuml]
+----
+@startuml
+nwdiag {
+    internet [ shape = cloud];
+    internet -- router;
+
+    network proxy {
+        router;
+        app;
+    }
+
+    group {
+      color = "pink";
+      app;
+      db;
+    }
+
+    network default {
+    	app;
+        db;
+    }
+}
+@enduml
+----
+[[#FFAAAA#FIXME]] Why the line on proxy for 'db'? ('db' must be only on 'default network') [See example without group]
+
+
+=== Group on third
+[plantuml]
+----
+@startuml
+nwdiag {
+    internet [ shape = cloud];
+    internet -- router;
+
+    network proxy {
+        router;
+        app;
+    }
+    network default {
+    	app;
+        db;
+    }
+    group {
+      color = "pink";
+      app;
+      db;
+    }
+}
+@enduml
+----
+
+[[#FFAAAA#FIXME]]
+__[Ref. https://github.com/plantuml/plantuml/issues/408[Issue#408] and https://forum.plantuml.net/12655/nwdiag-overlapp-problem-with-3-newtorks?show=12661#c12661[QA-12655]]__
+[[#FFAAAA#Not totally fixed]]
+
+
+== Add title, caption, header, footer or legend on network diagram
+
+[plantuml]
+----
+@startuml
+
+header some header
+
+footer some footer
+
+title My title
+
+nwdiag {
+  network inet {
+      web01 [shape = cloud]
+  }
+}
+
+legend
+The legend
+end legend
+
+caption This is caption
+@enduml
+----
+
+__[Ref. https://forum.plantuml.net/11303/nwdiag-ignores-on-title-keyword-in-plantuml-1-2020-7[QA-11303] and link::commons[Common commands]]__
+
+
+== With or without shadow
+
+=== With shadow (by default)
+[plantuml]
+----
+@startuml
+nwdiag {
+  network nw {
+    server;
+    internet;
+  }
+  internet [shape = cloud];
+}
+@enduml
+----
+
+
+=== Without shadow
+[plantuml]
+----
+@startuml
+<style>
+root {
+ shadowing 0
+}
+</style>
+nwdiag {
+  network nw {
+    server;
+    internet;
+  }
+  internet [shape = cloud];
+}
+@enduml
+----
+
+__[Ref. https://forum.plantuml.net/14516/[QA-14516]]__
+
+
+== Change width of the networks
+
+You can change the width of the networks, especially in order to have the same full width for only some or all networks.
+
+Here are some examples, with all the possibilities:
+* without
+[plantuml]
+----
+@startuml
+nwdiag {
+  network NETWORK_BASE {
+   dev_A [address = "dev_A" ]
+   dev_B [address = "dev_B" ]
+  }
+  network IntNET1 {
+   dev_B [address = "dev_B1" ]
+   dev_M [address = "dev_M1" ]
+  }
+  network IntNET2 {
+   dev_B [address = "dev_B2" ]
+   dev_M [address = "dev_M2" ]
+ }
+}
+@enduml
+----
+
+* only the first
+[plantuml]
+----
+@startuml
+nwdiag {
+  network NETWORK_BASE {
+   width = full
+   dev_A [address = "dev_A" ]
+   dev_B [address = "dev_B" ]
+  }
+  network IntNET1 {
+   dev_B [address = "dev_B1" ]
+   dev_M [address = "dev_M1" ]
+  }
+  network IntNET2 {
+   dev_B [address = "dev_B2" ]
+   dev_M [address = "dev_M2" ]
+ }
+}
+@enduml
+----
+
+* the first and the second
+[plantuml]
+----
+@startuml
+nwdiag {
+  network NETWORK_BASE {
+   width = full
+   dev_A [address = "dev_A" ]
+   dev_B [address = "dev_B" ]
+  }
+  network IntNET1 {
+   width = full
+   dev_B [address = "dev_B1" ]
+   dev_M [address = "dev_M1" ]
+  }
+  network IntNET2 {
+   dev_B [address = "dev_B2" ]
+   dev_M [address = "dev_M2" ]
+ }
+}
+@enduml
+----
+
+* all the network (with same full width)
+[plantuml]
+----
+@startuml
+nwdiag {
+  network NETWORK_BASE {
+   width = full
+   dev_A [address = "dev_A" ]
+   dev_B [address = "dev_B" ]
+  }
+  network IntNET1 {
+   width = full
+   dev_B [address = "dev_B1" ]
+   dev_M [address = "dev_M1" ]
+  }
+  network IntNET2 {
+   width = full
+   dev_B [address = "dev_B2" ]
+   dev_M [address = "dev_M2" ]
+ }
+}
+@enduml
+----
+
+
+== Other internal networks
+
+You can define other internal networks (TCP/IP, USB, SERIAL,...).
+
+* Without address or type
+[plantuml]
+----
+@startuml
+nwdiag {
+  network LAN1 {
+     a [address = "a1"];
+  }
+  network LAN2 {
+     a [address = "a2"];
+     switch;
+  }
+  switch -- equip;
+  equip -- printer;
+}
+@enduml
+----
+
+
+* With address or type
+[plantuml]
+----
+@startuml
+nwdiag {
+  network LAN1 {
+     a [address = "a1"];
+  }
+  network LAN2 {
+     a [address = "a2"];
+     switch [address = "s2"];
+  }
+  switch -- equip;
+  equip [address = "e3"];
+  equip -- printer;
+  printer [address = "USB"];
+}
+@enduml
+----
+
+__[Ref. https://forum.plantuml.net/12824[QA-12824]]__
+
+
+== Using (global) style
+
+=== Without style __(by default)__
+[plantuml]
+----
+@startuml
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+----
+
+
+=== With style
+
+You can use link::style-evolution[style] to change rendering of elements.
+
+[plantuml]
+----
+@startuml
+<style>
+nwdiagDiagram {
+  network {
+    BackGroundColor green
+    LineColor red
+    LineThickness 1.0
+    FontSize 18
+    FontColor navy
+  }
+  server {
+    BackGroundColor pink
+    LineColor yellow
+    LineThickness 1.0
+    ' FontXXX only for description or label
+    FontSize 18
+    FontColor #blue
+  }
+  arrow {
+    ' FontXXX only for address 
+    FontSize 17
+    FontColor #red
+    FontName Monospaced
+    LineColor black
+  }
+  group {
+    BackGroundColor cadetblue
+    LineColor black
+    LineThickness 2.0
+    FontSize 11
+    FontStyle bold
+    Margin 5
+    Padding 5
+  }
+}
+</style>
+nwdiag {
+  network DMZ {
+      address = "y.x.x.x/24"
+      web01 [address = "y.x.x.1"];
+      web02 [address = "y.x.x.2"];
+  }
+
+   network Internal {
+    web01;
+    web02;
+    db01 [address = "w.w.w.z", shape = database];
+  } 
+
+    group {
+    description = "long group label";
+    web01;
+    web02;
+    db01;
+  }
+}
+@enduml
+----
+
+__[Ref. https://forum.plantuml.net/14479[QA-14479]]__
+
+
+== Appendix: Test of all shapes on Network diagram (nwdiag)
+
+[plantuml]
+----
+@startuml
+nwdiag {
+  network Network {
+    Actor       [shape = actor]       
+    Agent       [shape = agent]       
+    Artifact    [shape = artifact]    
+    Boundary    [shape = boundary]    
+    Card        [shape = card]        
+    Cloud       [shape = cloud]       
+    Collections [shape = collections] 
+    Component   [shape = component]   
+  }
+}
+@enduml
+----
+
+[plantuml]
+----
+@startuml
+nwdiag {
+  network Network {
+    Control     [shape = control]     
+    Database    [shape = database]    
+    Entity      [shape = entity]      
+    File        [shape = file]        
+    Folder      [shape = folder]      
+    Frame       [shape = frame]       
+    Hexagon     [shape = hexagon]     
+    Interface   [shape = interface]   
+  }
+}
+@enduml
+----
+
+[plantuml]
+----
+@startuml
+nwdiag {
+  network Network {
+    Label       [shape = label]       
+    Node        [shape = node]        
+    Package     [shape = package]     
+    Person      [shape = person]      
+    Queue       [shape = queue]       
+    Stack       [shape = stack]       
+    Rectangle   [shape = rectangle]   
+    Storage     [shape = storage]     
+    Usecase     [shape = usecase]     
+  }
+}
+@enduml
+----
+
+[[#FFAAAA#FIXME]]
+. Overlap of label for folder
+. Hexagon shape is missing
+
+[plantuml]
+----
+@startuml
+nwdiag {
+network Network {
+Folder [shape = folder]
+Hexagon [shape = hexagon]
+}
+}
+@enduml
+----
+
+[plantuml]
+----
+@startuml
+nwdiag {
+network Network {
+Folder [shape = folder, description = "Test, long long label\nTest, long long label"]
+Hexagon [shape = hexagon, description = "Test, long long label\nTest, long long label"]
+}
+}
+@enduml
+----
+
+[[#FFAAAA#FIXME]]
+
+

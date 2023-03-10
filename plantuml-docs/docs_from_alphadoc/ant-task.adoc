@@ -1,0 +1,141 @@
+== Writing an Ant Task
+You must have something like this into your https://en.wikipedia.org/wiki/Apache_Ant[**Ant**] `+build.xml+` file:
+
+----
+<project name="OwnTaskExample" default="main" basedir=".">
+<!-- task definition -->
+<taskdef name="plantuml" classname="net.sourceforge.plantuml.ant.PlantUmlTask" classpath="plantuml.jar" />
+
+<!-- process ./src files -->
+<target name="main">
+<plantuml dir="./src" />
+</target>
+</project>
+----
+
+
+The https://en.wikipedia.org/wiki/Apache_Ant[**Ant**] task processes all **.c**, **.h**, **.cpp**, **.tex**, **.html**, **.htm** or **.java** of the provided directory (`+./src+` in this example). It looks for `+@startXYZ+` and generates `+.png+` images.
+
+
+== Output Directory
+You can also specify a output directory for all generated images, using
+`+output+` tag.
+----
+<!-- Put images in c:/images directory -->
+<target name="main">
+<plantuml dir="./src" output="c:/images" />
+</target>
+----
+
+
+
+== Recurse through directories
+
+You can also use **Ant** standard http://www.163jsp.com/help/antman1.7.1/CoreTypes/fileset.html[fileset]
+or http://www.163jsp.com/help/antman1.7.1/CoreTypes/filelist.html[filelist].
+
+For example, if you want to process all java file in `+c:/src+` and subdirectories, (except files ending by `+Test.java+`), and generate images into `+d:/images+`, you can use:
+----
+<target name="main">
+<plantuml output="d:/images" >
+<fileset dir="c:/src">
+<include name="**/*.java" />
+<exclude name="**/*Test.java" />
+</fileset>
+</plantuml>
+</target>
+----
+
+
+== SVG or EPS Support
+
+
+You can also use `+format="svg"+` or `+format="eps"+` in the **Ant** task definition.
+----
+<target name="main">
+<plantuml dir="./src" format="svg" />
+</target>
+----
+
+
+== Configuration file
+
+
+You can also provide a configuration file which will be included before each diagram.
+
+----
+<target name="main">
+<plantuml dir="./src" config="./config.cfg" />
+</target>
+----
+
+
+
+== Other parameters
+
+|===
+| Parameter | Default | Description
+
+| nbthread
+| 1
+| Number of thread for processing
+
+| graphvizDot
+|
+| Path of the dot executable
+
+| format
+| png
+| Format for image generation: xmi, xmi:argo, xmi:start, eps, svg, txt, utxt
+
+| verbose
+| `+false+`
+| `+true+` for more logs
+
+| config
+|
+| File config to include before all diagrams
+
+| charset
+|
+| Charset to use when reading files
+
+| output
+|
+| Output directory for generated images
+
+| dir
+|
+| Input directory to process (You can use `+<fileset>/<filelist>+` instead)
+
+| failonerror
+| `+false+`
+| `+true+` to fail the build if some syntax error occurs
+
+| checkonly
+| `+false+`
+| `+true+` if you want to only check the syntax of files without generating images
+
+| overwrite
+| `+false+`
+| `+true+` if you want overwrite read-only files
+
+| enablestats
+| `+false+`
+| `+true+` to enable statistics
+
+| htmlstats
+| `+false+`
+| `+true+` to output general statistics in file plantuml-stats.html
+
+| xmlstats
+| `+false+`
+| `+true+` to output general statistics in file plantuml-stats.xml
+
+| realtimestats
+| `+false+`
+| `+true+` to generate statistics on the fly rather than at the end
+
+|===
+
+

@@ -1,0 +1,120 @@
+== Token Auth configuration
+
+PlantUML supports token authentication and this is basically the second part of an OAuth flow. This means that the token for authentication to a URL endpoint must be determined in a different way. This is only useful for tokens that are valid for a very long time (for example API keys without expiration date). 
+
+A token auth credentials configuration file must be stored in the folder configured by the property `+plantuml.security.credentials.path+`. The file extension is `+.credential+`, the file content is structured in JSON, the charset encoding is UTF-8, the filename must match the UserInfo part of the URL. +
+
+* see also
+** link::url-oauth[OAuth2 configuration]
+** link::url-basicauth[Basic Auth configuration]
+** link::url-authentication[General URL authentication documentation]
+
+**Flow**
+
+__Preparation__
+
+[plantuml]
+----
+@startuml
+actor User
+User -> AuthServer : requests an unlimited API token via UI
+User <- AuthServer : response with API token
+User <- User : stores API token in PlantUML credentials file
+@enduml
+----
+
+__URL authentication__
+
+[plantuml]
+----
+@startuml
+PlantUML -> Service : call service URL with a resilent token\n(manually received and configured)
+Service -> Service : validates token
+note right: Validation of a signed token\nor requesting a validation service
+Service -> PlantUML : response with content
+@enduml
+----
+
+
+== Token auth configuration
+
+**Token auth JSON structure:**
+
+----
+{
+  "name": "<name of the configuration>",
+  "type": "tokenauth",
+  "properties": {
+    "headers": {
+      "key1": "value1",
+      "key2": "value2",
+      ...
+    }
+  },
+  "proxy": {
+    "type": "<proxy type>",
+    "address": "<proxy server address>",
+    "port": "<proxy server port>"
+  }
+}
+----
+[plantuml]
+----
+@startjson
+<style>
+highlight {
+  BackgroundColor: silver;
+}
+</style>
+#highlight "name"
+#highlight "type"
+#highlight "proxy" / "type"
+#highlight "proxy" / "address"
+{
+  "name": "<name of the configuration>",
+  "type": "**tokenauth**",
+  "properties": {
+    "headers": {
+      "key1": "value1",
+      "key2": "value2",
+      "...": "..."
+    }
+  },
+  "proxy": {
+    "type": "<proxy type>",
+    "address": "<proxy server address>",
+    "port": "<proxy server port>"
+  }
+}
+@endjson
+----
+* `+name+`: **required** 
+** The name of the configuration and should be similar to the file name
+* `+type+`: `+tokenauth+` **required**
+** Defines an token auth flow
+* `+properties+`.`+headers+`: 
+** All static headers needed for the token auth flow
+* `+proxy+`: 
+** Optional proxy configuration (overrides system proxy settings)
+* `+proxy+`.`+type+`: **required** (`+direct+`, `+socks+`, `+http+`)
+** Proxy type definition.
+* `+proxy+`.`+address+`: **required**
+** Proxy server address (hostname, IP address)
+* `+proxy+`.`+port+`:
+** Proxy server port number
+
+**Examples:**
+
+----
+{
+  "name": "public-api",
+  "type": "tokenauth",
+  "properties": {
+    "headers": {
+      "Authorization": "ApiKey a4db08b7-5729-4ba9-8c08-f2df493465a1"
+    }
+  }
+}
+----
+
+

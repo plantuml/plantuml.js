@@ -1,0 +1,42 @@
+== Generalisation
+
+**PlantUML** now can generate diagrams other than UML. In such cases the usual `+@startuml+` does not make sense anymore. So now we allow diagrams start with `+@startXYZ+` and finish with `+@endXYZ+`, where `+XYZ+` can change with the type of diagram and can be any characters (including spaces).
+
+> This means that plugin developers are encouraged to change their code to recognize `+@start+` instead of `+@startuml+`.
+
+DOT diagrams are usually formatted as `+@startdot...@enddot+`.
+
+
+== DOT
+
+You can use the http://www.graphviz.org/doc/info/lang.html[DOT language] to create directed graphs (see a http://www.graphviz.org/Gallery.php[Gallery of examples]).
+(Note: **PlantUML** uses http://www.graphviz.org/[Graphviz/DOT] for layout of UML diagrams anyway.)
+
+This allows you to use Graphviz/DOT with all tools that support **PlantUML**.
+
+You can use `+@startdot/@enddot+` or `+@startuml/@enduml+` to delineate the diagram,
+and then the very first line has to be: `+digraph XYZ {+`.
+
+Here are some examples:
+<plantuml>
+@startuml
+digraph foo {
+  node [style=rounded]
+  node1 [shape=box]
+  node2 [fillcolor=yellow, style="rounded,filled", shape=diamond]
+  node3 [shape=record, label="{ a | b | c }"]
+
+  node1 -> node2 -> node3
+}
+@enduml
+</plantuml>
+
+<plantuml>
+@startuml
+digraph foo {
+ PlantUML -> Dot [label=use];
+}
+@enduml
+</plantuml>
+
+

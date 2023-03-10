@@ -1,0 +1,73 @@
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="{{{or site.url siteRootPath}}}">{{site.title}}</a>
+      {{#if env.SITE_SEARCH_PROVIDER}}
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs"{{#if page.home}} autofocus{{/if}}>
+        </div>
+      </div>
+      {{/if}}
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">UML Diagrams</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="{{{or site.url siteRootPath}}}/docs/main/sequence-diagram.html">Sequence</a>
+            <a class="navbar-item" href="{{{or site.url siteRootPath}}}/docs/main/use-case-diagram.html">Use Case</a>
+            <a class="navbar-item" href="{{{or site.url siteRootPath}}}/docs/main/class-diagram.html">Class</a>
+            <a class="navbar-item" href="{{{or site.url siteRootPath}}}/docs/main/activity-diagram-legacy.html">Activity</a>
+            <a class="navbar-item" href="{{{or site.url siteRootPath}}}/docs/main/activity-diagram-beta.html">Activity(beta)</a>
+            <a class="navbar-item" href="{{{or site.url siteRootPath}}}/docs/main/component-diagram.html">Component</a>
+            <a class="navbar-item" href="{{{or site.url siteRootPath}}}/docs/main/state-diagram.html">State</a>
+            <a class="navbar-item" href="{{{or site.url siteRootPath}}}/docs/main/object-diagram.html">Object</a>
+            <a class="navbar-item" href="{{{or site.url siteRootPath}}}/docs/main/deployment-diagram.html">Deployment</a>
+            <a class="navbar-item" href="{{{or site.url siteRootPath}}}/docs/main/timing-diagram.html">Timing</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">non-UML Diagrams</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="{{{or site.url siteRootPath}}}/docs/main/nwdiag.html">Network</a>
+            <a class="navbar-item" href="{{{or site.url siteRootPath}}}/docs/main/salt.html">Wireframe</a>
+            <a class="navbar-item" href="{{{or site.url siteRootPath}}}/docs/main/archimate-diagram.html">Archimate</a>
+            <a class="navbar-item" href="{{{or site.url siteRootPath}}}/docs/main/gantt-diagram.html">Gantt</a>
+            <a class="navbar-item" href="{{{or site.url siteRootPath}}}/docs/main/mindmap-diagram.html">MindMap</a>
+            <a class="navbar-item" href="{{{or site.url siteRootPath}}}/docs/main/wbs-diagram.html">WBS</a>
+            <a class="navbar-item" href="{{{or site.url siteRootPath}}}/docs/main/json.html">JSON</a>
+            <a class="navbar-item" href="{{{or site.url siteRootPath}}}/docs/main/yaml.html">YAML</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="https://plantuml.com/" target="_blank">PlantUML</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://plantuml.com/news" target="_blank">What's New?</a>
+            <a class="navbar-item" href="https://plantuml.com/download" target="_blank">Download</a>
+            <a class="navbar-item" href="https://plantuml.com/guide" target="_blank">PDF Guide</a>
+            <a class="navbar-item" href="https://plantuml.com/running" target="_blank">Tools</a>
+            <a class="navbar-item" href="{{{or site.url siteRootPath}}}/docs/main/faq.html">F.A.Q.</a>
+            <a class="navbar-item" href="https://crashedmind.github.io/PlantUMLHitchhikersGuide" target="_blank">Hitchiker's Guide</a>
+            <a class="navbar-item" href="https://forum.plantuml.net/" target="_blank">Forum</a>
+          </div>
+        </div>                
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="https://plantuml.github.io/plantuml.js/" target="_blank">Playground</a>
+          </span>
+        </div>
+        <a class="navbar-item" href="https://github.com/plantuml/plantuml" target="_blank">
+          <span class="icon">
+            <img src="{{{uiRootPath}}}/img/github-mark-white.png" />
+          </span>
+        </a>
+      </div>
+    </div>
+  </nav>
+</header>

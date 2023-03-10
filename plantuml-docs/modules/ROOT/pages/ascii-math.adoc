@@ -1,0 +1,76 @@
+== Maths
+
+Within PlantUML, you can use http://asciimath.org[AsciiMath] notation:
+[plantuml]
+----
+@startuml
+:<math>int_0^1f(x)dx</math>;
+:<math>x^2+y_1+z_12^34</math>;
+note right
+Try also
+<math>d/dxf(x)=lim_(h->0)(f(x+h)-f(x))/h</math>
+<math>P(y|bb"x") or f(bb"x")+epsilon</math>
+end note
+@enduml
+----
+
+or https://github.com/opencollab/jlatexmath[JLaTeXMath] notation:
+[plantuml]
+----
+@startuml
+:<latex>\int_0^1f(x)dx</latex>;
+:<latex>x^2+y_1+z_{12}^{34}</latex>;
+note right
+Try also
+<latex>\dfrac{d}{dx}f(x)=\lim\limits_{h \to 0}\dfrac{f(x+h)-f(x)}{h}</latex>
+<latex>P(y|\mathbf{x}) \mbox{ or } f(\mathbf{x})+\epsilon</latex>
+end note
+@enduml
+----
+
+Here is another example:
+[plantuml]
+----
+@startuml
+Bob -> Alice : Can you solve: <math>ax^2+bx+c=0</math>
+Alice --> Bob: <math>x = (-b+-sqrt(b^2-4ac))/(2a)</math>
+@enduml
+----
+
+
+== Standalone diagram
+
+You can also use `+@startmath+`/`+@endmath+` to create standalone http://asciimath.org[AsciiMath] formula.
+
+
+[plantuml]
+----
+@startmath
+f(t)=(a_0)/2 + sum_(n=1)^ooa_ncos((npit)/L)+sum_(n=1)^oo b_n\ sin((npit)/L)
+@endmath
+----
+
+
+Or use `+@startlatex+`/`+@endlatex+` to create standalone https://github.com/opencollab/jlatexmath[JLaTeXMath] formula.
+
+[plantuml]
+----
+@startlatex
+\sum_{i=0}^{n-1} (a_i + b_i^2)
+@endlatex
+----
+
+
+== How is this working?
+
+To draw those formulas, PlantUML uses two open source projects:
+
+* https://github.com/asciimath/asciimathml/tree/master/asciimath-based[AsciiMath] that converts AsciiMath notation to LaTeX expression;
+* https://github.com/opencollab/jlatexmath[JLatexMath] that displays mathematical formulas written in LaTeX. JLaTeXMath is the best Java library to display LaTeX code.
+
+https://github.com/asciimath/asciimathml/blob/master/asciimath-based/ASCIIMathTeXImg.js[ASCIIMathTeXImg.js] is small enough to be integrated into PlantUML standard distribution.
+
+
+Since https://github.com/opencollab/jlatexmath[JLatexMath] is bigger, you have to http://beta.plantuml.net/plantuml-jlatexmath.zip[download it] separately, then unzip the 4 jar files (__batik-all-1.7.jar__, __jlatexmath-minimal-1.0.3.jar__, __jlm\_cyrillic.jar__ and __jlm\_greek.jar__) in the same folder as PlantUML.jar.
+
+

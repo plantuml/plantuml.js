@@ -1,0 +1,169 @@
+== Initial request
+
+A https://forum.plantuml.net/10470/using-a-citation-manager-in-plantuml[user has requested a supported or suggested method of using citations within a flow diagram].
+
+The goal of this page is to think together on an approriate solution.
+
+~~First, we have to focus **on the syntax**. We will see latter on to render such citations.~~
+There is now a __functionalities__ chapter when we should write exactly what we are expecting here. You can vote at the bottom of this page.
+
+Feel free to edit this page, to add comment or to add new proposal. We will then vote about the best syntax.
+
+
+== Functionalities
+
+
+What is it that is needed?
+You can start by voting:
+
+* vote::within[Citations to a reference box within in the diagram]?
+* vote::elsewhere[Citation to references held elsewhere in the host document]?
+* vote::both[Both features] ?
+
+=== Citation output
+What is wanted is effectively the ability to produce this:
+
+[plantuml]
+----
+@startuml
+"Alice<sup>1-3</sup>" --> Bob<sup>1,4</sup> 
+@enduml
+----
+
+It is likely jounral editors may insist on slight variations like these:
+
+[plantuml]
+----
+@startuml
+"Alice(1-3)" --> Bob(1,4) 
+@enduml
+----
+
+[plantuml]
+----
+@startuml
+"Alice[1-3]" --> Bob[1,4] 
+@enduml
+----
+
+Ideally where the graphic format allows it, the citation should produce a clickable link which may take you to the Reference section of a document
+
+[plantuml]
+----
+@startuml
+"Alice<sup>[[#References 1-3]]</sup>" --> Bob 
+@enduml
+----
+
+
+=== Reference List output
+If plantUML is hosting its own reference list in the figure, then it will need the ability to format up the reference correctly (or would it just be passed a preformatted string?  But the preformatted string would need bold, underline and italics in the string?
+
+Normal reference lists are on fresh lines and look like this
+
+**1.** Derwing, T. M., Rossiter, M. J., & Munro, M. J. (2002). Teaching native speakers to listen to foreign-accented speech. Journal of Multilingual and Multicultural Development, 23(4), 245-259.
+
+**2.** Thomas, H. K. (2004). Training strategies for improving listeners' comprehension of foreign-accented speech (Doctoral dissertation). University of Colorado, Boulder.
+
+Space is at a premium in figures, so it may be sensible to pick a default reference style that minimises space, but also to consider NOT using new lines per reference.
+
+**1.** Derwing, TM __et al__ (2002). Teaching native speakers to listen to foreign-accented speech. Journal of Multilingual and Multicultural Development, 23, 245-59.  **2.** Thomas, HK (2004). Training strategies for improving listeners' comprehension of foreign-accented speech (Doctoral dissertation). University of Colorado, Boulder.
+
+And so the functionality would produce something **like** this:
+
+[plantuml]
+----
+@startuml
+"Alice<sup>1</sup>" --> "Bob<sup>2</sup>" 
+
+legend right
+ **References**
+ **1.** Derwing, TM //et al// (2002). Teaching native speakers to
+ listen to foreign-accented speech. Journal of Multilingual and 
+ Multicultural Development, 23, 245-59.  **2.** Thomas, HK (2004).
+ Training strategies for improving listeners' comprehension of
+ foreign-accented speech (Doctoral dissertation). University of
+ Colorado, Boulder
+endlegend
+
+@enduml
+----
+
+=== Inputs
+Apart from the basic syntax of how to reference, there would be a need to provide styling information to the outputs.  While plantUML should make some good default choices, it is likely picky journal editors may have some specifics they want to specify.
+
+Therefore it would make sense for plantUML to either be able to take references to 2 files (URLs perhaps) that would save the overall content being in the UML? +
+
+* Reference File: I'd suggest something in a fairly standard format like 'bibtex' which most citation managers can output to.  See http://www.bibtex.org/Format/[BibTex]
+* Citation File: See https://citationstyles.org/[CSL Standards]
+
+No-one would appreciate having to reproduce these as different types of document by hand for a single figure etc.
+
+
+== Proposal 1 for syntax
+
+This __proposal 1__ is the following one.
+
+----
+@startuml
+
+@Manual{anderson2015,
+  title = {Exhumation by debris flows in the 2013 Colorado Front Range storm},
+  author = { S.W. Anderson and S.P. Anderson and R.S Anderson},
+  journal = {Geology},
+  year = {2015},
+  pages = {31,94},
+  url = {https://www.R-project.org/},
+}
+
+start
+:Some text[@anderson2015];
+end
+@enduml
+----
+
+=== Advantage ?
+
+The `+[@anderson2015]+` format is used in some flavours of markdown.  It remains human readable.  An alternative might be latex's format of `+\cite{anderson2015}+`.
+
+=== Drawback
+
+'''
+
+> > ** Not sure syntax is the place to start!**
+> >
+> > Sorry - functionality is the place to start!  What is it that is needed?  Citations to a reference box within in the diagram? Or citation to references held elsewhere in the host document?
+> Ok, we have added a new chapter __Functionalities__.
+> This chapter will be moved before this one when the wiki will allow us to do so :-)
+
+I've had a breif play in latex to see what can be done.
+----
+@startuml
+:Some text \\citep{anderson2015};
+@enduml
+----
+
+> > Works in so far as after manipulating the \\ latex can make it a reference like (1) or ^1 etc, and Latex will then paste in the references at the end of the document along with any from the text part of the document.  This feels clean.  Latex will also make the citation a hyperlink to take you to that reference.  This puts the effort of referencing and formatting etc with latex which has the abilities.  Otherwise you start having to do a lot of work!
+> Well, this syntax is too close to Latex (PlantUML Team opinion).
+> Note that whatever the syntax we use (for example `+[@anderson2015]+`), we will generate some LaTex when exporting to Latex (so very likely `+\citep{anderson2015}+` in the Latex output). So the effort of referencing and formatting will still be done by LaTex. And maybe other format (PNG...) won't do something as complete as Latex, but that is not a real issue (at least, to us).
+
+However, the box widths are wrong because it thinks the box has \\citep{anderson2015} in it and it actually has (1).
+
+> > Latex wont suit everyone!  But can't see how you would be more functional easily in a PNG for instance.
+> We really don't want to focus on LaTex only. It's important for us (PlantUML Team) to have something that works for all formats (including PNG). For PNG, we could list references details at the bottom of the diagram, for example.
+
+if you were limitting this to latex - you don't need the @Manual{} section above at all... (thats in the latex effectively)
+
+Couple of bits of sample code:
+
+* https://bitbucket.org/polc1410/plantumlcitation/downloads/plantuml.pdf[https://bitbucket.org/polc1410/plantumlcitation/downloads/plantuml.pdf]
+* https://bitbucket.org/polc1410/plantumlcitation/src/master[https://bitbucket.org/polc1410/plantumlcitation/src/master]
+
+=== Reference box on the diagram
+
+> > For simpler diagrams I can see a use for a reference box on the diagram.  Effectively a notes box with the references in it.  BUT - unless there is code ready to lift from other projects this is a LOT of effort - you'd need to format the citation (i.e. do you want a superscript, a normal number, round or square brackets, what about when you reference [1 - 4] and what about (1,3,4) or (1, 3 & 4) etc.  Then the formatting of the actual reference changes by place of publication too.  There are 'standard' formats for sharing those formats etc but perhaps the use case is not huge.
+> >
+> Rather that using notes box, I wonder if listing references on the bottom of the diagrams is a better solution.
+ 
+
+

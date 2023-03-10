@@ -1,0 +1,123 @@
+== How and where diagrams can be written
+Each diagram description begins with the keyword `+@startuml+`
+then ends with the keyword `+@enduml+` or (`+@startXYZ+` and `+@endXYZ+`, depending of the kind of diagram).
+
+You can refer to http://sourceforge.net/projects/plantuml/files/PlantUML%20Language%20Reference%20Guide.pdf/download[the PlantUML Language Reference Guide].
+
+Those descriptions may be included into:
+* PlantUML file (**.pu** or **.puml**)
+* Text files (**.txt**),
+* HTML files (**.html** or **.htm**),
+* link::javadoc[Java sources files] (**.java**),
+* C/C++ source files (**.c**, **.h**, **.cpp**, **.hpp** or **.hh**)
+* LaTeX sources files (**.tex**),
+* http://maven.apache.org/doxia/references/apt-format.html[APT files (**.apt**)]
+* link::word[Word files (**.doc**)]
+* link::server[URL]
+
+
+Of course, if you use HTML, LaTeX, APT or Java/C/C++ files, you should put
+diagram descriptions into comments.
+
+
+== File naming
+
+By default, `+.png+` file have the same name as the source file used to generated them (only the extension changes).
+
+An automatic sequence is added if a source file contains several instances of `+@startXXX+`.
+
+It is possible to use a different file name for the generated file. For example:
+
+----
+@startuml image.png
+Alice->Bob: Authentication Request
+Bob-->Alice: Authentication Response
+@enduml
+----
+
+In this example, the `+.png+` file will be named `+image.png+`.
+
+(Please note that you should not use this feature with __Word__ integration.)
+
+
+
+== Include with identifier [include]
+
+You can declare some part of a file with an identifier (`+id=<identifier>+`), as:
+
+Example with a file named `+file.pu+`:
+----
+@startuml(id=TAG1)
+Alice->Bob : TAG1
+@enduml
+
+@startuml(id=TAG2)
+Alice->Bob : TAG2
+@enduml
+----
+
+
+Then you can include, on one another file, one `+id+` part with `+!include <filemane>!<id>+` command:
+----
+@startuml
+!include file.pu!TAG2
+Alice->Bob : hello
+@enduml
+----
+
+The corresponding generated output will be:
+<plantuml>
+@startuml
+Alice->Bob : TAG2
+Alice->Bob : hello
+@enduml
+</plantuml>
+
+__[Ref. https://forum.plantuml.net/4467[QA-4467]]__
+
+
+== Include with definition identifier (on the same file) [includedef]
+
+You can declare definition (`+def+`) some part on a file with an `+identifier+` between the tags `+@startdef(id=<identifier>)+` and `+@enddef+`.
+
+Then you can include, on the same file, only one definition part with `+!includedef <identifier>+` command.
+
+Example on a file named `+file.pu+`:
+<plantuml>
+@startdef(id=macro_def_id)
+Alice -> Bob : hello1
+@enddef
+
+@startuml
+!includedef macro_def_id
+Alice -> Bob : hello2
+@enduml
+</plantuml>
+
+Then the corresponding generated output will be `+file_001.png+`, as:
+<plantuml>
+@startuml
+Alice -> Bob : hello1
+Alice -> Bob : hello2
+@enduml
+</plantuml>
+
+__[Ref. https://forum.plantuml.net/5769[QA-5769]]__
+
+
+== Adding options for other tools
+
+You can add options, for other tools, enclosed by `+{+` and `+}+`.
+
+Only the first (`+<filename>+`) is relevant for PlantUML, the others are just skipped, and can be use by other tools.
+
+	
+----
+@startuml{filename.png, This is my other caption text, width=16cm, option_for_other_tools=value}
+
+@enduml
+----
+
+__[Ref. https://forum.plantuml.net/1466[QA-1466]]__
+
+

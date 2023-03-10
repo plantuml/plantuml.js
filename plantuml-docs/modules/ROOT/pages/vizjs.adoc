@@ -1,0 +1,68 @@
+== The context of VizJs
+PlantUML uses Graphviz/DOT to compute node positionning for every UML diagrams (except Sequence Diagrams and Activity Beta Diagrams).
+The fact that DOT computes automatically the position of node is a key feature, and algorithms implemented in
+DOT usually give very good result.
+
+However, there are some drawbacks of using DOT :
+the computation is done by an external program (dot.exe on Windows, dot on linux), and that means that :
+
+*     PlantUML has to create a new process for each diagram, (and communication with this new process could be source of bugs).
+*     Users have to install DOT on their system, in addition of Java.
+*     PlantUML is not fully portable.
+
+There is a work-in-progress to have link::smetana02[a full Java implementation of PlantUML.]
+However, even if this is somehow working, this is not finished yet.
+
+
+Recently, some user points out http://forum.plantuml.net/4577/effort-to-decouple-plantuml-from-graphviz[another possible solution]
+(We thank him by the way!).
+
+Using both https://github.com/mdaines/viz.js[VizJs (a port to Javascript of GraphViz)]
+and http://eclipsesource.com/blogs/getting-started-with-j2v8[J2V8 (a highly efficient JavaScript runtime for Java)], it is theorically possible
+to have a (almost) full Java implementation.
+
+With the great help of __Andreas Studer__ that makes a lot of work to test various JavaScript engine, we are now able to
+propose a working version.
+
+
+== Using visjs
+
+This means that it is possible to use PlantUML without installing GraphViz (which can be useful when you do not have administration right for example).
+To do so, in addition to plantuml.jar, you must have:
+
+* https://github.com/plantuml/vizjs[vizjs]: A Java library written by __Andreas Studer__ that embed viz.js and call J2V8
+* The corresponding J2V8 implementation for your OS:
+* For Windows x86/64 bit: http://beta.plantuml.net/j2v8_win32_x86_64-3.1.6.jar[j2v8\_win32\_x86\_64-3.1.6.jar]
+* For Linux x86: http://beta.plantuml.net/j2v8_linux_x86_64-3.1.6.jar?[j2v8\_linux\_x86\_64-3.1.6.jar]
+* For Mac OS: http://beta.plantuml.net/j2v8_macosx_x86_64-3.1.6.jar[j2v8\_macosx\_x86\_64-3.1.6.jar]
+
+So, having the three files plantuml.jar, http://beta.plantuml.net/vizjs.jar[vizjs.jar] and j2v8\_XXXXX-3.1.6.jar in the very same folder (this is important) you can
+run PlantUML without having GraphViz installed.
+
+Finally, you have to set up the `+GRAPHVIZ_DOT+` link::graphviz-dot[environment variable] value to `+vizjs+`
+(or through the command line with http://stackoverflow.com/questions/5045608/proper-usage-of-java-d-command-line-parameters[-D flag] or -graphvizdot flag).
+
+Then, you can double-check your configuration by running the usual:
+
+----
+@startuml
+testdot
+@enduml
+----
+
+
+== Limitations
+
+Note that this is only working with Java 8 (because of J2V8).
+For complex diagrams (especially with labels on arrow), the solution is not working very well.
+
+An issue has been opened on viz.js side (see https://github.com/mdaines/viz.js/issues/65[Error when generating graph]).
+
+However, in that case, PlantUML falls back to some degrated solution.
+
+
+== Alternative layout engines
+
+See link::elk[elk] and link::smetana02[smetana] for other alternatives to link::graphviz-dot[graphviz-dot].
+
+

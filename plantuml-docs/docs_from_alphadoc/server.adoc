@@ -1,0 +1,131 @@
+== PlantUML Server
+
+You can use PlantUML using the online web service to generate images on-the-fly. A online demonstration is available at http://www.plantuml.com/plantuml[http://www.plantuml.com/plantuml], but you can also install it on your own JEE web application server.
+
+If you don't want to install a full JEE application server, you may also choose to run link::picoweb[PlantUML PicoWeb Server] locally.
+
+
+== Interactive interface
+
+The big input field is used to enter your diagram description. You can type in any diagram description, then press the submit button and the diagram will be displayed below.
+It's a good practice to start your diagram by the `+@startxxx+` keyword.
+
+When you validate the diagram, you are redirected to an encoded URL encoding your diagram. The link::text-encoding[encoded form] is a convenient way to share your diagrams with others because it's shorter than the many lines of a diagram and it can be easily displayed in a browser using the online PlantUML Server.
+
+For example, `+SyfFKj2rKt3CoKnELR1Io4ZDoSa70000+` is the encoded form of:
+
+----
+@startuml
+Bob -> Alice : hello
+@enduml
+----
+
+
+
+== Specify an initial diagram
+
+By default, the PlantUML Server shows the well-known `+Bob -> Alice+` sample but it's easy to invoke it with an other diagram using its encoded form.
+Just append `+/uml/ENCODED+` to the URL.
+
+For example, this link http://www.plantuml.com/plantuml/uml/Aov9B2hXil98pSd9LoZFByf9iUOgBial0000[http://www.plantuml.com/plantuml/uml/Aov9B2hXil98pSd9LoZFByf9iUOgBial0000] opens the PlantUML Server with a simple Hello World activity diagram.
+
+
+
+== Metadata
+
+PlantUML saves the diagram's source code in the generated PNG Metadata in the form of link::text-encoding[encoded text]. So it is possible to retrieve this source by using the query parameter `+metadata+`, giving it some image URL.
+
+For example, if you want to retrieve the diagram source of the image `+http://i.stack.imgur.com/HJvKF.png+` use the following server request: `+http://www.plantuml.com/plantuml/?metadata=http://i.stack.imgur.com/HJvKF.png+`.
+
+Sounds like magic! No, merely clever engineering :-)
+
+
+== Web service mode
+
+The web service interface of the PlantUML Server is dedicated to developers.
+
+
+
+== PNG service
+
+To get a PNG file of a diagram, use the following URL scheme:
+http://www.plantuml.com/plantuml/png/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000[/plantuml/png/ENCODED]
+
+
+
+== SVG service
+
+To get a SVG XML file of a diagram, use the following URL scheme:
+http://www.plantuml.com/plantuml/svg/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000[/plantuml/svg/ENCODED]
+
+> Note that not all diagrams can be produced in link::svg[SVG]. For example, link::ditaa[ditaa diagrams] are only available in PNG format.
+
+
+
+== ASCII Art service
+
+To get an ASCII Art representation of a diagram, encoded in UTF-8, use the following URL scheme:
+http://www.plantuml.com/plantuml/txt/SyfFKj2rKt3CoKnELR1Io4ZDoSa70000[/plantuml/txt/ENCODED]
+
+Note that only sequence diagrams can be produced in ASCII Art.
+
+
+
+== Image Map service
+
+To get the http://en.wikipedia.org/wiki/Image_map#Pure_HTML[client image map] related to a previously generated PNG image, use the following URL scheme:
+http://www.plantuml.com/plantuml/map/AqWiAibCpYn8p2jHSCfFKeYEpYWfAR3IroylBzSho04Ab-Rcw2NdvyR6Se7aTUqK77CoarCLh11AuSgAyqkBabFJyelIK_NoKajYOnKoKdDoyW40[/plantuml/map/ENCODED]
+
+The output is a list of `+<area>+` tags, each line matching a link present in the diagram description.
+
+For example, the following http://www.plantuml.com/plantuml/uml/SoWkIImgAStDuIe0qfd9cGM9UIKAJlb92j7H6IKb1LRw-WKvG26W2hta_DpOM2wGdAwTWcDEPdAgWXL2MLf-KMck7bnnNcf9RAn2HcfEJZwNGsfU2iWA0000[diagram]:
+----
+@startuml
+participant Bob [[http://plantuml.com]]
+Bob -> Alice : [[http://forum.plantuml.net]] hello
+@enduml
+----
+
+produces the http://www.plantuml.com/plantuml/map/AqWiAibCpYn8p2jHSCfFKeYEpYWfAR3Iro_80GgLvkRe9UVdniPoWUHqxHGSSpAJKnMi4ChIyejAS_NWYlDIIs9Z5J9IStBo0G00[following output]:
+----
+<map id="plantuml_map" name="plantuml_map">
+<area shape="rect" id="id1" href="http://forum.plantuml.net" title="http://forum.plantuml.net" alt="" coords="38,50,199,65"/>
+<area shape="rect" id="id2" href="http://plantuml.com" title="http://plantuml.com" alt="" coords="8,3,50,116"/>
+</map>
+----
+
+Note that you need to include these `+<area...+` tags inside a `+<map...+` html tag to make the complete image map.
+
+
+
+== Proxy service
+
+With the proxy service, the source description of the diagram can be fetched by the PlantUML Server from a remote document.
+
+The proxy service uses the following URL scheme:
+`+/plantuml/proxy?src=RESOURCE&idx=INDEX&fmt=FORMAT+`
+
+* RESOURCE is the complete URL of the document which contains the diagram description (with the `+@startxxx+` and `+@endxxx+` tags), it could be a `+.html+` or a `+.txt+` file.
+* INDEX is optional, it specifies the occurrence (starting at 0) of the diagram description that will be parsed when there are more than one diagram descriptions in the remote document. It defaults to zero.
+* FORMAT is optional, it specifies the format to return. Supported values are: `+png+`, `+svg+`, `+eps+`, `+epstext+` and `+txt+`. Default is `+png+`,
+
+For example, try this link:
+http://www.plantuml.com/plantuml/proxy?src=https://raw.github.com/plantuml/plantuml-server/master/src/main/webapp/resource/test2diagrams.txt[http://www.plantuml.com/plantuml/proxy?src=https://raw.github.com/plantuml/plantuml-server/master/src/main/webapp/resource/test2diagrams.txt]
+
+Note that the address of the remote document is specified as a parameter, so it is not necessary to http://en.wikipedia.org/wiki/Urlencode[URL encode] the URL.
+
+
+== Installation of the PlantUML Server
+
+To install PlantUML Server on your own JEE 5 web server, download the http://sourceforge.net/projects/plantuml/files/plantuml.war/download[plantuml.war] file and copy it on the __webapp__ folder of your server.
+
+Because of the https://blogs.oracle.com/javamagazine/post/transition-from-java-ee-to-jakarta-ee[transition] from `+javax.*+` to `+jakarta.*+`, the PlantUML Server does not work on Tomcat 6/7/8/9 anymore. You have to use Tomcat 10.
+
+
+== Source code
+
+PlantUML Server is open source, the code is available at https://github.com/plantuml/plantuml-server[https://github.com/plantuml/plantuml-server].
+
+(The main source is at https://github.com/plantuml/plantuml[https://github.com/plantuml/plantuml])
+
+

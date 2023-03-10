@@ -1,0 +1,118 @@
+== Current "Puma" architecture
+When we've started PlantUML in 2009, the very first UML diagram type that we have addressed at that time
+was link::sequence-diagram[Sequence Diagrams].
+
+At the beginning, capabilities were very limited. The layout engine used for Sequence Diagrams was pretty simple, but this was enough to do
+basic diagrams.
+
+Then more and more people begin to use PlantUML and ask for new features. We add those features (group, activation, note, encompass...)
+by adding some code in the existing layout engine, but we did not change its roots.
+
+So you know the story : the code is getting more and more complex. It begins to be difficult to maintain.
+The initial simplicity is gone, because some initial architecture decisions
+were not good regarding the new capabilities.
+
+Moreover, some features (especially for parallel message, see http://forum.plantuml.net/tag/teoz[pending wanted features])
+are almost impossible to implements with the current "Puma" architecture.
+
+This is the bad news.
+
+**The good news is that we are willing to overcome those issues.**
+
+So we've read many things about design patterns to define a better software archicture.
+https://www.scrumalliance.org/community/articles/2013/2013-april/experiences-in-agile-coaching-courage-as-a-value[And we need some courage too!]
+
+
+
+
+== Toward "Teoz" architecture
+So a new layout engine has been added to PlantUML. The codename of this architecture is "Teoz", and it has been integrated
+as alpha version in PlantUML version 8019.
+
+By default, the old "Puma" layout engine is still used, but you can turn on Teoz engine using some `+!pragma+` directive :
+
+[plantuml]
+----
+@startuml
+!pragma teoz true
+Alice -> Bob : hello
+& Bob -> Charlie : hi
+@enduml
+----
+
+Many things are not working with this first version. We are not even sure that the proposed syntax (use of `+&+`) is a good idea.
+
+So we need feedback from the community: http://forum.plantuml.net/tag/teoz[please use the Q&A forum, putting a Teoz tag in your questions].
+
+We would like to have a complete overview of what users wants to do, to be sure to design some Teoz engine able to handle all new features.
+
+Thanks for your feedback!
+
+
+== Anchors and Duration
+
+With `+teoz+` it is possible to add anchors to the diagram and use the anchors to specify duration time.
+[plantuml]
+----
+@startuml
+!pragma teoz true
+
+{start} Alice -> Bob : start doing things during duration
+Bob -> Max : something
+Max -> Bob : something else
+{end} Bob -> Alice : finish
+
+{start} <-> {end} : some time
+
+@enduml
+----
+
+
+== Pragma "teoz"
+
+You can use the `+-P+` link::command-line[command-line] option to specify the pragma:
+----
+java -jar plantuml.jar -Pteoz=true
+----
+__[Ref. https://github.com/plantuml/plantuml/issues/582[GH-582]]__
+
+
+== Nested boxes for sequence diagrams
+
+With `+teoz+` it is possible to have nested boxes for sequence:
+[plantuml]
+----
+@startuml
+!pragma teoz true
+box "component"
+  box "sub1"
+    participant a
+  endbox
+  box "sub2"
+    participant b
+  endbox
+end box
+@enduml
+----
+
+[plantuml]
+----
+@startuml
+!pragma teoz true
+box "component"
+  box "sub1\n\n"
+    participant a
+    box "subsub1"
+      participant suba
+    end box
+  endbox
+  box "sub2"
+    participant b
+  endbox
+end box
+@enduml
+----
+
+__[Ref. https://forum.plantuml.net/4957/why-not-to-support-nested-boxes-in-sequence-diagrams[QA-4957], https://github.com/plantuml/plantuml/issues/172[GH-172]]__
+
+

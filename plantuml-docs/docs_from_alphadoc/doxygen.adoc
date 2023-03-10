@@ -1,0 +1,10 @@
+== Doxygen
+
+You can use http://www.doxygen.nl/[Doxygen] and PlantUML
+together to integrate UML diagrams into generated documentation.
+
+You will find more information in the http://www.doxygen.nl/manual/commands.html#cmdstartuml[official documentation].
+
+
+
+

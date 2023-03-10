@@ -1,0 +1,13 @@
+== Steve Jobs, 1955 - 2011
+
+A special command dedicated to http://en.wikipedia.org/wiki/Steve_Jobs[Steve Jobs] and
+http://en.wikipedia.org/wiki/Steve_Wozniak[Steve Wozniak].
+[plantuml]
+----
+@startuml
+apple II
+@enduml
+----
+
+
+

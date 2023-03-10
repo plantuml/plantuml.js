@@ -1,0 +1,42 @@
+== Docutils (Install)
+
+http://docutils.sourceforge.net[Docutils] allows to
+conveniently write and generate documents in various output formats (http://docutils.sourceforge.net/sandbox/uml-plantUml/usage[see installation details here]):
+
+. Replace/patch your docutils distribution with the files in http://docutils.sourceforge.net/sandbox/uml-plantUml/src[src/]
+. See usage examples in http://docutils.sourceforge.net/sandbox/uml-plantUml/usage[usage/]including how to setup defaults PlantUML
+
+
+== Usage
+
+Use the "uml" directive and write an indented block of PlantUML commands. No arguments are required, an image will be generated and inlined. The name is derived from the input line number, the generated plantuml "source" is keep in the same directory.
+
+----
+.. uml::
+
+actor User
+participant "First Class" as A
+participant "Second Class" as B
+participant "Last Class" as C
+
+User -> A: DoWork
+activate A
+
+----
+
+You can pass a filename for the image (__WITHOUT extension__) as an optional parameter.
+
+----
+.. uml:: uml2/myDiagram123
+
+actor User
+participant "First Class" as A
+participant "Second Class" as B
+participant "Last Class" as C
+
+User -> A: DoMoreWork
+activate A
+----
+
+
+

@@ -1,0 +1,235 @@
+== URL authentication
+
+With URL authentication it is possible to provide an authentication method, credentials, and a proxy config to URL endpoints for different pre-processor commands like `+!include+`, `+!import+` or `+%load_json+`. 
+
+The authentication data is not stored in a DSL script, but in extra configuration files to which PlantUML must have access. The folder for the user data can be defined via a property. 
+
+Which authentication method with which user data should be performed for an endpoint is decided by a special notation in the URL. PlantUML interprets the https://en.wikipedia.org/wiki/URL[UserInfo of the authority part of a URL] as the name for the configuration.
+
+**Examples:**
+----
+@startuml
+
+!include https://access@raw.example.com/stash/repository/architecture/master/modelbase.puml
+
+!$DATA = %load_json('https://service-cred@localhost/api/rest/endpoint?format=json)
+
+' Embedded rendering of JSON structure
+
+ rectangle Test #tan as "
+    {{json
+    $DATA
+    }}
+    Example JSON data
+    "
+' ...
+@enduml
+----
+
+For the examples above, PlantUML needs two files (`+access.credential+` and `+service-cred.credential+`) in the folder configured by the property `+plantuml.security.credentials.path+`. Both files are structured as JSON and must be encoded in UTF-8. 
+
+By default, PlantUML only allows authentication for https URLs, since the credentials must be transmitted in encrypted form. If logins should also be allowed to go to unencrypted connections, the `+plantuml.security.allowNonSSLAuth+` property must be set to `+true+`. This is not under any circumstances recommended for connections that access servers on the internet.
+
+
+Actually, PlantUML supports three kinds of authentication: https://en.wikipedia.org/wiki/Basic_access_authentication[Basic Auth], https://en.wikipedia.org/wiki/OAuth#OAuth_2.0[OAuth2], and raw token authentication. For the OAuth2 the grant types `+client_credential+` and `+password+` are supported. With the raw token authentication, it's possible to pass throw a manually generated token (e.g. API key, bearer token) to the URL endpoint. 
+
+
+== Credentials configuration
+
+A credentials configuration file must be stored in the folder configured by the property `+plantuml.security.credentials.path+`. The file extension is `+.credential+`, the file content is structured in JSON, the charset encoding is UTF-8, the filename must match the UserInfo part of the URL.
+
+**General JSON structure:**
+----
+{
+  "name": "<name of the configuration>",
+  "type": "<type of the authentication method>",
+  "identifier": "<client identifier>",
+  "secret": "<client secret>",
+  "properties": {
+    "<key1>": "<value1>",
+    "<key2>": "<value2>"
+  },
+  "proxy": {
+    "type": "<proxy type>",
+    "address": "<proxy server address>",
+    "port": "<proxy server port>"
+  }
+}
+----
+
+[plantuml]
+----
+@startjson
+<style>
+highlight {
+  BackgroundColor: silver;
+}
+</style>
+#highlight "name"
+#highlight "identifier"
+#highlight "proxy" / "type"
+#highlight "proxy" / "address"
+{
+  "name": "<name of the configuration>",
+  "type": "<type of the authentication method>",
+  "identifier": "<client identifier>",
+  "secret": "<client secret>",
+  "properties": {
+    "<key1>": "<value1>",
+    "<key2>": "<value2>",
+    "...":"..."
+  },
+  "proxy": {
+    "type": "<proxy type>",
+    "address": "<proxy server address>",
+    "port": "<proxy server port>"
+  }
+}
+@endjson
+----
+
+
+* `+name+`: **required** 
+** The name of the configuration and should be similar to the file name
+* `+type+`: (`+basicauth+`, `+oauth+`, `+tokenauth+`), default: `+basicauth+`
+** Type of the authentication method
+* `+identifier+`: **required**
+** Client identifier name (user name, client id, principal, app key, ...)
+* `+secret+`: 
+** Secret for the identifier in clear text (not encrypted)
+* `+properties+`: 
+** Optional authentication-method specific properties. Properties should be defined as key-value pairs. A value can itself be a set of key-value pairs.
+* `+proxy+`: 
+** Optional proxy configuration (overrides system proxy settings)
+* `+proxy+`.`+type+`: **required** (`+direct+`, `+socks+`, `+http+`)
+** Proxy type definition.
+* `+proxy+`.`+address+`: **required**
+** Proxy server address (hostname, IP address)
+* `+proxy+`.`+port+`:
+** Proxy server port number
+
+**Notes:**
+
+* The name of a configuration may only contain characters from the following set: [`+a-z+`], [`+A-Z+`], [`+0-9+`], and "`+-+`". Not more than 64 characters are allowed.
+
+The following pages describe the individual configuration options of the authentication methods:
+
+* link::url-basicauth[Basic Auth configuration]
+* link::url-oauth[OAuth2 configuration]
+* link::url-tokenauth[Token Auth configuration]
+
+
+== Proxy configuration
+
+A credential configuration can define a proxy configuration to override the system proxy configuration (e.g. via environment variables). 
+
+
+**General Proxy structure:**
+----
+{
+  "type": "<proxy type>",
+  "address": "<proxy server address>",
+  "port": "<proxy server port>"
+}
+----
+
+[plantuml]
+----
+@startjson
+{
+  "type": "<proxy type>",
+  "address": "<proxy server address>",
+  "port": "<proxy server port>"
+}
+@endjson
+----
+
+
+Any authentication configuration can define its own proxy definition. Three kinds of proxy types are allowed: `+direct+`, `+socks+` and `+http+`.
+
+* `+direct+`
+** Represents a direct connection or the absence of a proxy.
+* `+socks+`
+** Represents a SOCKS (V4 or V5) proxy.
+* `+http+`
+** Represents proxy for high-level protocols such as HTTP or FTP.
+
+With `+direct+` an address and port are not required (and will be ignored). 
+
+* `+address+`
+** Hostname or IP address of the proxy server
+* `+port+`
+** Port number of the proxy host.
+
+See also https://docs.oracle.com/javase/8/docs/technotes/guides/net/proxies.html[Java Networking and Proxies].
+
+**Examples:**
+
+
+----
+"proxy": {
+  "type": "socks",
+  "address": "192.168.1.251",
+  "port": "80"
+}
+----
+
+----
+"proxy": {
+  "type": "direct"
+}
+----
+
+----
+"proxy": {
+  "type": "http",
+  "address": "proxy.example.com",
+  "port": "8081"
+}
+----
+
+
+== Property configuration
+
++++<u>**Folder with credentials files**</u>+++
+
+* `+plantuml.security.credentials.path+`
+** Value: path to an existing folder with a read access for PlantUML
+
+PlantUML needs a property with a configuration value to define a folder with the credentials files. Without the configured folder, the URL authentication is completely disabled and all UserInfo parts in URLs will be silently ignored.
+
+The configuration value can be set as an environment variable or should be passed as -D parameter to the PlantUML JAR.
+
+**Example**
+
+`+java -jar PlantUML.jar -Dplantuml.security.credentials.path=/opt/mycomp/plantuml/security/credentials/+`
+
+See also link::security[Security configuration]
+
+
+**Notes:**
+
+* The internal function `+%getenv+` will not expose the configuration value.
+* Any content in the configured path (and in all subfolders) are invisible for DSL model scripts. It is required that the configured folder is a separate location for the credentials files. 
+* Multiple paths will be ignored. PlantUML reads the credentials files only from the first configured folder.
+
+
++++<u>**Authentication over plain HTTP without encryption**</u>+++
+
+* `+plantuml.security.allowNonSSLAuth+`
+** Value: (`+true+`\|`+false+`)
+
+
+Normally, PlantUML only provides authentication to encrypted endpoints. Otherwise, the authentication data to be transmitted would be visible to anyone who is monitoring the communication. 
+
+It may be necessary to reach services on the intranet that do not support SSL for their controller endpoints. In this case, you can enable authentication via HTTP. 
+
+The configuration value can be set as an environment variable or should be passed as -D parameter to the PlantUML JAR.
+
+**Example**
+
+`+java -jar PlantUML.jar -Dplantuml.security.allowNonSSLAuth=true+`
+
+See also link::security[Security configuration]
+
+

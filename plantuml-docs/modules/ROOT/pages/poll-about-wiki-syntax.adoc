@@ -1,0 +1,27 @@
+== Vote for your syntax!
+
+We do not want to force users to learn some new syntax for this wiki.
+
+So this website will __transparently__ allow users to use their preferred syntax.
+
+Right now, only three syntaxes are (partially) supported:
+* link::syntax-asciidoc[Asciidoc syntax]
+* link::syntax-dokuwiki[Dokuwiki syntax]
+* link::syntax-markdown[Markdown syntax]
+
+You can vote to choose which others syntaxes should also be supported.
+
+You just have to click on one vote button:
+
+* vote::asciidoctor[I vote for Asciidoc Syntax] (**Already working**)
+* vote::confluence[I vote for Confluence Markup]
+* vote::creole[I vote for Creole syntax]
+* vote::dokuwiki[I vote for Dokuwiki syntax] (**Already working**)
+* vote::markdown[I vote for Markdown syntax] (**Already working**)
+* vote::mediawiki[I vote for MediaWiki syntax]
+* vote::pandoc[I vote for pandoc syntax]
+* vote::another[I vote for another syntax] __(Please update the pool in that case or use the post-it to indicate which syntax you're thinking of)__
+
+(Tooltips on vote buttons display vote results.)
+
+

@@ -1,0 +1,1626 @@
+== Class Diagram
+
+
+
+== Declaring element
+
+<plantuml>
+@startuml
+abstract        abstract
+abstract class  "abstract class"
+annotation      annotation
+circle          circle
+()              circle_short_form
+class           class
+diamond         diamond
+<>              diamond_short_form
+entity          entity
+enum            enum
+exception       exception
+interface       interface
+metaclass       metaclass
+protocol        protocol
+stereotype      stereotype
+struct          struct
+@enduml
+</plantuml>
+
+__[Ref. for `+protocol+` and `+struct+`: https://github.com/plantuml/plantuml/pull/1028[GH-1028], for `+exception+`: https://forum.plantuml.net/16258/adding-exception-keyword-for-class-diagram[QA-16258]]__
+
+
+== Relations between classes
+
+Relations between classes are defined using the following symbols :
+
+|===
+| Type | Symbol | Drawing
+
+| Extension
+| `+<|--+`
+| image::extends01.png[]
+
+| Composition
+| `+*--+`
+| image::sym03.png[]
+
+| Aggregation
+| `+o--+`
+| image::sym01.png[]
+
+|===
+
+It is possible to replace `+--+` by `+..+` to have a dotted
+line.
+
+Knowing those rules, it is possible to draw the following drawings:
+
+
+<plantuml>
+@startuml
+Class01 <|-- Class02
+Class03 *-- Class04
+Class05 o-- Class06
+Class07 .. Class08
+Class09 -- Class10
+@enduml
+</plantuml>
+
+<plantuml>
+@startuml
+Class11 <|.. Class12
+Class13 --> Class14
+Class15 ..> Class16
+Class17 ..|> Class18
+Class19 <--* Class20
+@enduml
+</plantuml>
+
+<plantuml>
+@startuml
+Class21 #-- Class22
+Class23 x-- Class24
+Class25 }-- Class26
+Class27 +-- Class28
+Class29 ^-- Class30
+@enduml
+</plantuml>
+
+
+
+== Label on relations
+
+
+It is possible to add a label on the relation, using `+:+`, followed
+by the text of the label.
+
+For cardinality, you can use double-quotes `+""+` on each side
+of the relation.
+
+
+<plantuml>
+@startuml
+
+Class01 "1" *-- "many" Class02 : contains
+
+Class03 o-- Class04 : aggregation
+
+Class05 --> "1" Class06
+
+@enduml
+</plantuml>
+
+You can add an extra arrow pointing at one object showing
+which object acts on the other object, using `+<+` or `+>+`
+at the begin or at the end of the label.
+
+
+<plantuml>
+@startuml
+class Car
+
+Driver - Car : drives >
+Car *- Wheel : have 4 >
+Car -- Person : < owns
+
+@enduml
+</plantuml>
+
+
+== Using non-letters in element names and relation labels
+
+
+If you want to use link::unicode[non-letters] in the class (or enum...) display name, you can either :
+* Use the `+as+` keyword in the class definition to assign an alias
+* Put quotes `+""+` around the class name
+
+<plantuml>
+@startuml
+class "This is my class" as class1
+class class2 as "It works this way too"
+
+class2 *-- "foo/dummy" : use
+@enduml
+</plantuml>
+
+If an alias is assigned to an element, the rest of the file must refer to the element by the alias instead of the name.
+
+=== Starting names with `+$+`
+Note that names starting with `+$+` cannot be hidden or removed later, because `+hide+` and `+remove+` command will consider the name a `+$tag+` instead of a component name. To later remove such elements they must have an alias or must be tagged.
+<plantuml>
+@startuml
+class $C1
+class $C2 $C2
+class "$C2" as dollarC2
+remove $C1
+remove $C2
+remove dollarC2
+@enduml
+</plantuml>
+Also note that names starting with `+$+` are valid, but to assign an alias to such element the name must be put between quotes `+""+`.
+
+
+== Adding methods
+
+To declare fields and methods, you can use the symbol
+`+:+` followed by the field's or method's name.
+
+The system checks for parenthesis to choose between methods and fields.
+
+<plantuml>
+@startuml
+Object <|-- ArrayList
+
+Object : equals()
+ArrayList : Object[] elementData
+ArrayList : size()
+
+@enduml
+</plantuml>
+
+
+It is also possible to group between brackets
+`+{}+` all fields and methods.
+
+Note that the syntax is highly flexible about type/name order.
+
+
+<plantuml>
+@startuml
+class Dummy {
+  String data
+  void methods()
+}
+
+class Flight {
+   flightNumber : Integer
+   departureTime : Date
+}
+@enduml
+</plantuml>
+
+You can use `+{field}+` and `+{method}+` modifiers to
+override default behaviour of the parser about fields and methods.
+<plantuml>
+@startuml
+class Dummy {
+  {field} A field (despite parentheses)
+  {method} Some method
+}
+
+@enduml
+</plantuml>
+
+
+
+== Defining visibility
+
+When you define methods or fields, you can use characters to define the
+visibility of the corresponding item:
+
+|===
+| Character | Icon for field | Icon for method | Visibility
+
+| `+-+`
+| image::private-field.png[]
+| image::private-method.png[]
+| `+private+`
+
+| `+#+`
+| image::protected-field.png[]
+| image::protected-method.png[]
+| `+protected+`
+
+| `+~+`
+| image::package-private-field.png[]
+| image::package-private-method.png[]
+| `+package private+`
+
+| `+++`
+| image::public-field.png[]
+| image::public-method.png[]
+| `+public+`
+
+|===
+
+<plantuml>
+@startuml
+
+class Dummy {
+ -field1
+ #field2
+ ~method1()
+ +method2()
+}
+
+@enduml
+</plantuml>
+
+
+You can turn off this feature using the `+skinparam classAttributeIconSize 0+` command :
+
+
+<plantuml>
+@startuml
+skinparam classAttributeIconSize 0
+class Dummy {
+ -field1
+ #field2
+ ~method1()
+ +method2()
+}
+
+@enduml
+</plantuml>
+
+Visibility indicators are optional and can be ommitted individualy without turning off the icons globally using `+skinparam classAttributeIconSize 0+`.
+
+<plantuml>
+@startuml
+class Dummy {
+ field1
+ field2
+ method1()
+ method2()
+}
+
+@enduml
+</plantuml>
+
+In such case if you'd like to use methods or fields that start with `+-+`, `+#+`, `+~+` or `+++` characters such as a destructor in some languages for `+Dummy+` class `+~Dummy()+`, escape the first character with a `+\+` character:
+
+
+<plantuml>
+@startuml
+class Dummy {
+ field1
+ \~Dummy()
+ method1()
+}
+
+@enduml
+</plantuml>
+
+
+== Abstract and Static
+
+
+
+You can define static or abstract methods or fields using the `+{static}+`
+or  `+{abstract}+` modifier.
+
+These modifiers can be used at the start or at the end of the line.
+You can also use `+{classifier}+` instead of `+{static}+`.
+
+<plantuml>
+@startuml
+class Dummy {
+  {static} String id
+  {abstract} void methods()
+}
+@enduml
+</plantuml>
+
+
+
+== Advanced class body
+
+
+
+By default, methods and fields are automatically regrouped by PlantUML.
+You can use separators to define your own way of ordering fields and methods.
+The following separators are possible : `+--+` `+..+` `+==+` `+__+`.
+
+You can also use titles within the separators:
+
+
+<plantuml>
+@startuml
+class Foo1 {
+  You can use
+  several lines
+  ..
+  as you want
+  and group
+  ==
+  things together.
+  __
+  You can have as many groups
+  as you want
+  --
+  End of class
+}
+
+class User {
+  .. Simple Getter ..
+  + getName()
+  + getAddress()
+  .. Some setter ..
+  + setName()
+  __ private data __
+  int age
+  -- encrypted --
+  String password
+}
+
+@enduml
+</plantuml>
+
+
+== Notes and stereotypes
+
+Stereotypes are defined with the `+class+` keyword, `+<<+` and `+>>+`.
+
+You can also define notes using `+note left of+` , `+note right of+` , `+note top of+` , `+note bottom of+`
+keywords.
+
+You can also define a note on the last defined class using `+note left+`, `+note right+`,
+`+note top+`, `+note bottom+`.
+
+A note can be also define alone with the `+note+`
+keywords, then linked to other objects using the `+..+` symbol.
+
+<plantuml>
+@startuml
+class Object << general >>
+Object <|--- ArrayList
+
+note top of Object : In java, every class\nextends this one.
+
+note "This is a floating note" as N1
+note "This note is connected\nto several objects." as N2
+Object .. N2
+N2 .. ArrayList
+
+class Foo
+note left: On last defined class
+
+@enduml
+</plantuml>
+
+
+
+== More on notes
+
+
+It is also possible to use few HTML tags (See link::creole[Creole expression]) like :
+
+* `+<b>+`
+* `+<u>+`
+* `+<i>+`
+* `+<s>+`, `+<del>+`, `+<strike>+`
+* `+<font color="#AAAAAA">+` or `+<font color="colorName">+`
+* `+<color:#AAAAAA>+` or `+<color:colorName>+`
+* `+<size:nn>+` to change font size
+* `+<img src="file">+` or `+<img:file>+`: the file must be accessible by the filesystem
+
+
+You can also have a note on several lines.
+
+You can also define a note on the last defined class using `+note left+`, `+note right+`,
+`+note top+`, `+note bottom+`.
+<plantuml>
+@startuml
+
+class Foo
+note left: On last defined class
+
+note top of Object
+  In java, <size:18>every</size> <u>class</u>
+  <b>extends</b>
+  <i>this</i> one.
+end note
+
+note as N1
+  This note is <u>also</u>
+  <b><color:royalBlue>on several</color>
+  <s>words</s> lines
+  And this is hosted by <img:sourceforge.jpg>
+end note
+
+@enduml
+</plantuml>
+
+
+== Note on field (field, attribute, member) or method
+
+
+It is possible to add a note on field (field, attribute, member) or on method.
+
+=== ⚠ Constraint
+* This cannot be used with `+top+` or `+bottom+` __(only `+left+` and `+right+` are implemented)__
+* This cannot be used with namespaceSeparator `+::+`
+
+
+=== Note on field or method
+
+<plantuml>
+@startuml
+class A {
+{static} int counter
++void {abstract} start(int timeout)
+}
+note right of A::counter
+  This member is annotated
+end note
+note right of A::start
+  This method is now explained in a UML note
+end note
+@enduml
+</plantuml>
+
+
+=== Note on method with the same name
+
+<plantuml>
+@startuml
+class A {
+{static} int counter
++void {abstract} start(int timeoutms)
++void {abstract} start(Duration timeout)
+}
+note left of A::counter
+  This member is annotated
+end note
+note right of A::"start(int timeoutms)"
+  This method with int
+end note
+note right of A::"start(Duration timeout)"
+  This method with Duration
+end note
+@enduml
+</plantuml>
+
+__[Ref. https://forum.plantuml.net/3474[QA-3474] and https://forum.plantuml.net/5835[QA-5835]]__
+
+
+== Note on links
+
+
+It is possible to add a note on a link, just after the link definition, using `+note on link+`.
+
+You can also use `+note left on link+`, `+note right on link+`, `+note top on link+`,
+`+note bottom on link+` if you want to change the relative position of the note with the label.
+
+<plantuml>
+@startuml
+
+class Dummy
+Dummy --> Foo : A link
+note on link #red: note that is red
+
+Dummy --> Foo2 : Another link
+note right on link #blue
+this is my note on right link
+and in blue
+end note
+
+@enduml
+</plantuml>
+
+
+
+== Abstract class and interface
+
+
+You can declare a class as abstract using `+abstract+` or `+abstract class+` keywords.
+
+The class will be printed in __italic__.
+
+
+You can use the `+interface+`, `+annotation+` and `+enum+` keywords too.
+
+<plantuml>
+@startuml
+
+abstract class AbstractList
+abstract AbstractCollection
+interface List
+interface Collection
+
+List <|-- AbstractList
+Collection <|-- AbstractCollection
+
+Collection <|- List
+AbstractCollection <|- AbstractList
+AbstractList <|-- ArrayList
+
+class ArrayList {
+  Object[] elementData
+  size()
+}
+
+enum TimeUnit {
+  DAYS
+  HOURS
+  MINUTES
+}
+
+annotation SuppressWarnings
+
+annotation Annotation {
+  annotation with members
+  String foo()
+  String bar()
+}
+
+
+@enduml
+</plantuml>
+
+__[Ref. 'Annotation with members' https://github.com/plantuml/plantuml/issues/458[Issue#458]]__
+
+
+== Hide attributes, methods...
+
+You can parameterize the display of classes using the `+hide/show+`
+command.
+
+The basic command is: `+hide empty members+`. This
+command will hide attributes or methods if they are empty.
+
+Instead of `+empty members+`, you can use:
+* `+empty fields+` or `+empty attributes+` for empty fields,
+* `+empty methods+` for empty methods,
+* `+fields+` or `+attributes+` which will hide fields, even if they are described,
+* `+methods+` which will hide methods, even if they are described,
+* `+members+` which will hide fields +++<u>and</u>+++ methods, even if they are described,
+* `+circle+` for the circled character in front of class name,
+* `+stereotype+` for the stereotype.
+
+You can also provide, just after the `+hide+` or `+show+`
+keyword:
+* `+class+` for all classes,
+* `+interface+` for all interfaces,
+* `+enum+` for all enums,
+* `+<<foo1>>+` for classes which are stereotyped with __foo1__,
+* an existing class name.
+
+You can use several `+show/hide+` commands to define rules and
+exceptions.
+
+<plantuml>
+@startuml
+
+class Dummy1 {
+  +myMethods()
+}
+
+class Dummy2 {
+  +hiddenMethod()
+}
+
+class Dummy3 <<Serializable>> {
+String name
+}
+
+hide members
+hide <<Serializable>> circle
+show Dummy1 methods
+show <<Serializable>> fields
+
+@enduml
+</plantuml>
+
+
+
+== Hide classes
+
+You can also use the `+show/hide+` commands to hide classes.
+
+This may be useful if you define a large link::preprocessing[!included file],
+and if you want to hide some classes after link::preprocessing[file inclusion].
+
+<plantuml>
+@startuml
+
+class Foo1
+class Foo2
+
+Foo2 *-- Foo1
+
+hide Foo2
+
+@enduml
+</plantuml>
+
+
+== Remove classes
+
+You can also use the `+remove+` commands to remove classes.
+
+This may be useful if you define a large link::preprocessing[!included file],
+and if you want to remove some classes after link::preprocessing[file inclusion].
+
+<plantuml>
+@startuml
+
+class Foo1
+class Foo2
+
+Foo2 *-- Foo1
+
+remove Foo2
+
+@enduml
+</plantuml>
+
+
+== Hide, Remove or Restore tagged element or wildcard
+
+You can put `+$tags+` (using `+$+`) on elements, then remove, hide or restore components either individually or by tags.
+
+By default, all components are displayed:
+<plantuml>
+@startuml
+class C1 $tag13
+enum E1
+interface I1 $tag13
+C1 -- I1
+@enduml
+</plantuml>
+
+But you can:
+* `+hide $tag13+` components:
+<plantuml>
+@startuml
+class C1 $tag13
+enum E1
+interface I1 $tag13
+C1 -- I1
+
+hide $tag13
+@enduml
+</plantuml>
+
+* or `+remove $tag13+` components:
+<plantuml>
+@startuml
+class C1 $tag13
+enum E1
+interface I1 $tag13
+C1 -- I1
+
+remove $tag13
+@enduml
+</plantuml>
+
+* or `+remove $tag13 and restore $tag1+` components:
+<plantuml>
+@startuml
+class C1 $tag13 $tag1
+enum E1
+interface I1 $tag13
+C1 -- I1
+
+remove $tag13
+restore $tag1
+@enduml
+</plantuml>
+
+* or `+remove * and restore $tag1+` components:
+<plantuml>
+@startuml
+class C1 $tag13 $tag1
+enum E1
+interface I1 $tag13
+C1 -- I1
+
+remove *
+restore $tag1
+@enduml
+</plantuml>
+
+
+== Hide or Remove unlinked class
+
+By default, all classes are displayed:
+<plantuml>
+@startuml
+class C1
+class C2
+class C3
+C1 -- C2
+@enduml
+</plantuml>
+
+But you can:
+* `+hide @unlinked+` classes:
+<plantuml>
+@startuml
+class C1
+class C2
+class C3
+C1 -- C2
+
+hide @unlinked
+@enduml
+</plantuml>
+
+* or `+remove @unlinked+` classes:
+<plantuml>
+@startuml
+class C1
+class C2
+class C3
+C1 -- C2
+
+remove @unlinked
+@enduml
+</plantuml>
+
+
+__[Adapted from https://forum.plantuml.net/11052[QA-11052]]__
+
+
+== Use generics
+
+
+You can also use bracket `+<+` and `+>+` to define generics usage in a class.
+
+<plantuml>
+@startuml
+
+class Foo<? extends Element> {
+  int size()
+}
+Foo *- Element
+
+@enduml
+</plantuml>
+
+It is possible to disable this drawing using `+skinparam genericDisplay old+` command.
+
+
+
+== Specific Spot
+
+Usually, a spotted character (C, I, E or A) is used for classes,
+interface, enum and abstract classes.
+
+But you can define your own spot for a class when you define the stereotype,
+adding a single character and a color, like in this example:
+
+<plantuml>
+@startuml
+
+class System << (S,#FF7700) Singleton >>
+class Date << (D,orchid) >>
+@enduml
+</plantuml>
+
+
+
+== Packages
+
+You can define a package using the
+`+package+` keyword, and optionally declare a background color
+for your package (Using a html color code or name).
+
+Note that package definitions can be nested.
+
+<plantuml>
+@startuml
+
+package "Classic Collections" #DDDDDD {
+  Object <|-- ArrayList
+}
+
+package net.sourceforge.plantuml {
+  Object <|-- Demo1
+  Demo1 *- Demo2
+}
+
+@enduml
+</plantuml>
+
+
+
+== Packages style
+
+
+
+There are different styles available for packages.
+
+You can specify them either by setting a default style with the command : `+skinparam packageStyle+`,
+or by using a stereotype on the package:
+
+<plantuml>
+@startuml
+scale 750 width
+package foo1 <<Node>> {
+  class Class1
+}
+
+package foo2 <<Rectangle>> {
+  class Class2
+}
+
+package foo3 <<Folder>> {
+  class Class3
+}
+
+package foo4 <<Frame>> {
+  class Class4
+}
+
+package foo5 <<Cloud>> {
+  class Class5
+}
+
+package foo6 <<Database>> {
+  class Class6
+}
+
+@enduml
+</plantuml>
+
+
+You can also define links between packages, like in the following
+example:
+
+<plantuml>
+@startuml
+
+skinparam packageStyle rectangle
+
+package foo1.foo2 {
+}
+
+package foo1.foo2.foo3 {
+  class Object
+}
+
+foo1.foo2 +-- foo1.foo2.foo3
+
+@enduml
+</plantuml>
+
+
+
+== Namespaces
+
+In packages, the name of a class is the unique identifier of this class.
+It means that you cannot have two classes with the very same name in
+different packages.
+
+In that case, you should use http://en.wikipedia.org/wiki/Namespace_%28computer_science%29[namespaces]
+instead of packages.
+
+You can refer to classes from other namespaces by fully qualify
+them. Classes from the default namespace are qualified with a starting
+dot.
+
+Note that you don't have to explicitly create namespace : a fully
+qualified class is automatically put in the right namespace.
+
+<plantuml>
+@startuml
+
+class BaseClass
+
+namespace net.dummy #DDDDDD {
+    .BaseClass <|-- Person
+    Meeting o-- Person
+
+    .BaseClass <|- Meeting
+}
+
+namespace net.foo {
+  net.dummy.Person  <|- Person
+  .BaseClass <|-- Person
+
+  net.dummy.Meeting o-- Person
+}
+
+BaseClass <|-- net.unused.Person
+
+@enduml
+</plantuml>
+
+
+
+== Automatic namespace creation
+
+
+
+You can define another separator (other than the dot) using
+the command : `+set namespaceSeparator ???+`.
+
+<plantuml>
+@startuml
+
+set namespaceSeparator ::
+class X1::X2::foo {
+  some info
+}
+
+@enduml
+</plantuml>
+
+You can disable automatic namespace creation using the command
+`+set namespaceSeparator none+`.
+
+<plantuml>
+@startuml
+
+set namespaceSeparator none
+class X1.X2.foo {
+  some info
+}
+
+@enduml
+</plantuml>
+
+
+== Lollipop interface
+
+
+You can also define lollipops interface on classes, using the following
+syntax:
+* `+bar ()- foo+`
+* `+bar ()-- foo+`
+* `+foo -() bar+`
+
+<plantuml>
+@startuml
+class foo
+bar ()- foo
+@enduml
+</plantuml>
+
+
+
+== Changing arrows orientation
+
+By default, links between classes have two dashes `+--+` and are vertically oriented.
+It is possible to use horizontal link by putting a single dash (or dot) like this:
+
+<plantuml>
+@startuml
+Room o- Student
+Room *-- Chair
+@enduml
+</plantuml>
+
+You can also change directions by reversing the link:
+
+<plantuml>
+@startuml
+Student -o Room
+Chair --* Room
+@enduml
+</plantuml>
+
+It is also possible to change arrow direction by adding `+left+`, `+right+`, `+up+`
+or `+down+` keywords inside the arrow:
+
+<plantuml>
+@startuml
+foo -left-> dummyLeft
+foo -right-> dummyRight
+foo -up-> dummyUp
+foo -down-> dummyDown
+@enduml
+</plantuml>
+
+You can shorten the arrow by using only the first character of the direction (for example, `+-d-+` instead of
+`+-down-+`)
+or the two first characters (`+-do-+`).
+
+Please note that you should not abuse this functionality : __Graphviz__ gives usually good results without tweaking.
+
+And with the link::use-case-diagram#d551e48d272b2b07[`+left to right direction+`] parameter: 
+<plantuml>
+@startuml
+left to right direction
+foo -left-> dummyLeft
+foo -right-> dummyRight
+foo -up-> dummyUp
+foo -down-> dummyDown
+@enduml
+</plantuml>
+
+
+== Association classes
+
+You can define __association class__ after that a relation has been
+defined between two classes, like in this example:
+<plantuml>
+@startuml
+class Student {
+  Name
+}
+Student "0..*" - "1..*" Course
+(Student, Course) .. Enrollment
+
+class Enrollment {
+  drop()
+  cancel()
+}
+@enduml
+</plantuml>
+
+You can define it in another direction:
+
+<plantuml>
+@startuml
+class Student {
+  Name
+}
+Student "0..*" -- "1..*" Course
+(Student, Course) . Enrollment
+
+class Enrollment {
+  drop()
+  cancel()
+}
+@enduml
+</plantuml>
+
+
+
+== Association on same class
+
+<plantuml>
+@startuml
+class Station {
+    +name: string
+}
+
+class StationCrossing {
+    +cost: TimeInterval
+}
+
+<> diamond
+
+StationCrossing . diamond
+diamond - "from 0..*" Station
+diamond - "to 0..* " Station
+@enduml
+</plantuml>
+
+__[Ref. http://wiki.plantuml.net/site/incubation#associations[Incubation: Associations]]__
+
+
+== Skinparam
+
+
+
+You can use the link::skinparam[skinparam]
+command to change colors and fonts for the drawing.
+
+You can use this command :
+* In the diagram definition, like any other commands,
+* In an link::preprocessing[included file],
+* In a configuration file, provided in the link::command-line[command line] or the link::ant-task[ANT task].
+
+<plantuml>
+@startuml
+
+skinparam class {
+BackgroundColor PaleGreen
+ArrowColor SeaGreen
+BorderColor SpringGreen
+}
+skinparam stereotypeCBackgroundColor YellowGreen
+
+Class01 "1" *-- "many" Class02 : contains
+
+Class03 o-- Class04 : aggregation
+
+@enduml
+</plantuml>
+
+
+
+== Skinned Stereotypes
+
+
+You can define specific color and fonts for stereotyped classes.
+
+<plantuml>
+@startuml
+
+skinparam class {
+BackgroundColor PaleGreen
+ArrowColor SeaGreen
+BorderColor SpringGreen
+BackgroundColor<<Foo>> Wheat
+BorderColor<<Foo>> Tomato
+}
+skinparam stereotypeCBackgroundColor YellowGreen
+skinparam stereotypeCBackgroundColor<< Foo >> DimGray
+
+Class01 <<Foo>>
+Class03 <<Foo>>
+Class01 "1" *-- "many" Class02 : contains
+
+Class03 o-- Class04 : aggregation
+
+@enduml
+</plantuml>
+
+
+
+== Color gradient
+
+You can declare individual colors for classes, notes etc using the # notation.
+
+You can use standard color names or RGB codes in various notations, see link::color[Colors].
+
+You can also use color gradient for background colors, with the following syntax:
+two colors names separated either by:
+* `+|+`,
+* `+/+`,
+* `+\+`, or 
+* `+-+`
+depending on the direction of the gradient.
+
+For example:
+
+<plantuml>
+@startuml
+
+skinparam backgroundcolor AntiqueWhite/Gold
+skinparam classBackgroundColor Wheat|CornflowerBlue
+
+class Foo #red-green
+note left of Foo #blue\9932CC
+  this is my
+  note on this class
+end note
+
+package example #GreenYellow/LightGoldenRodYellow {
+  class Dummy
+}
+
+@enduml
+</plantuml>
+
+
+== Help on layout
+
+
+Sometimes, the default layout is not perfect...
+
+You can use `+together+` keyword to group some classes together :
+the layout engine will try to group them (as if they were in the same package).
+
+You can also use `+hidden+` links to force the layout.
+<plantuml>
+@startuml
+
+class Bar1
+class Bar2
+together {
+  class Together1
+  class Together2
+  class Together3
+}
+Together1 - Together2
+Together2 - Together3
+Together2 -[hidden]--> Bar1
+Bar1 -[hidden]> Bar2
+
+
+@enduml
+</plantuml>
+
+
+
+
+
+== Splitting large files
+
+Sometimes, you will get some very large image files.
+
+You can use the `+page (hpages)x(vpages)+` command to split the generated image into several files :
+
+`+hpages+` is a number that indicated the number of horizontal pages,
+and `+vpages+` is a number that indicated the number of vertical pages.
+
+You can also use some specific skinparam settings to put borders on splitted pages (see example).
+
+<plantuml>
+@startuml
+' Split into 4 pages
+page 2x2
+skinparam pageMargin 10
+skinparam pageExternalColor gray
+skinparam pageBorderColor black
+
+class BaseClass
+
+namespace net.dummy #DDDDDD {
+    .BaseClass <|-- Person
+    Meeting o-- Person
+
+    .BaseClass <|- Meeting
+
+}
+
+namespace net.foo {
+  net.dummy.Person  <|- Person
+  .BaseClass <|-- Person
+
+  net.dummy.Meeting o-- Person
+}
+
+BaseClass <|-- net.unused.Person
+@enduml
+</plantuml>
+
+
+
+
+== Extends and implements
+
+It is also possible to use `+extends+` and `+implements+` keywords.
+<plantuml>
+@startuml
+class ArrayList implements List
+class ArrayList extends AbstractList
+@enduml
+</plantuml>
+
+
+== Bracketed relations (linking or arrow) style 
+
+=== Line style
+It's also possible to have explicitly `+bold+`, `+dashed+`, `+dotted+`, `+hidden+` or `+plain+` relation, links or arrows: +
+
+* without label
+
+<plantuml>
+@startuml
+title Bracketed line style without label
+class foo
+class bar
+bar1 : [bold]  
+bar2 : [dashed]
+bar3 : [dotted]
+bar4 : [hidden]
+bar5 : [plain] 
+
+foo --> bar
+foo -[bold]-> bar1
+foo -[dashed]-> bar2
+foo -[dotted]-> bar3
+foo -[hidden]-> bar4
+foo -[plain]-> bar5
+@enduml
+</plantuml>
+
+* with label
+
+<plantuml>
+@startuml
+title Bracketed line style with label
+class foo
+class bar
+bar1 : [bold]  
+bar2 : [dashed]
+bar3 : [dotted]
+bar4 : [hidden]
+bar5 : [plain] 
+
+foo --> bar          : ∅
+foo -[bold]-> bar1   : [bold]
+foo -[dashed]-> bar2 : [dashed]
+foo -[dotted]-> bar3 : [dotted]
+foo -[hidden]-> bar4 : [hidden]
+foo -[plain]-> bar5  : [plain]
+
+@enduml
+</plantuml>
+
+__[Adapted from https://forum.plantuml.net/4181/how-change-width-line-in-a-relationship-between-two-classes?show=4232#a4232[QA-4181]]__
+
+=== Line color
+
+<plantuml>
+@startuml
+title Bracketed line color
+class foo
+class bar
+bar1 : [#red]
+bar2 : [#green]
+bar3 : [#blue]
+
+foo --> bar
+foo -[#red]-> bar1     : [#red]
+foo -[#green]-> bar2   : [#green]
+foo -[#blue]-> bar3    : [#blue]
+'foo -[#blue;#yellow;#green]-> bar4
+@enduml
+</plantuml>
+
+=== Line thickness
+
+<plantuml>
+@startuml
+title Bracketed line thickness
+class foo
+class bar
+bar1 : [thickness=1]
+bar2 : [thickness=2]
+bar3 : [thickness=4]
+bar4 : [thickness=8]
+bar5 : [thickness=16]
+
+foo --> bar                 : ∅
+foo -[thickness=1]-> bar1   : [1]
+foo -[thickness=2]-> bar2   : [2]
+foo -[thickness=4]-> bar3   : [4]
+foo -[thickness=8]-> bar4   : [8]
+foo -[thickness=16]-> bar5  : [16]
+
+@enduml
+</plantuml>
+
+__[Ref. https://forum.plantuml.net/4949[QA-4949]]__
+
+=== Mix
+<plantuml>
+@startuml
+title Bracketed line style mix
+class foo
+class bar
+bar1 : [#red,thickness=1]
+bar2 : [#red,dashed,thickness=2]
+bar3 : [#green,dashed,thickness=4]
+bar4 : [#blue,dotted,thickness=8]
+bar5 : [#blue,plain,thickness=16]
+
+foo --> bar                             : ∅
+foo -[#red,thickness=1]-> bar1          : [#red,1]
+foo -[#red,dashed,thickness=2]-> bar2   : [#red,dashed,2]
+foo -[#green,dashed,thickness=4]-> bar3 : [#green,dashed,4]
+foo -[#blue,dotted,thickness=8]-> bar4  : [blue,dotted,8]
+foo -[#blue,plain,thickness=16]-> bar5  : [blue,plain,16]
+@enduml
+</plantuml>
+
+
+== Change relation (linking or arrow) color and style (inline style)
+
+You can change the link::color[color] or style of individual relation or arrows using the inline following notation:
+
+* `+#color;line.[bold|dashed|dotted];text:color+`
+
+<plantuml>
+@startuml
+class foo
+foo --> bar : normal
+foo --> bar1 #line:red;line.bold;text:red  : red bold
+foo --> bar2 #green;line.dashed;text:green : green dashed
+foo --> bar3 #blue;line.dotted;text:blue   : blue dotted
+@enduml
+</plantuml>
+
+__[See similar feature on link::deployment-diagram#0b2e57c3d4eafdda[deployment]]__
+
+
+== Change class color and style (inline style)
+
+You can change the link::color[color] or style of individual class using the two following notations: 
+
+* `+#color ##[style]color+` 
+
+With background color first (`+#color+`), then line style and line color (`+##[style]color+` )
+<plantuml>
+@startuml
+abstract   abstract
+annotation annotation #pink ##[bold]red
+class      class      #palegreen ##[dashed]green
+interface  interface  #aliceblue ##[dotted]blue
+@enduml
+</plantuml>
+
+__[Ref. https://forum.plantuml.net/1487[QA-1487]]__
+
+* `+#[color|back:color];header:color;line:color;line.[bold|dashed|dotted];text:color+`
+
+<plantuml>
+@startuml
+abstract   abstract
+annotation annotation #pink;line:red;line.bold;text:red
+class      class      #palegreen;line:green;line.dashed;text:green
+interface  interface  #aliceblue;line:blue;line.dotted;text:blue
+@enduml
+</plantuml>
+
+First original example:
+<plantuml>
+@startuml
+class bar #line:green;back:lightblue
+class bar2 #lightblue;line:green
+
+class Foo1 #back:red;line:00FFFF
+class FooDashed #line.dashed:blue
+class FooDotted #line.dotted:blue
+class FooBold #line.bold
+class Demo1 #back:lightgreen|yellow;header:blue/red
+@enduml
+</plantuml>
+
+__[Ref. https://forum.plantuml.net/3770[QA-3770]]__
+
+
+== Arrows from/to class members
+
+<plantuml>
+@startuml
+class Foo {
++ field1
++ field2
+}
+
+class Bar {
++ field3
++ field4
+}
+
+Foo::field1 --> Bar::field3 : foo
+Foo::field2 --> Bar::field4 : bar
+@enduml
+</plantuml>
+
+__[Ref. https://forum.plantuml.net/3636[QA-3636]]__
+
+
+<plantuml>
+@startuml
+left to right direction
+
+class User {
+  id : INTEGER
+  ..
+  other_id : INTEGER
+}
+
+class Email {
+  id : INTEGER
+  ..
+  user_id : INTEGER
+  address : INTEGER
+}
+
+User::id *-- Email::user_id
+@enduml
+</plantuml>
+
+__[Ref. https://forum.plantuml.net/5261[QA-5261]]__
+
+
+== Grouping inheritance arrow heads
+
+You can merge all arrow heads using the `+skinparam groupInheritance+`, with a threshold as parameter.
+
+=== GroupInheritance 1 (no grouping)
+<plantuml>
+@startuml
+skinparam groupInheritance 1
+
+A1 <|-- B1
+
+A2 <|-- B2
+A2 <|-- C2
+
+A3 <|-- B3
+A3 <|-- C3
+A3 <|-- D3
+
+A4 <|-- B4
+A4 <|-- C4
+A4 <|-- D4
+A4 <|-- E4
+@enduml
+</plantuml>
+
+=== GroupInheritance 2 (grouping from 2)
+<plantuml>
+@startuml
+skinparam groupInheritance 2
+
+A1 <|-- B1
+
+A2 <|-- B2
+A2 <|-- C2
+
+A3 <|-- B3
+A3 <|-- C3
+A3 <|-- D3
+
+A4 <|-- B4
+A4 <|-- C4
+A4 <|-- D4
+A4 <|-- E4
+@enduml
+</plantuml>
+
+=== GroupInheritance 3 (grouping only from 3)
+<plantuml>
+@startuml
+skinparam groupInheritance 3
+
+A1 <|-- B1
+
+A2 <|-- B2
+A2 <|-- C2
+
+A3 <|-- B3
+A3 <|-- C3
+A3 <|-- D3
+
+A4 <|-- B4
+A4 <|-- C4
+A4 <|-- D4
+A4 <|-- E4
+@enduml
+</plantuml>
+
+=== GroupInheritance 4 (grouping only from 4)
+<plantuml>
+@startuml
+skinparam groupInheritance 4
+
+A1 <|-- B1
+
+A2 <|-- B2
+A2 <|-- C2
+
+A3 <|-- B3
+A3 <|-- C3
+A3 <|-- D3
+
+A4 <|-- B4
+A4 <|-- C4
+A4 <|-- D4
+A4 <|-- E4
+@enduml
+</plantuml>
+
+__[Ref. https://forum.plantuml.net/3193/grouping-inheritance-arrow-ends[QA-3193], and Defect https://forum.plantuml.net/13532/groupinheritance-bug[QA-13532]]__
+
+
+== Display JSON Data on Class or Object diagram
+
+=== Simple example
+<plantuml>
+@startuml
+class Class
+object Object
+json JSON {
+   "fruit":"Apple",
+   "size":"Large",
+   "color": ["Red", "Green"]
+}
+@enduml
+</plantuml>
+
+__[Ref. https://forum.plantuml.net/15481/possible-link-elements-from-two-jsons-with-both-jsons-embeded?show=15567#c15567[QA-15481]]__
+
+For another example, see on link::json#jinnkhaa7d65l0fkhfec[JSON page].
+
+

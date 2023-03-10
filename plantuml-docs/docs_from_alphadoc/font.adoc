@@ -1,0 +1,41 @@
+== Font
+To know fonts available on your system, you may use the following special syntax:
+
+<plantuml>
+@startuml
+listfonts
+@enduml
+</plantuml>
+
+You can also add an optional sentence to be displayed:
+
+<plantuml>
+@startuml
+listfonts 私は申し訳ありません：私は日本語を話さない。
+@enduml
+</plantuml>
+
+
+
+
+== Examples
+Those fontname can be used in any UML diagrams.
+
+<plantuml>
+@startuml
+skinparam defaultFontName Segoe UI
+Room *-- Chair : "1" has "several"
+@enduml
+</plantuml>
+
+<plantuml>
+@startuml
+skinparam defaultFontName VL Gothic
+部屋 *-- 椅子 : "1" 持っています "いくつか"
+@enduml
+</plantuml>
+
+You can also change font using link::skinparam[skinparam command].
+
+
+

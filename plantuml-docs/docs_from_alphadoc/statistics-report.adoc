@@ -1,0 +1,76 @@
+== Enable statistics
+By default, statistics generation is __disabled__ in PlantUML. If you want to enable statistic generation, you can either:
+* Use `+-enablestats+` flag in the link::command-line[command line]
+* Use `+enablestats="true"+` setting with the link::ant-task[ANT task]
+* Globally set the environment variable `+PLANTUML_STATS+` to `+true+`
+* Call `+OptionFlags.getInstance().setEnableStats(true)+` from your Java code
+Thoses statistics are very general. The goal is to measure PlantUML usage and performance and not to spy on users.
+When statistics generation is on, a message is printed within the license to inform users about this.
+(`+@startuml/license/@enduml+`).
+
+
+
+== Statistics Report
+You can generate statistics about your PlantUML usage either at XML or HTML format.
+
+To do so, you can add `+-xmlstats+` or `+-htmlstats+` flag in the link::command-line[command line].
+A file __plantuml-stats.xml__ or __plantuml-stats.html__ will be written at the end of the process:
+
+image::stats2.png[]
+
+If you want to generate statistics on the fly (rather than at the end of the process), you can use the flag `+-realtimestats+`.
+
+There is also a `+-loopstats+` flag in the command line that continuously prints to the console statistics about diagram generations.
+This could be useful if you have some background daemon running PlantUML.
+
+Some of those options are also available with the link::ant-task[ANT task].
+
+
+== Java Integration API
+If you use PlantUML as a library, you can use the `+StatsUtils.getStats()+` methods that return a `+Stats+` object with all datas.
+
+You can retrieve it to use it as you wish.
+
+Here is a short class diagram about this API:
+
+<plantuml>
+@startuml
+class StatsUtil {
+{static} +Stats getStats()
+}
+interface Stats {
++StatsTable getLastSessions()
++StatsTable getCurrentSessionByDiagramType()
++StatsTable getCurrentSessionByFormat()
++StatsTable getAllByDiagramType()
++StatsTable getAllByFormat()
+}
+StatsUtil -> Stats: build
+Stats o--> "5" StatsTable: contains
+enum StatsColumn {
+SESSION_ID
+VERSION
+PARSED_COUNT
+...
+}
+interface StatsTable {
++ Collection<StatsColumn> getColumnHeaders()
++ List<StatsLine> getLines()
+}
+StatsTable o-> StatsColumn: headers
+StatsTable *--> StatsLine: contains
+interface StatsLine {
+}
+interface StatsLine {
++Collection<StatsColumn> getColumnHeaders()
++Object getValue(StatsColumn column)
+}
+StatsLine o--> StatsColumn: headers
+@enduml
+</plantuml>
+
+__Implementation note:__ The storage of historical data are provided through the
+http://docs.oracle.com/javase/7/docs/technotes/guides/preferences/overview.html[Preference API].
+
+
+

@@ -1,0 +1,108 @@
+== BasicAuth configuration
+
+A BasicAuth credentials configuration file must be stored in the folder configured by the property `+plantuml.security.credentials.path+`. The file extension is `+.credential+`, the file content is structured in JSON, the charset encoding is UTF-8, the filename must match the UserInfo part of the URL.
+
+See also:
+* link::url-oauth[OAuth2 configuration]
+* link::url-tokenauth[Token Auth configuration]
+* link::url-authentication[General URL authentication documentation]
+
+**Flow**
+
+
+[plantuml]
+----
+@startuml
+PlantUML -> Service : call service URL\n(with Authorization BasicAuth)
+Service -> AuthServer : validates credentials
+note right: Maybe internal check w/o AuthServer
+Service <- AuthServer: ok
+Service -> PlantUML : response with content
+@enduml
+----
+
+
+**BasicAuth JSON structure:**
+----
+{
+  "name": "<name of the configuration>",
+  "type": "basicauth",
+  "identifier": "<client/user identifier>",
+  "secret": "<client secret>",
+  "proxy": {
+    "type": "<proxy type>",
+    "address": "<proxy server address>",
+    "port": "<proxy server port>"
+  }
+}
+----
+[plantuml]
+----
+@startjson
+<style>
+highlight {
+  BackgroundColor: silver;
+}
+</style>
+#highlight "name"
+#highlight "identifier"
+#highlight "proxy" / "type"
+#highlight "proxy" / "address"
+{
+  "name": "<name of the configuration>",
+  "type": "**basicauth**",
+  "identifier": "<client/user identifier>",
+  "secret": "<client secret>",
+  "proxy": {
+    "type": "<proxy type>",
+    "address": "<proxy server address>",
+    "port": "<proxy server port>"
+  }
+}
+@endjson
+----
+
+
+* `+name+`: **required** 
+** The name of the configuration and should be similar to the file name
+* `+type+`: `+basicauth+`
+** Defines the basicauth method (can be omitted)
+* `+identifier+`: **required**
+** Identifier for a client or user
+* `+secret+`: 
+** Secret for the identifier in clear text (not encrypted)
+a set of key-value pairs.
+* `+proxy+`: 
+** Optional proxy configuration (overrides system proxy settings)
+* `+proxy+`.`+type+`: **required** (`+direct+`, `+socks+`, `+http+`)
+** Proxy type definition.
+* `+proxy+`.`+address+`: **required**
+** Proxy server address (hostname, IP address)
+* `+proxy+`.`+port+`:
+** Proxy server port number
+
+**Examples**
+
+----
+{
+  "name": "jira",
+  "identifier": "alice",
+  "secret": "secret"
+}
+----
+
+----
+{
+  "name": "stash-cloud",
+  "type": "basicauth",
+  "identifier": "repoadmin",
+  "secret": "verySecret",
+  "proxy": {
+    "type": "socks",
+    "address": "outboundcloud.int.example.com",
+    "port": "8091"
+  }
+}
+----
+
+

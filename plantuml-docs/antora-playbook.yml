@@ -1,0 +1,23 @@
+site:
+  title: PlantUML Alternative Docs
+  start_page: docs::index.adoc
+  robots: disallow 
+  # keys:
+  #   google_analytics: XX-123456 
+  # url: https://plantuml.github.io/plantuml-alternative-docs/
+content:
+  sources:
+  - url: ..
+    branches: HEAD
+    start_path: plantuml-docs
+ui:
+  bundle:
+    url: _antora/ui-bundle.zip
+    snapshot: true
+  supplemental_files: _antora/supplemental-ui
+antora:
+  extensions:
+    - require: '@antora/lunr-extension'
+asciidoc:
+  extensions:
+    - ./_asciidoc/extensions/plantuml-source-block.js

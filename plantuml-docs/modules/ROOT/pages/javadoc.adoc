@@ -1,0 +1,48 @@
+== New Doclet
+A new enhanced doclet (written by Gerald Boersma) is now available.
+
+It has much more option than the legacy previous one.
+
+You will find https://github.com/gboersma/uml-java-doclet[detailed instructions here.]
+
+
+
+== Legacy Javadoc
+When the javadoc tools build the documentation, it copies all files
+included in the `+doc-files+` directory to the javadoc . (see http://www.oracle.com/technetwork/java/javase/documentation/index-137868.html[How to Write Doc Comments for the Javadoc Tool]).
+
+You can take advantage of this feature like this:
+
+----
+package net.demo1;
+/**
+* Demonstration for PlantUML.
+* <p>
+* Example of use:
+* <p>
+* <img src="doc-files/image1.png">
+*/
+/*
+* @startuml doc-files/image1.png
+* Bob -> Alice : hello
+* Alice --> Bob : OK
+* @enduml
+*/
+public class Demo1 {
+
+}
+----
+
+If you run **PlantUML** before the Javadoc, it will generate `+image1.png+`
+in the directory `+doc-files+` .
+
+Then, when you launch the Javadoc tool, you will have the following result:
+
+image::javadoc01.png[]
+
+Note that the definition of the image itself is in a non-javadoc
+comment, so that it is not exported to HTML.
+
+As you can see, adding UML diagrams into java documentation is now really easy.
+
+

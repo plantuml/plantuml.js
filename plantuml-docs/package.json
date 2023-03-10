@@ -1,0 +1,30 @@
+{
+  "name": "plantuml-alternative-docs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx antora antora-playbook.yml",
+    "fetchDocsFromAlphadoc": "node fetchDocsFromAlphadoc.mjs",
+    "processAntoraDocsComponent": "node processAntoraDocsComponent.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sakirtemel/plantuml-alternative-docs.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sakirtemel/plantuml-alternative-docs/issues"
+  },
+  "homepage": "https://github.com/sakirtemel/plantuml-alternative-docs#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12"
+  },
+  "devDependencies": {
+    "@antora/cli": "3.1.2",
+    "@antora/lunr-extension": "^1.0.0-alpha.8",
+    "@antora/site-generator": "3.1.2",
+    "plantuml-encoder": "^1.4.0"
+  }
+}

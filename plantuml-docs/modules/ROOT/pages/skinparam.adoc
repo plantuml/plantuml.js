@@ -1,0 +1,440 @@
+== Skinparam command
+
+You can change colors and font of the drawing using the `+skinparam+` command.
+
++++<u>Example</u>+++:
+
+----
+skinparam backgroundColor transparent
+----
+
+
+
+== Usage
+You can use this command :
+* In the diagram definition, like any other commands,
+* In an link::preprocessing[included file],
+* In a configuration file, provided in the link::command-line[command line] or the link::ant-task[ANT task].
+
+
+
+== Nested
+
+
+To avoid repetition, it is possible to nest definition. So the following definition :
+
+----
+skinparam xxxxParam1 value1
+skinparam xxxxParam2 value2
+skinparam xxxxParam3 value3
+skinparam xxxxParam4 value4
+----
+
+is strictly equivalent to:
+
+----
+skinparam xxxx {
+    Param1 value1
+    Param2 value2
+    Param3 value3
+    Param4 value4
+}
+----
+
+
+
+== Black and White
+
+You can force the use of a black&white output using `+skinparam monochrome true+` command.
+
+[plantuml]
+----
+@startuml
+
+skinparam monochrome true
+
+actor User
+participant "First Class" as A
+participant "Second Class" as B
+participant "Last Class" as C
+
+User -> A: DoWork
+activate A
+
+A -> B: Create Request
+activate B
+
+B -> C: DoWork
+activate C
+C --> B: WorkDone
+destroy C
+
+B --> A: Request Created
+deactivate B
+
+A --> User: Done
+deactivate A
+
+@enduml
+----
+
+
+
+== Shadowing
+
+You can disable the shadowing using the `+skinparam shadowing false+` command.
+
+[plantuml]
+----
+@startuml
+
+left to right direction
+
+skinparam shadowing<<no_shadow>> false
+skinparam shadowing<<with_shadow>> true
+
+actor User
+(Glowing use case) <<with_shadow>> as guc
+(Flat use case) <<no_shadow>> as fuc
+User -- guc
+User -- fuc
+
+@enduml
+----
+
+
+
+== Reverse colors
+
+You can force the use of a black&white output using `+skinparam monochrome reverse+` command.
+This can be useful for black background environment.
+
+[plantuml]
+----
+@startuml
+
+skinparam monochrome reverse
+
+actor User
+participant "First Class" as A
+participant "Second Class" as B
+participant "Last Class" as C
+
+User -> A: DoWork
+activate A
+
+A -> B: Create Request
+activate B
+
+B -> C: DoWork
+activate C
+C --> B: WorkDone
+destroy C
+
+B --> A: Request Created
+deactivate B
+
+A --> User: Done
+deactivate A
+
+@enduml
+----
+
+
+
+
+== Colors
+
+You can use either link::color[standard color name] or RGB code.
+
+[plantuml]
+----
+@startuml
+colors
+@enduml
+----
+
+`+transparent+` can only be used for background of the image.
+
+
+
+
+== Font color, name and size
+
+
+You can change the font for the drawing using `+xxxFontColor+`,
+`+xxxFontSize+` and `+xxxFontName+` parameters.
+
++++<u>Example:</u>+++
+
+----
+skinparam classFontColor red
+skinparam classFontSize 10
+skinparam classFontName Aapex
+----
+
+You can also change the default font for all fonts using `+skinparam defaultFontName+`.
+
++++<u>Example:</u>+++
+----
+skinparam defaultFontName Aapex
+----
+
+Please note the fontname is highly system dependent, so do not
+over use it, if you look for portability. `+Helvetica+` and `+Courier+`
+should be available on all systems.
+
+A lot of parameters are available. You can list them using the following command:
+----
+java -jar plantuml.jar -language
+----
+
+
+== Text Alignment
+
+Text alignment can be set to `+left+`, `+right+` or `+center+` in `+skinparam sequenceMessageAlign+`.
+You can also use `+direction+` or `+reverseDirection+` values to align text depending on arrow direction.
+
+|===
+| Param name | Default value | Comment
+
+| sequenceMessageAlign
+| left
+| Used for messages in sequence diagrams
+
+| sequenceReferenceAlign
+| center
+| Used for `+ref over+` in sequence diagrams
+
+|===
+
+[plantuml]
+----
+@startuml
+skinparam sequenceMessageAlign center
+Alice -> Bob : Hi
+Bob -> Alice : This is very long
+@enduml
+----
+
+[plantuml]
+----
+@startuml
+skinparam sequenceMessageAlign right
+Alice -> Bob : Hi
+Bob -> Alice : This is very long
+@enduml
+----
+
+[plantuml]
+----
+@startuml
+skinparam sequenceMessageAlign direction
+Alice -> Bob : Hi
+Bob -> Alice: Hi
+@enduml
+----
+
+
+== Examples
+
+[plantuml]
+----
+@startuml
+skinparam backgroundColor #EEEBDC
+skinparam handwritten true
+
+skinparam sequence {
+ArrowColor DeepSkyBlue
+ActorBorderColor DeepSkyBlue
+LifeLineBorderColor blue
+LifeLineBackgroundColor #A9DCDF
+
+ParticipantBorderColor DeepSkyBlue
+ParticipantBackgroundColor DodgerBlue
+ParticipantFontName Impact
+ParticipantFontSize 17
+ParticipantFontColor #A9DCDF
+
+ActorBackgroundColor aqua
+ActorFontColor DeepSkyBlue
+ActorFontSize 17
+ActorFontName Aapex
+}
+
+actor User
+participant "First Class" as A
+participant "Second Class" as B
+participant "Last Class" as C
+
+User -> A: DoWork
+activate A
+
+A -> B: Create Request
+activate B
+
+B -> C: DoWork
+activate C
+C --> B: WorkDone
+destroy C
+
+B --> A: Request Created
+deactivate B
+
+A --> User: Done
+deactivate A
+@enduml
+----
+
+
+[plantuml]
+----
+@startuml
+skinparam handwritten true
+
+skinparam actor {
+BorderColor black
+FontName Courier
+        BackgroundColor<< Human >> Gold
+}
+
+skinparam usecase {
+BackgroundColor DarkSeaGreen
+BorderColor DarkSlateGray
+
+BackgroundColor<< Main >> YellowGreen
+BorderColor<< Main >> YellowGreen
+
+ArrowColor Olive
+}
+
+User << Human >>
+:Main Database: as MySql << Application >>
+(Start) << One Shot >>
+(Use the application) as (Use) << Main >>
+
+User -> (Start)
+User --> (Use)
+
+MySql --> (Use)
+@enduml
+----
+
+
+
+[plantuml]
+----
+@startuml
+skinparam roundcorner 20
+skinparam class {
+BackgroundColor PaleGreen
+ArrowColor SeaGreen
+BorderColor SpringGreen
+}
+skinparam stereotypeCBackgroundColor YellowGreen
+
+Class01 "1" *-- "many" Class02 : contains
+
+Class03 o-- Class04 : aggregation
+@enduml
+----
+
+
+[plantuml]
+----
+@startuml
+skinparam interface {
+  backgroundColor RosyBrown
+  borderColor orange
+}
+
+skinparam component {
+  FontSize 13
+  BackgroundColor<<Apache>> LightCoral
+  BorderColor<<Apache>> #FF6655
+  FontName Courier
+  BorderColor black
+  BackgroundColor gold
+  ArrowFontName Impact
+  ArrowColor #FF6655
+  ArrowFontColor #777777
+}
+
+() "Data Access" as DA
+[Web Server] << Apache >>
+
+DA - [First Component]
+[First Component] ..> () HTTP : use
+HTTP - [Web Server]
+@enduml
+----
+
+
+[plantuml]
+----
+@startuml
+[AA] <<static lib>>
+[BB] <<shared lib>>
+[CC] <<static lib>>
+
+node node1
+node node2 <<shared node>>
+database Production
+
+skinparam component {
+    backgroundColor<<static lib>> DarkKhaki
+    backgroundColor<<shared lib>> Green
+}
+
+skinparam node {
+borderColor Green
+backgroundColor Yellow
+backgroundColor<<shared node>> Magenta
+}
+skinparam databaseBackgroundColor Aqua
+@enduml
+----
+
+
+== List of all skinparam parameters
+
+You can use `+-language+` on the command line or generate a "diagram" with a list of all the skinparam parameters using :
+* `+help skinparams+`
+* `+skinparameters+`
+
+
+=== Command Line: -language command
+
+Since the documentation is not always up to date, you can have the complete list of parameters using this command:
+
+----
+java -jar plantuml.jar -language
+----
+
+=== Command: help skinparams 
+
+That will give you the following result, from this page __(code of this command)__: https://github.com/plantuml/plantuml/blob/master/src/net/sourceforge/plantuml/help/CommandHelpSkinparam.java[CommandHelpSkinparam.java]
+
+[plantuml]
+----
+@startuml
+help skinparams
+@enduml
+----
+
+
+=== Command: skinparameters 
+[plantuml]
+----
+@startuml
+skinparameters 
+@enduml
+----
+
+
+=== All Skin Parameters on the Ashley's PlantUML Doc
+
+You can also view each skinparam parameters with its results displayed at the page https://plantuml-documentation.readthedocs.io/en/latest/formatting/all-skin-params.html[`+All Skin Parameters+`] of https://plantuml-documentation.readthedocs.io/en/latest/index.html#[`+Ashley's PlantUML Doc+`]:
+* https://plantuml-documentation.readthedocs.io/en/latest/formatting/all-skin-params.html[https://plantuml-documentation.readthedocs.io/en/latest/formatting/all-skin-params.html].
+
+

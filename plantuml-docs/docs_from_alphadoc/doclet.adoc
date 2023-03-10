@@ -1,0 +1,113 @@
+== New Doclet
+A new enhanced doclet (written by Gerald Boersma) is now available.
+
+It has much more option than the legacy previous one.
+
+You will find https://github.com/gboersma/uml-java-doclet[detailed instructions here.]
+
+
+
+
+== UMLDoclet
+An open source doclet is https://github.com/talsma-ict/umldoclet[now available on github.].
+
+
+It's also available in http://repo.maven.apache.org/maven2/nl/talsmasoftware/umldoclet[Maven central for easy inclusion]
+in any java projects.
+
+Usage:
+* Declare the nl.talsmasoftware.umldoclet.UMLDoclet class to be used by javadoc (will by default also delegate to Standard doclet, so all-in-one).
+* All customizable options will become documented on the github page before the 1.0.0 release.
+
+
+
+== Old legacy doclet
+You can generate a PlantUML description for UML-class diagram out of
+Java-source. Only public fields and methods will be exported.
+
+The jar for the doclet is available here: http://sourceforge.net/projects/plantuml/files/plantUmlDoclet.jar/download[plantUmlDoclet.jar]
+
+The association are based only on field declaration and Javadoc-Tags in methods.
+
+There are following Javadoc-Tags to describe associations,
+according to http://www.umlgraph.org[UMLGraph]:
+* **@note**: can be used to add a note to a class
+* **@assoc**: Pattern: <cardinality> - <cardinality> <associated class> (no spaces)
+* **@navassoc**: Pattern: <cardinality> - <cardinality> <associated class> (no spaces)
+* **@depend**: Pattern: <cardinality> - <cardinality> <associated class> (no spaces)
+* **@overrideAssoc**: can be used to mark a field-declaration not to export its association.
+
+For configuration following system.properties can be used:
+* **createPackages**: Default value is `+false+`
+* **showPublicMethods**: Default value is `+true+`
+* **showPublicConstructors**: Default value is `+true+`
+* **showPublicFields**: Default value is `+true+`
+
+
+== Ant-Script example
+
+----
+<project>
+<target name="main">
+<javadoc doclet="de.mallox.doclet.PlantUMLDoclet"
+docletpath="plantUmlDoclet.jar"
+access="private"
+additionalparam=
+"-J-DdestinationFile=uml.txt -J-DcreatePackages=false -J-DshowPublicMethods=true -J-DshowPublicConstructors=false -J-DshowPublicFields=true"
+>
+<packageset dir="src">
+<include name="**"/>
+</packageset>
+</javadoc>
+
+<java jar="plantuml.jar" fork="true" maxmemory="128m">
+<arg value="uml.txt"/>
+</java>
+</target>
+</project>
+----
+
+
+
+== Image example
+
+image::doclet.png[]
+
+
+
+== Source example
+----
+package demo;
+
+class Controller {}
+class EmbeddedAgent {}
+class PowerManager {}
+
+/**
+* @extends Controller
+* @extends EmbeddedAgent
+* @navassoc - - 1..* PowerManager
+* @note this is a note
+*/
+class SetTopController implements URLStreamHandler {
+public String name;
+
+int authorizationLevel;
+void startUp() {}
+void shutDown() {}
+void connect() {}
+}
+
+/** @depend - friend - SetTopController */
+class ChannelIterator {}
+
+interface URLStreamHandler {
+void OpenConnection();
+void parseURL();
+void setURL();
+void toExternalForm();
+}
+----
+
+
+

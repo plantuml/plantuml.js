@@ -1,0 +1,122 @@
+== Language
+
+Some editors integrate PlantUML Language highlighting for text files (link::emacs[See here]).
+
+Since the PlantUML Language definition is still in progress, when
+new keywords are added in the language, it could be an issue for
+existing products.
+
+An hidden option in the command line allows to turn around this:
+
+----
+java -jar plantuml.jar -language
+----
+
+This command will output to the standard output a description of the
+PlantUML Language, quite easy to parse:
+
+----
+;type
+;10
+abstract
+actor
+class
+component
+enum
+interface
+object
+participant
+state
+usecase
+
+;keyword
+;43
+@enduml
+@startuml
+activate
+alt
+[..]
+up
+
+;preprocessor
+;6
+!define
+!endif
+!ifdef
+!ifndef
+!include
+!undef
+
+;skinparameter
+;145
+ActivityArrowFontColor
+ActivityArrowFontName
+[..]
+UsecaseStereotypeFontSize
+UsecaseStereotypeFontStyle
+
+;color
+;140
+AliceBlue
+AntiqueWhite
+Aqua
+[..]
+WhiteSmoke
+Yellow
+YellowGreen
+
+;EOF
+----
+
+So, if you need to do something related to the PlantUML Language, you
+can parse on the fly this output: your product will always be up-to-date
+when people will upload the last **plantuml.jar** version.
+
+
+
+== Syntax check
+If you have a text, and if you want to know if this text is a valid
+PlantUML description, you can use the following command:
+
+----
+type mytext.txt | java -jar plantuml.jar -syntax
+----
+
+This prints basic information to the standard output. The first
+line contains one of the following words :`+SEQUENCE+`, `+STATE+`,
+`+CLASS+`, `+OBJECT+`, `+ACTIVITY+`, `+USECASE+`,
+`+COMPONENT+`, `+OTHER+` or `+ERROR+`
+
+
++++<u>Examples</u>+++: (@startuml are optional in that usage)
+
+The following text:
+----
+Bob -> Alice : hello
+----
+
+will output:
+
+----
+SEQUENCE
+(2 participants)
+----
+
+If there is an error in the text, the line number and the description of
+the error is printed:
+
+----
+actor Bob
+actor Bob
+Bob -> Alice : hello
+----
+
+will output:
+----
+ERROR
+2
+Duplicate participant : Bob
+----
+
+
+

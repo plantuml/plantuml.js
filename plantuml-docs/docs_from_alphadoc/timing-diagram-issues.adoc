@@ -1,0 +1,86 @@
+== Timing Diagram Issues (timing-diagram-issues)
+
+This page lists issues on link::timing-diagram[Timing Diagram].
+
+
+== Timing-diagram issues
+
+
+== Tests of clock's pulse
+
+=== No pulse
+<plantuml>
+@startuml
+title period 10
+clock C with period 10
+@enduml
+</plantuml>
+
+=== pulse < period
+<plantuml>
+@startuml
+title period 10 pulse 0
+clock C with period 10 pulse 0
+@enduml
+</plantuml>
+
+<plantuml>
+@startuml
+title period 10 pulse 1
+clock C with period 10 pulse 1
+@enduml
+</plantuml>
+
+<plantuml>
+@startuml
+title period 10 pulse 5
+clock C with period 10 pulse 5
+@enduml
+</plantuml>
+
+<plantuml>
+@startuml
+title period 10 pulse 9
+clock C with period 10 pulse 9
+@enduml
+</plantuml>
+
+=== pulse = period
+<plantuml>
+@startuml
+title period 10 pulse 10
+clock C with period 10 pulse 10
+@enduml
+</plantuml>
+
+=== pulse > period
+<plantuml>
+@startuml
+title period 10 pulse 11
+clock C with period 10 pulse 11
+@enduml
+</plantuml>
+
+<plantuml>
+@startuml
+title period 10 pulse 15
+clock C with period 10 pulse 15
+@enduml
+</plantuml>
+
+<plantuml>
+@startuml
+title period 10 pulse 20
+clock C with period 10 pulse 20
+@enduml
+</plantuml>
+
+=== pulse >> period
+<plantuml>
+@startuml
+title period 10 pulse 50
+clock C with period 10 pulse 50
+@enduml
+</plantuml>
+
+

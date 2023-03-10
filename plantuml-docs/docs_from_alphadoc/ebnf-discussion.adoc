@@ -1,0 +1,5 @@
+== Discussion about EBNF
+
+This page is a replacement for https://forum.plantuml.net/8269/activity-diagram-while-loop-on-the-left-side[tps://forum.plantuml.net/8269/activity-diagram-while-loop-on-the-left-side] which is far too long.
+
+

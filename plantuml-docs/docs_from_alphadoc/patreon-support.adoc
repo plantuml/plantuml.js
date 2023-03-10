@@ -1,0 +1,25 @@
+== Why crowdfunding?
+
+**PlantUML** is free software. The code is Open Source and the tool is free to use.
+
+PlantUML is open to the community. Feedbacks, suggestions, ideas, codes, plugins coming... from the community are a great part in the success of PlantUML.
+
+However, developing and hosting PlantUML take time. Some users have already made link::donors[donation] to help us, and again we thank them for that.
+
+Since this was not sufficient, we have to use ads to be able to survive in the real world.
+
+Another option that we are considering now is to use some crowdfunding.
+We do not want to get a large funding in one shot, we would like better to obtain funding from patrons on a recurring basis.
+
+That's why we decide to go to https://www.patreon.com/bePatron?patAmt=1&u=527450&rid=152970[Patreon].
+
+
+== Patreon
+If you are using PlantUML, if you like it and want to improve it, you can decide to help us with a monthly tip.
+
+We decide to go for **1€** or **1$ per month**. This may sound quite low to you, but if hundreds of people apply to a subscription, it will mean a lot to us.
+
+And to show you that we are serious here, we will give to ours patrons an access to an ad-free version of the current website.
+
+
+

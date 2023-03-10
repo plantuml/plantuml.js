@@ -1,0 +1,58 @@
+== Calling PlantUML from Java
+You can easily integrate **PlantUML** with your own code by adding __plantuml.jar__ in your classpath.
+
+
+
+== PNG generation from a String
+If your diagram description is stored in a `+String+`, you can use the `+SourceStringReader+` class to generate some PNG file.
+
+----
+import net.sourceforge.plantuml.SourceStringReader;
+OutputStream png = ...;
+String source = "@startuml\n";
+source += "Bob -> Alice : hello\n";
+source += "@enduml\n";
+
+SourceStringReader reader = new SourceStringReader(source);
+// Write the first image to "png"
+String desc = reader.outputImage(png).getDescription();
+// Return a null string if no generation
+----
+
+
+== PNG generation from a File
+
+If your diagram description is stored in a `+File+`, you can use the `+SourceFileReader+` class to generate some PNG file.
+
+----
+File source = ...;
+SourceFileReader reader = new SourceFileReader(source);
+List<GeneratedImage> list = reader.getGeneratedImages();
+// Generated files
+File png = list.get(0).getPngFile();
+----
+
+
+
+== SVG generation from a String
+
+If your diagram description is stored in a `+String+`, you can use the `+SourceStringReader+` class to generate some SVG file.
+
+----
+String source = "@startuml\n";
+source += "Bob -> Alice : hello\n";
+source += "@enduml\n";
+
+SourceStringReader reader = new SourceStringReader(source);
+final ByteArrayOutputStream os = new ByteArrayOutputStream();
+// Write the first image to "os"
+String desc = reader.generateImage(os, new FileFormatOption(FileFormat.SVG));
+os.close();
+
+// The XML is stored into svg
+final String svg = new String(os.toByteArray(), Charset.forName("UTF-8"));
+----
+
+
+
+

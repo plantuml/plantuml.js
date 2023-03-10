@@ -1,0 +1,128 @@
+== GraphViz
+
+https://en.wikipedia.org/wiki/Graphviz[GraphViz] is software system that provides a program called **dot**. This **dot** program is able to generate a directed graph from a textual description.
+
+Depending on diagrams you want to generate, **PlantUML** needs a working version of GraphViz to be able to generate the following diagrams: 
+
+* link::use-case-diagram[Usecase diagrams]
+* link::class-diagram[Class diagrams]
+* link::object-diagram[Object diagrams]
+* link::component-diagram[Component diagrams]
+* link::deployment-diagram[Deployment diagram]
+* link::state-diagram[State diagrams]
+* link::activity-diagram-legacy[Legacy activity diagrams]
+
+For all other diagrams, GraphViz is not needed nor used.
+
+
+== New Java-based diagram generation engine "Smetana"
+
+Since version 1.2021.5, you can experimentally use PlantUML without installing Graphviz as described in the following sections, if you add `+!pragma layout smetana+` to your diagrams for the supported types. In that case, the link::smetana02["Smetana" engine] is used instead of Graphviz. If that works for you, you can skip the following sections.
+
+== Installation under Windows
+
+=== Starting from 1.2020.21
+
+If you use a recent version (that is at least version 1.2020.21), **you don't need to manually install GraphViz anymore !**
+
+A https://github.com/plantuml/graphviz-distributions[minimalistic graphviz dot.exe] is packed into PlantUML and will be automagically unzipped in some temporary folder if needed (that is, if no installed GraphViz is available).
+
+This is really the prefered option under Windows.
+
+**Caveat:** Before 1.2020.25, there was an error message during graph generation, so please use 1.2020.25 or more recent.
+
+=== Older PlantUML versions
+
+For older version, you have to install GraphViz by yourself. You can either:
+
+* Install https://www2.graphviz.org/Packages/stable/windows/10/msbuild/Release/Win32[Win32 version of GraphViz 2.44] (easiest)
+* Use the https://github.com/plantuml/graphviz-distributions[minimalistic graphviz dot.exe] and unpack it on your `+c:\+` drive (see below)
+* Install https://www2.graphviz.org/Packages/stable/windows/10/cmake/Release/x64/[x64 version of GraphViz 2.44] (more complex)
+
+With x64 version, you may have to run `+dot -c+` (with with https://www.howtogeek.com/194041/how-to-open-the-command-prompt-as-administrator-in-windows-8.1/[Administrator Right]) in a command line to finalize the installation, like in the following example:
+
+image::dotc.png[]
+
+To retrieve `+dot.exe+`, PlantUML scans your `+c:\+` drive and search for `+c:\*\graphviz*\bin\dot.exe+` or `+c:\*\graphviz*\release\bin\dot.exe+`. This is **not** recursive: you have to use a folder at root level.
+
+Another option is that you specify the environment variable `+GRAPHVIZ_DOT+` to set the exact location of your GraphViz executable.
+
+
+== Installation under Linux
+
+There are multiple ways to https://graphviz.org/download/[install GraphViz under Linux]:
+
+* Fedora packages: `+sudo yum install graphviz+`
+* Ubuntu packages: `+sudo apt install graphviz+`
+* Debian packages: `+sudo apt install graphviz+`
+
+You can also build it from the source. If you do, you have to build it with __libexpat__ in order to work with PlantUML.
+
+
+By default, the dot executable is expected:
+
+* Firstly in: `+/usr/local/bin/dot+`
+* Then in: `+/usr/bin/dot+`
+
+You can also specify the environment variable `+GRAPHVIZ_DOT+` to set the exact location of your GraphViz executable.
+
+
+== Installation under Mac
+
+You can easily install GraphViz by installing brew on your Mac machine. This could fix issues if you have installed GraphViz as .dmg package.
+
+----
+brew install libtool
+brew link libtool
+brew install graphviz
+brew link --overwrite graphviz
+----
+
+
+By default, the dot executable is expected:
+
+* Firstly in: `+/usr/local/bin/dot+`
+* Then in: `+/usr/bin/dot+`
+
+You can also specify the environment variable `+GRAPHVIZ_DOT+` to set the exact location of your GraphViz executable.
+
+
+== Testing
+
+To have information about where PlantUML expects to find dot, you can use the command line:
+----
+java -jar plantuml.jar -testdot
+----
+
+You can also use this special diagram description:
+
+<plantuml>
+@startuml
+testdot
+@enduml
+</plantuml>
+
+
+Try to launch `+dot+` command into a command shell. You __may__ have to finalize the installation by typing `+dot -C+`.
+
+You can also specify the environment variable `+GRAPHVIZ_DOT+` to set the exact location of your GraphViz executable.
+
+
+== Important note about version
+
+The following GraphViz versions have been tested, and are known to work:
+
+* 2.26.3
+* 2.28
+* 2.30.1
+* 2.34
+* 2.36
+* 2.38
+* 2.44
+
+Note that versions 2.39 to 2.42 http://plantuml.sourceforge.net/qa/?qa=4531/possible-bug-with-relation-in-rectangle-screenshot[do not work very well with PlantUML].
+
+
+If you find something wrong, thanks for mailto:plantuml@gmail.com[sending us a note] or posting a message http://forum.plantuml.net[on the forum].
+
+

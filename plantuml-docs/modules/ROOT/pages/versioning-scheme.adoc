@@ -1,0 +1,64 @@
+== Context (of versioning)
+Back in 2009, **PlantUML** used a simple and unique increment number for its versioning.
+
+The major reason is that **PlantUML** is developed with
+http://en.wikipedia.org/wiki/Continuous_integration[continuous integration]
+in mind. That means that there are new releases quite often, with (hopefully!) backward compatibility.
+
+If the language is usually backward compatibility, it is not the case for the PlantUML Java API itself.
+The single number versioning schema does not allow to clearly indicated Java API changes.
+
+Note that here are two different things :
+* The PlantUML Language (that is everything that is between `+@startuml+` and `+@enduml+` for instance) : __This part is very stable. We really take care about backward compatibility here__. Even diagrams that have been written by earlier versions of PlantUML are still readable by latest releases.
+* The Java API Integration : it has been changing since the beginning. This impacts only Java Plugins and not tools that are using PlantUML through command line.
+
+
+== Official Versioning Scheme
+PlantUML follows now some usual and __almost__ standard pattern based on three
+numbers : `+MAJOR.YEAR.RELEASE+`.
+
+If you prefer, you can also read this as `+MAJOR.MINOR.PATCH+`.
+
+|===
+| Number | Example | Description
+
+| `+MAJOR+`
+| 1
+| This number will increase when there will be an incompatible change in the Java API.+++<br>+++Also, if ever there is a change in the PlantUML language itself which break ascending compatibility, we will also increase this number, __but we expect that this will never happen__ (it has __not__ since 2009!).+++<br>+++Change in `+MAJOR+` number will be documented: we will clearly explain what has changed between major versions. We expect less than one change per year here.
+
+| `+YEAR+` / `+MINOR+`
+| 2017
+| This number will be the releasing year of the version. While this is not http://semver.org/[completely standard], we think that it will help people to know whether they are using a recent version of PlantUML or not.
+
+| `+RELEASE+` / `+PATCH+`
+| 12
+| This number will be simply incremented for each release of the year. We expect about 20 to 30 releases per year. It will be reset to zero at each year change.
+
+|===
+
+
+Note that when incrementing the `+MAJOR+` number, `+YEAR+` will stick the the current year,
+and `+RELEASE+` will be also incremented.
+
+
+
+
+== Knowing the exact version you are using
+
+If you want to know the exact version you are using, you can type in the command line:
+
+----
+java -jar plantuml.jar -version
+----
+
+or use the following small special diagram description :
+[plantuml]
+----
+@startuml
+version
+@enduml
+----
+
+__(See also link::faq#e20981e91761e6e8[on the FAQ])__
+
+

@@ -1,0 +1,77 @@
+== Translation of the menus
+
+|===
+| EN | EN
+
+| Sequence
+| Sequence
+
+| Use Case
+| Use Case
+
+| Class
+| Class
+
+| Activity
+| Activity
+
+| Component
+| Component
+
+| State
+| State
+
+| Object
+| Object
+
+| Deployment
+| Deployment
+
+| Timing
+| Timing
+
+| Home
+| Home
+
+| What's New ?
+| What's New ?
+
+| Getting Started
+| Getting Started
+
+| Running
+| Running
+
+| F.A.Q.
+| F.A.Q.
+
+| Dedication
+| Dedication
+
+| Download
+| Download
+
+| Forum
+| Forum
+
+| Preprocessing
+| Preprocessing
+
+| Commons
+| Commons
+
+| Standard Library
+| Standard Library
+
+| Site Map
+| Site Map
+
+| PDF Guide
+| PDF Guide
+
+| External Links
+| External Links
+
+|===
+
+

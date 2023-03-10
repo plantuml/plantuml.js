@@ -1,0 +1,564 @@
+== Preprocessing-v2 (old)
+
+Some minor preprocessing capabilities are included in **PlantUML**,
+and available for __all__ diagrams.
+
+Those functionalities are very similar to the http://en.wikipedia.org/wiki/C_preprocessor[C language preprocessor], except that the special character `+#+` has been changed to the exclamation mark `+!+`.
+
+The actual preprocessor will be replaced by a new one, with new functionalities. This new preprocessor is 95% compatible with the current one.
+
+Right now, you have to switch to the new preprocessor using a special directive `+!preprocessorV2+` with last offical release (that is V1.2019.5). Or you can directly use http://beta.plantuml.net/plantuml.jar[the last beta] where the V2 preprocessor is enabled by default.
+
+This way, you can check that your diagram are still working with the future version.
+In some future, the **old preprocessor** will be removed.
+
+
+== Migration notes
+
+The new preprocessor will be enable by default in the incoming versions of PlantUML.
+
+Even if some legacy feature are still supported with the new preprocessor, you should not use them any more (they might be finally removed in some long term future).
+
+* You should not use `+!define+` and `+!definelong+` anymore. Use `+!function+` and variable definition instead
+* `+!include+` allows now multiple inclusions : you don't have to use `+!include_many+` anymore
+* `+!include+` now accept URL, so you don't need `+!includeurl+`
+* Some features (like `+%date%+`) have been replaced by builtin functions (for example `+%date()+`)
+* When calling a legacy `+!definelong+` macro with no arguments, you do have to use parenthesis. That is you have to use `+my_own_definelong()+` because `+my_own_definelong+` without parenthesis is not recognized by the new preprocessor.
+
+
+
+Please contact us if you have any issues.
+
+
+
+== Variable definition
+
+Although this is not mandatory, we highly suggest that variable name start with a `+$+`.
+There are two kind of data:
+* Integer number
+* String, that must be surrender by simple quote or double quote.
+
+Variable created outside function are **global**, that is you can access to them from everywhere (including from functions). You can emphasize this by using the optional `+global+` keyword when defining a variable.
+
+
+[plantuml]
+----
+@startuml
+'!preprocessorV2
+!$ab = "foo1"
+!$cd = "foo2"
+!$ef = $ab + $cd
+
+Alice -> Bob : $ab
+Alice -> Bob : $cd
+Alice -> Bob : $ef
+@enduml
+----
+
+
+== Conditions
+
+* You can use expression in condition.
+* __else__ is also implemented
+
+[plantuml]
+----
+@startuml
+'!preprocessorV2
+!$a = 10
+!$ijk = "foo"
+Alice -> Bob : A
+!if ($ijk == "foo") && ($a+10>=4)
+Alice -> Bob : yes
+!else
+Alice -> Bob : This should not appear
+!endif
+Alice -> Bob : B
+@enduml
+----
+
+
+== Void function
+
+* Function name __should__ start by a `+$+`
+* Argument names __should__ start by a `+$+`
+* Void functions can call other void functions
+
+Example:
+
+
+[plantuml]
+----
+@startuml
+!preprocessorV2
+!function msg($source, $destination)
+$source --> $destination
+!endfunction
+
+!function init_class($name)
+class $name {
+$addCommonMethod()
+}
+!endfunction
+
+
+!function $addCommonMethod()
+  toString()
+  hashCode()
+!endfunction
+
+
+init_class("foo1")
+init_class("foo2")
+msg("foo1", "foo2")
+@enduml
+----
+
+Variables defined in functions are **local**. It means that the variable is destroyed when the function is exited.
+
+
+
+== Return function
+
+A return function does not output any text.
+It just define a function that you can call:
+* directly in variable definition or in diagram text
+* from other return function
+* from other void function
+
+
+* Function name __should__ start by a `+$+`
+* Argument names __should__ start by a `+$+`
+
+[plantuml]
+----
+@startuml
+'!preprocessorV2
+!function $double($a)
+!return $a + $a
+!endfunction
+
+Alice -> Bob : The double of 3 is $double(3)
+@enduml
+----
+
+It is possible to shorten simple function definition in one line:
+
+[plantuml]
+----
+@startuml
+'!preprocessorV2
+!function $double($a) return $a + $a
+
+Alice -> Bob : The double of 3 is $double(3)
+Alice -> Bob : $double("This work also for strings.")
+@enduml
+----
+
+As in void function, variable are local by default (they are destroyed when the function is exited). However, you can access to global variables from function. However, you can use the `+local+` keyword to create a local variable if ever a global variable exists with the same name.
+
+----
+@startuml
+'!preprocessorV2
+
+!function $dummy()
+!local $ijk = "local"
+Alice -> Bob : $ijk
+!endfunction
+
+!global $ijk = "foo"
+
+Alice -> Bob : $ijk
+$dummy()
+Alice -> Bob : $ijk
+
+@enduml
+----
+
+
+== Default argument value
+
+In both return and void function, you can define default value for argument.
+
+[plantuml]
+----
+@startuml
+'!preprocessorV2
+!function $inc($value, $step=1)
+!if $step==0
+!return $value
+!endif
+!return $value + $step
+!endfunction
+
+Alice -> Bob : Just one more $inc(3)
+Alice -> Bob : Add two to three : $inc(3, 2)
+@enduml
+----
+
+
+== Unquoted function
+
+By default, you have to put quotes when you call a function.
+It is possible to use the `+unquoted+` keyword to indicate that a function does not require quotes for its arguments.
+
+
+[plantuml]
+----
+@startuml
+'!preprocessorV2
+
+!unquoted function id($text1, $text2="FOO") return $text1 + $text2
+
+alice -> bob : id(aa)
+alice -> bob : id(ab,cd)
+@enduml
+----
+
+
+== Including files or URL
+
+Use the `+!include+` directive to include file in your diagram. Using URL, you can also include file from Internet/Intranet.
+
+Imagine you have the very same class that appears in many
+diagrams. Instead of duplicating the description of this class, you can
+define a file that contains the description.
+
+[plantuml]
+----
+@startuml
+'!preprocessorV2
+interface List
+List : int size()
+List : void clear()
+List <|.. ArrayList
+@enduml
+----
+
+**File List.iuml**
+----
+interface List
+List : int size()
+List : void clear()
+----
+
+The file `+List.iuml+` can be included in many diagrams, and
+any modification in this file will change all diagrams that include it.
+
+You can also put several `+@startuml/@enduml+` text block in an included file and then specify which block
+you want to include adding `+!0+` where `+0+` is the block number. The `+!0+` notation denotes the first diagram.
+
+For example, if you use `+!include foo.txt!1+`, the second `+@startuml/@enduml+` block
+within `+foo.txt+` will be included.
+
+You can also put an id to some `+@startuml/@enduml+` text block in an included file using
+`+@startuml(id=MY_OWN_ID)+` syntax and then include the block adding `+!MY_OWN_ID+` when including the file,
+so using something like `+!include foo.txt!MY_OWN_ID+`.
+
+By default, a file can only be included once. You can use `+!include_many+` instead of `+!include+` if you want to include some file several times. Note that there is also a `+!include_once+` directive that raises an error if a file is included several times.
+
+
+== Including Subpart
+
+You can also use `+!startsub NAME+` and `+!endsub+` to indicate sections of text to include from other files using `+!includesub+`. For example:
+
+**file1.puml:**
+----
+@startuml
+!preprocessorV2
+A -> A : stuff1
+!startsub BASIC
+B -> B : stuff2
+!endsub
+C -> C : stuff3
+!startsub BASIC
+D -> D : stuff4
+!endsub
+@enduml
+----
+
+file1.puml would be rendered exactly as if it were:
+----
+@startuml
+!preprocessorV2
+A -> A : stuff1
+B -> B : stuff2
+C -> C : stuff3
+D -> D : stuff4
+@enduml
+----
+
+
+However, this would also allow you to have another file2.puml like this:
+
+**file2.puml**
+----
+@startuml
+!preprocessorV2
+title this contains only B and D
+!includesub file1.puml!BASIC
+@enduml
+----
+
+This file would be rendered exactly as if:
+
+----
+@startuml
+!preprocessorV2
+title this contains only B and D
+B -> B : stuff2
+D -> D : stuff4
+@enduml
+----
+
+
+
+== Builtin functions
+
+Some functions are defined by default. Their name starts by `+%+`
+
+|===
+| Name | Description | Example | Return
+
+| `+%strlen+`
+| Calculate the length of a String
+| `+%strlen("foo")+`
+| `+3+` in the example
+
+| `+%substr+`
+| Extract a substring. Takes 2 or 3 arguments
+| `+%substr("abcdef", 3, 2)+`
+| `+"de"+` in the example
+
+| `+%strpos+`
+| Search a substring in a string
+| `+%strpos("abcdef", "ef")+`
+| 4 (position of `+ef+`)
+
+| `+%inval+`
+| Convert a String to Int
+| `+%intval("42")+`
+| 42
+
+| `+%file_exists+`
+| Check if a file exists on the local filesystem
+| `+%file_exists("c:/foo/dummy.txt")+`
+| `+true+` if the file exists
+
+| `+%function_exists+`
+| Check if a function exists
+| `+%function_exists("$some_function")+`
+| `+true+` if the function has been defined
+
+| `+%variable_exists+`
+| Check if a variable exists
+| `+%variable_exists("$my_variable")+`
+| `+true+` if the variable has been defined exists
+
+| `+%set_variable_value+`
+| Set a global variable
+| `+%set_variable_value("$my_variable", "some_value")+`
+| An empty string
+
+| `+%get_variable_value+`
+| Retrieve some variable value
+| `+%get_variable_value("$my_variable")+`
+| the value of the variable
+
+| `+%getenv+`
+| Retrieve environment variable value
+| `+%getenv("OS")+`
+| The value of `+OS+` variable
+
+| `+%dirpath+`
+| Retrieve current dirpath
+| `+%dirpath()+`
+| Current path
+
+| `+%filename+`
+| Retrieve current filename
+| `+%filename()+`
+| Current filename
+
+| `+%date+`
+| Retrieve current date. You can provide an optional https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html[format for the date]
+| `+%date("yyyy.MM.dd at HH:mm")+`
+| Current date
+
+| `+%true+`
+| Return always `+true+`
+| `+%true()+`
+| `+true+`
+
+| `+%false+`
+| Return always `+false+`
+| `+%false()+`
+| `+false+`
+
+| `+%not+`
+| Return the logical negation of an expression
+| `+%not(2+2==4)+`
+| `+false+` in that example
+
+|===
+
+
+
+
+== Logging
+
+You can use `+!log+` to add some log output when generating the diagram. This has no impact at all on the diagram itself. However, those logs are printed in the command line's output stream. This could be useful for debug purpose.
+
+----
+@startuml
+!preprocessorV2
+!function bold($text)
+!$result = "<b>"+ $text +"</b>"
+!log Calling bold function with $text. The result is $result
+!return $result
+!endfunction
+
+Alice -> Bob : This is bold("bold")
+Alice -> Bob : This is bold("a second call")
+@enduml
+----
+
+
+
+== Memory dump
+
+You can use `+!memory_dump+` to dump the full content of the memory when generating the diagram. An optional string can be put after `+!memory_dump+`. This has no impact at all on the diagram itself. This could be useful for debug purpose.
+
+----
+@startuml
+!preprocessorV2
+
+!function $inc($string)
+!$val = %intval($string)
+!log value is $val
+!dump_memory
+!return $val+1
+!endfunction
+
+Alice -> Bob : 4 $inc("3")
+!unused = "foo"
+!dump_memory EOF
+
+@enduml
+----
+
+
+
+
+== Assertion
+
+You can put assertion in your diagram.
+
+
+[plantuml]
+----
+@startuml
+!preprocessorV2
+Alice -> Bob : Hello
+!assert %strpos("abcdef", "cd")==3 : "This always fail"
+@enduml
+----
+
+
+
+
+
+== Building custom library
+
+It's possible to package a set of included files into a single .zip or .jar archive.
+This single zip/jar can then be imported into your diagram using `+!import+` directive.
+
+Once the library has been imported, you can `+!include+` file from this single zip/jar.
+
+**Example:**
+----
+@startuml
+!preprocessorV2
+!import /path/to/customLibrary.zip
+' This just adds "customLibrary.zip" in the search path
+
+!include myFolder/myFile.iuml
+' Assuming that myFolder/myFile.iuml is located somewhere
+' either inside "customLibrary.zip" or on the local filesystem
+
+...
+----
+
+
+== Search path
+
+You can specify the java property `+plantuml.include.path+` in the command line.
+
+For example:
+
+----
+java -Dplantuml.include.path="c:/mydir" -jar plantuml.jar atest1.txt
+----
+
+
+Note the this -D option has to put before the -jar option. -D options
+after the -jar option will be used to define constants within plantuml preprocessor.
+
+
+
+== Argument concatenation
+
+
+It is possible to append text to a macro argument using the `+##+` syntax.
+
+[plantuml]
+----
+@startuml
+!preprocessorV2
+!unquoted function COMP_TEXTGENCOMP(name)
+[name] << Comp >>
+interface Ifc << IfcType >> AS name##Ifc
+name##Ifc - [name]
+!endfunction
+COMP_TEXTGENCOMP(dummy)
+@enduml
+----
+
+
+
+
+== Dynamic function invocation
+
+You can dynamically invoke a void function using the special `+%invoke_void_func()+` void function.
+This function takes as first argument the name of the actual void function to be called. The following argument are copied to the called function.
+
+For example, you can have:
+----
+@startuml
+!preprocessorV2
+
+!function $go()
+ Bob -> Alice : hello
+!endfunction
+
+!$wrapper = "$go"
+
+%invoke_void_func($wrapper)
+@enduml
+----
+
+For return functions, you can use the corresponding special function `+%call_user_func()+` :
+
+----
+@startuml
+!preprocessorV2
+
+!function bold($text)
+!return "<b>"+ $text +"</b>"
+!endfunction
+
+Alice -> Bob : %call_user_func("bold", "Hello") there
+@enduml
+----
+
+
