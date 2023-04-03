@@ -1,7 +1,6 @@
 const examplePumls = [
   {url: 'playground/example-pumls/community/spacelab_theme.puml', label: 'community/spacelab_theme.puml'},
   {url: 'playground/example-pumls/community/emoji.puml', label: 'community/emoji.puml'},
-  {url: 'playground/example-pumls/community/c4_system_landscape.puml', label: 'community/c4_system_landscape.puml'},
   {url: 'playground/example-pumls/basic/sequence_diagram.puml', label: 'basic/sequence_diagram.puml'},
   {url: 'playground/example-pumls/c4/system_context.puml', label: 'c4/system_context.puml'},
   {url: 'playground/example-pumls/c4/system_landscape.puml', label: 'c4/system_landscape.puml'},
