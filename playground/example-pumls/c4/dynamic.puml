@@ -1,0 +1,28 @@
+@startuml
+set separator none
+title API Application - Dynamic
+
+top to bottom direction
+
+!include <C4/C4>
+!include <C4/C4_Context>
+!include <C4/C4_Container>
+!include <C4/C4_Component>
+
+Container_Boundary("InternetBankingSystem.APIApplication_boundary", "API Application", $tags="") {
+  Component(InternetBankingSystem.APIApplication.SignInController, "Sign In Controller", "Spring MVC Rest Controller", "Allows users to sign in to the Internet Banking System.", $tags="")
+  Component(InternetBankingSystem.APIApplication.SecurityComponent, "Security Component", "Spring Bean", "Provides functionality related to signing in, changing passwords, etc.", $tags="")
+}
+
+ContainerDb(InternetBankingSystem.Database, "Database", "Oracle Database Schema", "Stores user registration information, hashed authentication credentials, access logs, etc.", $tags="")
+Container(InternetBankingSystem.SinglePageApplication, "Single-Page Application", "JavaScript and Angular", "Provides all of the Internet banking functionality to customers via their web browser.", $tags="")
+
+Rel_D(InternetBankingSystem.SinglePageApplication, InternetBankingSystem.APIApplication.SignInController, "1. Submits credentials to", "JSON/HTTPS", $tags="")
+Rel_D(InternetBankingSystem.APIApplication.SignInController, InternetBankingSystem.APIApplication.SecurityComponent, "2. Validates credentials using", $tags="")
+Rel_D(InternetBankingSystem.APIApplication.SecurityComponent, InternetBankingSystem.Database, "3. select * from users where username = ?", "SQL/TCP", $tags="")
+Rel_D(InternetBankingSystem.Database, InternetBankingSystem.APIApplication.SecurityComponent, "4. Returns user data to", "SQL/TCP", $tags="")
+Rel_D(InternetBankingSystem.APIApplication.SecurityComponent, InternetBankingSystem.APIApplication.SignInController, "5. Returns true if the hashed password matches", $tags="")
+Rel_D(InternetBankingSystem.APIApplication.SignInController, InternetBankingSystem.SinglePageApplication, "6. Sends back an authentication token to", "JSON/HTTPS", $tags="")
+
+SHOW_LEGEND(true)
+@enduml
